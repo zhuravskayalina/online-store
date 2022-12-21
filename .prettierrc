@@ -4,10 +4,11 @@
   "semicolons": "true",
   "bracketSpacing": true,
   "max-len": [
-    "error",
-    140,
+    "warn",
+    80,
     2
   ],
+  "printWidth": 80,
   "tabWidth": 2,
   "useTabs": false
 }
