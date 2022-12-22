@@ -1,0 +1,71 @@
+@import '../../../../stylesheets/variables/_colors';
+
+.cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  gap: 20px;
+
+  &__icon {
+    position: relative;
+    align-self: flex-end;
+  }
+
+  &__icon-cart {
+    font-size: 26px;
+  }
+
+  &__icon-link {
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      cursor: pointer;
+
+      .cart__icon-cart {
+        color: $gray-text;
+      }
+    }
+  }
+
+  &__quantity {
+    position: absolute;
+    padding: 4px 6px;
+    background-color: #f00;
+    color: #fff;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    top: -11px;
+    left: 13px;
+  }
+
+  &__quantity-num {
+    display: block;
+    width: fit-content;
+  }
+
+  &__line {
+    height: 30px;
+    width: 1px;
+    background-color: $light-gray;
+  }
+
+  &__sum-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__sum-heading {
+    color: $gray-text;
+    font-size: 12px;
+  }
+
+  &__sum {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,48 @@
+@import '../../../stylesheets/variables/_colors.scss';
+
+.main {
+  flex: 1 1 auto;
+  background-image: url('../assets/images/main-background.webp');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    width: 77%;
+    margin-bottom: 50px;
+  }
+
+  &__heading {
+    text-transform: uppercase;
+    font-size: 72px;
+    line-height: 125%;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.015em;
+  }
+
+  &__catalog-btn {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    color: black;
+    padding: 13px 30px;
+    background: #ffffff;
+    border-radius: 2px;
+    text-decoration: none;
+    display: block;
+    margin-top: 30px;
+    width: fit-content;
+
+    &:hover {
+      cursor: pointer;
+      background: #00c9f5;
+      box-shadow: 0 2px 20px rgba(43, 156, 240, 0.5);
+      color: white;
+    }
+  }
+}

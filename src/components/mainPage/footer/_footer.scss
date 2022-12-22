@@ -1,0 +1,63 @@
+.footer {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    width: 77%;
+    display: flex;
+    justify-content: space-between;
+    padding: 23px 0;
+  }
+
+  &__rss-logo {
+    width: 65px;
+    height: 25px;
+    background-image: url('../assets/images/rss-logo.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+  &__logo-link {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__authors {
+  }
+
+  &__gh-logo {
+    width: 20px;
+    height: 20px;
+    background-image: url('../assets/images/gh-logo.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+  &__authors {
+    display: flex;
+    gap: 40px;
+  }
+
+  &__author-box {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__author-name {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 179%;
+  }
+
+  &__author-link {
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
