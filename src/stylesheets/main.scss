@@ -1,2 +1,31 @@
 @import url('./base/reset.scss');
-@import url('./fonts/icons-font.css');
+@import url('./fonts/_icons-font.css');
+@import '../components/mainPage/header/_header';
+@import '../components/mainPage/header/search/_search';
+@import '../components/mainPage/header/cart/_cart';
+@import '../components/mainPage/header/navigation/navigation';
+@import './fonts/montserrat';
+@import '../components/mainPage/mainSection/main-section';
+@import '../components/mainPage/footer/footer';
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main {
+  flex: 1 0 auto;
+}
+
+@import url('./fonts/_icons-font.css');
+@import url('./fonts/_icons-font.css');

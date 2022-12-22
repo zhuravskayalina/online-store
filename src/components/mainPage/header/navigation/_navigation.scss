@@ -1,0 +1,26 @@
+.nav {
+  margin-top: 20px;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    width: 50%;
+    gap: 30px;
+  }
+
+  &__item {
+  }
+
+  &__link {
+    text-transform: uppercase;
+    color: black;
+    font-size: 14px;
+    line-height: 143%;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      border-bottom: 2px solid black;
+    }
+  }
+}
