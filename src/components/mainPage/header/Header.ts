@@ -2,7 +2,7 @@ import { Search } from './search/Search';
 import { Cart } from './cart/Cart';
 import { Navigation } from './navigation/Navigation';
 
-const logoImg = require('../../../assets/logo.svg');
+const logoImg = require('../../../assets/images/logo.svg');
 
 export class Header {
   element: HTMLElement;
