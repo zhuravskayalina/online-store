@@ -1,7 +1,7 @@
 import './stylesheets/main.scss';
 import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
-
+// import {Main} from './components/mainPage/mainSection/Main';
 import { CartPage } from './components/cartPage/cartPage';
 
 const app = document.querySelector('.app') as HTMLDivElement;
