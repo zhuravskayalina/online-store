@@ -1,0 +1,44 @@
+.cart-list {
+  display: flex;
+  justify-content: center;
+  flex: 1 0 auto;
+
+  &__container {
+    width: 77%;
+    display: grid;
+    grid-template-areas:
+      'heading heading'
+      'list totalSum';
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 140px 1fr;
+    column-gap: 50px;
+  }
+
+  &__heading {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 140%;
+    text-transform: uppercase;
+    grid-area: heading;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  &__products-list {
+    margin-bottom: 100px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    &__container {
+      width: 77%;
+      display: grid;
+      grid-template-areas:
+        'heading '
+        'totalSum'
+        'list';
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      column-gap: 50px;
+    }
+  }
+}

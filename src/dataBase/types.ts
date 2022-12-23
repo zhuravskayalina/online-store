@@ -38,4 +38,3 @@ type AccessoriesBrand =
 type Category = 'snowboards' | 'boots' | 'accessories';
 
 type BootsSize = 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-
