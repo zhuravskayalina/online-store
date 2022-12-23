@@ -1,11 +1,14 @@
+import { TotalProductsSum } from '../../totalProductSum/TotalProductsSum';
+import { ProductsQuantity } from '../../productsQuantity/ProductsQuantity';
+
 export class Cart {
   element: HTMLDivElement;
 
-  constructor(sum: number, quantity: number) {
-    this.element = this.createCart(sum, quantity);
+  constructor() {
+    this.element = this.createCart();
   }
 
-  createCart(totalSum: number, quantity: number) {
+  createCart() {
     const box = document.createElement('div');
     box.classList.add('cart');
 
@@ -25,8 +28,10 @@ export class Cart {
     quantityBox.classList.add('cart__quantity');
 
     const quantityTxt = document.createElement('span');
-    quantityTxt.classList.add('cart__quantity-num')
-    quantityTxt.innerHTML = quantity.toString();
+    quantityTxt.classList.add('cart__quantity-num');
+
+    const quantityStr = new ProductsQuantity().quantity;
+    quantityTxt.innerHTML = quantityStr;
 
     quantityBox.append(quantityTxt);
 
@@ -39,12 +44,13 @@ export class Cart {
     sumBlock.classList.add('cart__sum-box');
 
     const sumHeading = document.createElement('p');
-    sumHeading.classList.add('cart__sum-heading')
+    sumHeading.classList.add('cart__sum-heading');
     sumHeading.innerHTML = 'Cart total:';
 
     const sum = document.createElement('p');
     sum.classList.add('cart__sum');
-    sum.innerHTML = `$${this.formatSum(totalSum)}`;
+    const sumStr = new TotalProductsSum().sum;
+    sum.innerHTML = `$${sumStr}`;
 
     sumBlock.append(sumHeading, sum);
 
@@ -56,5 +62,4 @@ export class Cart {
   formatSum(sum: number) {
     return new Intl.NumberFormat('ru-RU').format(sum);
   }
-
 }

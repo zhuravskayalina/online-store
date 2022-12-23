@@ -1,0 +1,104 @@
+@import '../../../../stylesheets/variables/_colors.scss';
+
+.cart-item {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  padding: 30px 10px;
+  border-bottom: 1px solid $borderCartList;
+  border-top: 1px solid $borderCartList;
+
+  &__img-box {
+    width: 120px;
+    height: 120px;
+  }
+
+  &__info-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  &__img {
+    width: 120px;
+    height: 120px;
+    background-color: lightpink;
+  }
+
+  &__name {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 150%;
+  }
+
+  &__price {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+  }
+
+  &__delete-icon {
+    &:hover {
+      cursor: pointer;
+      color: $gray-text;
+    }
+  }
+
+  &__deleteBox {
+    justify-self: flex-end;
+    margin-left: auto;
+  }
+
+  &__size-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    background-color: $blue;
+    border-radius: 2px;
+    width: fit-content;
+    box-shadow: 0 0 5px rgba(0, 139, 233, 0.2);
+  }
+
+  &__size-txt {
+    font-size: 14px;
+    color: white;
+  }
+
+  &__count-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    border: 1px solid $light-gray;
+    border-radius: 2px;
+    width: fit-content;
+  }
+
+  &__product-count {
+    padding: 5px;
+  }
+
+  &__size-count {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.count-icon {
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $light-gray;
+  }
+}
