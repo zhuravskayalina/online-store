@@ -5,7 +5,7 @@ import { Footer } from './components/mainPage/footer/Footer';
 
 const app = document.querySelector('.app') as HTMLDivElement;
 
-const header = new Header(10000.99, 3).element;
+const header = new Header().element;
 app.append(header);
 
 const main = new Main().element;
