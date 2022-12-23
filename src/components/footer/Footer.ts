@@ -67,6 +67,7 @@ export class Footer {
       }
       nameEl.innerHTML = name;
       link.setAttribute('href', url);
+      link.setAttribute('alt', title);
 
       author.append(ghLogo, nameEl);
       link.append(author);

@@ -2,16 +2,16 @@ import { Search } from './search/Search';
 import { Cart } from './cart/Cart';
 import { Navigation } from './navigation/Navigation';
 
-const logoImg = require('../../../assets/images/logo.svg');
+const logoImg = require('../../assets/images/logo.svg');
 
 export class Header {
   element: HTMLElement;
 
-  constructor(sum: number, quantity: number) {
-    this.element = this.createHeader(sum, quantity);
+  constructor() {
+    this.element = this.createHeader();
   }
 
-  createHeader(sum: number, quantity: number) {
+  createHeader() {
     const header = document.createElement('header');
     header.classList.add('header');
 
@@ -32,7 +32,7 @@ export class Header {
     logoLink.append(logo);
 
     const input = new Search().element;
-    const cart = new Cart(sum, quantity).element;
+    const cart = new Cart().element;
 
     const headerNav = new Navigation().element;
 
