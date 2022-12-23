@@ -206,7 +206,7 @@ const snowBoards: Array<ProductData> = [
       burtonFreeThinkerImg2,
       burtonFreeThinkerImg3,
     ],
-    vendorCode: 01,
+    vendorCode: 1,
   },
   {
     category: 'snowboards',
@@ -218,7 +218,7 @@ const snowBoards: Array<ProductData> = [
     description:
       'The Burton Blossom Snowboard is a perennial choice for riding gardens and groves of groomers and grinders with nothing but flowery flow. In the true twin shape that park-goers love, backed by a tried-and-true camber profile, we can ride away with clear-cut power in either direction when spinning off tubes or slashing down the hill. The Blossom has a clear focus on park and freestyle riding, but its personality offers a happy medium for exploring the entire resort.',
     images: [burtonBlossomImg1, burtonBlossomImg2, burtonBlossomImg3],
-    vendorCode: 02,
+    vendorCode: 2,
   },
   {
     category: 'snowboards',
@@ -230,7 +230,7 @@ const snowBoards: Array<ProductData> = [
     description:
       'Like the other boards in the Family Tree lineup, the Burton Family Tree 3D Daily Driver Snowboard took inspiration from classic profiles and added pow-friendly, mountain-dominating pizzazz to better our ride. The Daily Driver is just that—an all-mountain profile that rips through the fresh snow in the trees and the neatly groomed runs from green to black. Camber underfoot puts power in our glide, while the 3D-scooped rocker nose floats over both soft and sticky snow. Its directional shape and medium flex creates a surfy feel on any terrain, but its switch-friendly tail does not stick us in one stance.',
     images: [burtonFamilyImg1, burtonFamilyImg2, burtonFamilyImg3],
-    vendorCode: 03,
+    vendorCode: 3,
   },
   {
     category: 'snowboards',
@@ -242,7 +242,7 @@ const snowBoards: Array<ProductData> = [
     description:
       "The Burton Custom X brings us lightning-like response and surgical precision to pick apart any zone on the mountain. Its directional shape gives it a hard-charging feel on groomers and helps the board float through powder, yet it rides and lands switch thanks to its twin flex pattern. Pop in the unbelievably light Dragonfly core and Squeezebox High core profiling to help us drive turns and the carbon stringers for that extra horsepower, and we're left with a board that's always prepared to tear up the local resorts.",
     images: [burtonCustomImg1, burtonCustomImg2, burtonCustomImg3],
-    vendorCode: 04,
+    vendorCode: 4,
   },
 
   {
@@ -255,7 +255,7 @@ const snowBoards: Array<ProductData> = [
     description:
       "The only fight we're picking with the Burton Instigator Flat Top Snowboard is with ourselves on how to master snowboarding's many facets. With an extremely soft flex, forgiving profile, and smooth flexing balance, the Instigator is ready to take us above and beyond as we figure out how we like to ride the resort.",
     images: [burtonInstigatorImg1, burtonInstigatorImg2, burtonInstigatorImg3],
-    vendorCode: 05,
+    vendorCode: 5,
   },
 
   {
@@ -268,7 +268,7 @@ const snowBoards: Array<ProductData> = [
     description:
       'Progression-driven and catch-free, the Nitro Prime X DD Snowboard is what we strap into for smoothing out the learning curve and having fun all over the resort. The playful medium flex and forgiving Flat-Out Rocker profile bring a comfortable, effortless feel to our feet, while the directional shape and light, responsive core boost confidence for dropping into unknown steeps. We also appreciate that Nitro rounded this smile-inducing ATV deck with a Premium Extruded FH base to withstand the impact that can come along with progressing through varying terrain.',
     images: [nitroPrimeImg1, nitroPrimeImg2, nitroPrimeImg3],
-    vendorCode: 06,
+    vendorCode: 6,
   },
   {
     category: 'snowboards',
@@ -280,7 +280,7 @@ const snowBoards: Array<ProductData> = [
     description:
       'Progression-driven and catch-free, the Nitro Prime Raw Snowboard is what we strap into for smoothing out the learning curve and having fun all over the resort. The playful medium flex and forgiving Flat-Out Rocker profile bring a comfortable, effortless feel to our feet, while the directional shape and light, responsive core boost confidence for dropping into unknown steeps. We also appreciate that Nitro rounded this smile-inducing ATV deck with a Premium Extruded FH base to withstand the impact that can come along with progressing through varying terrain.',
     images: [nitroPrimeRawImg1, nitroPrimeRawImg2, nitroPrimeRawImg3],
-    vendorCode: 07,
+    vendorCode: 7,
   },
   {
     category: 'snowboards',
@@ -292,7 +292,7 @@ const snowBoards: Array<ProductData> = [
     description:
       "The Drop Snowboard is a versatile directional stick that surfs powder and carves groomers with equal proficiency, ensuring that every day is a good day to ride. The traditional powder shape, Cam-Out hybrid profile, and medium flex make the Drop an easy choice for any day on the mountain, even if fresh snow hasn't fallen. When a storm creeps in overnight, there's no need to swap boards: the directional shape puts our weight over the tail and raises the tip, keeping us afloat. Nitro's unique Power Pods add edge grip for railing turns on hardpack or navigating the steeps, while a lightweight and strong Powercore and Bi-Lite laminates offer lightweight strength and smooth flex. A rock-solid sintered base keeps us blasting downhill at full speed, finishing this board on a confidence-boosting high-note.",
     images: [nitroDropImg1, nitroDropImg2, nitroDropImg3],
-    vendorCode: 08,
+    vendorCode: 8,
   },
   {
     category: 'snowboards',
@@ -304,7 +304,7 @@ const snowBoards: Array<ProductData> = [
     description:
       'Built to take a beating when learning the ropes of the parks, the Nitro Cheap Thrills Snowboard is here for us park and rail riders looking for a tough board that can handle the abuse from bashing steel and pushing the envelope. With a medium flex, twin shape, and Flat-Out profile, this deck is prepared to expand our bag of tricks and keep our wallet full for post-shred pizza.',
     images: [nitroCheapImg1, nitroCheapImg2, nitroCheapImg3],
-    vendorCode: 09,
+    vendorCode: 9,
   },
   {
     category: 'snowboards',
