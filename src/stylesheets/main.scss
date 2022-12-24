@@ -1,12 +1,17 @@
 @import url('./base/reset.scss');
 @import url('./fonts/_icons-font.css');
-@import '../components/mainPage/header/_header';
-@import '../components/mainPage/header/search/_search';
-@import '../components/mainPage/header/cart/_cart';
-@import '../components/mainPage/header/navigation/navigation';
+@import '../components/header/_header';
+@import '../components/header/search/_search';
+@import '../components/header/cart/_cart';
+@import '../components/header/navigation/navigation';
 @import './fonts/montserrat';
 @import '../components/mainPage/mainSection/main-section';
-@import '../components/mainPage/footer/footer';
+@import '../components/footer/footer';
+
+@import '../components/cartPage/cartList/cartItem/_cartItem';
+@import '../components/cartPage/_cart-page';
+@import '../components/cartPage/cartList/_cart-list';
+@import '../components/cartPage/cartList/totalSum/_total-sum';
 
 html {
   height: 100%;
