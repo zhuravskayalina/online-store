@@ -1,15 +1,16 @@
 import { TotalSum } from './cartList/totalSum/TotalSum';
 import { CartList } from './cartList/CartList';
+import { Main } from '../mainPage/Main';
 
 export class CartPage {
-  element: HTMLElement;
+  public element: HTMLElement;
 
   constructor() {
     this.element = this.createCartPage();
   }
 
-  createCartPage() {
-    const main = document.createElement('main');
+  private createCartPage(): HTMLElement {
+    const main = new Main().element;
     main.classList.add('cart-list');
 
     const container = document.createElement('div');
@@ -19,7 +20,7 @@ export class CartPage {
     heading.classList.add('cart-list__heading');
     heading.innerHTML = 'Cart';
 
-    const products = new CartList(5).element;
+    const products = new CartList(1).element;
     products.classList.add('cart-list__products-list');
 
     const total = new TotalSum().element;

@@ -1,13 +1,15 @@
-export class Main {
-  element: HTMLElement;
+import { Main } from '../Main';
+
+export class MainSection {
+  public element: HTMLElement;
 
   constructor() {
     this.element = this.createMainSection();
   }
 
-  createMainSection() {
-    const main = document.createElement('main');
-    main.classList.add('main');
+  createMainSection(): HTMLElement {
+    const main = new Main().element;
+    main.classList.add('main-page');
 
     const container = document.createElement('div');
     container.classList.add('main__container');

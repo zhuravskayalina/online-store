@@ -1,13 +1,14 @@
 import { ProductCount } from './productCount/ProductCount';
 
 export class CartItem {
-  element: HTMLElement;
+  public element: HTMLElement;
 
   constructor() {
     this.element = this.createItem();
   }
 
-  createItem(/*productImg: string*, productBrand: string, productName: string, productPrice: number */) {
+  private createItem(/*productImg: string*, productBrand: string, productName:
+   string, productPrice: number */): HTMLDivElement {
     const cart = document.createElement('div');
     cart.classList.add('cart-item');
 
@@ -52,11 +53,11 @@ export class CartItem {
     return cart;
   }
 
-  formatSum(sum: number) {
+  private formatSum(sum: number): string {
     return new Intl.NumberFormat('ru-RU').format(sum);
   }
 
-  createCountBox() {
+  private createCountBox(): HTMLDivElement {
     const sizeCountBox = document.createElement('div');
     sizeCountBox.classList.add('cart-item__size-count');
 

@@ -1,13 +1,13 @@
 import { TotalProductsSum } from '../../../totalProductSum/TotalProductsSum';
 
 export class TotalSum {
-  element: HTMLDivElement;
+  public element: HTMLDivElement;
 
   constructor() {
     this.element = this.createSumBox();
   }
 
-  createSumBox() {
+  private createSumBox(): HTMLDivElement {
     const sumBlock = document.createElement('div');
     sumBlock.classList.add('sum-box');
 

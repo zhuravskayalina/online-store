@@ -1,11 +1,11 @@
 export class Search {
-  element: HTMLDivElement;
+  public element: HTMLDivElement;
 
   constructor() {
     this.element = this.createSearch();
   }
 
-  createSearch() {
+  createSearch(): HTMLDivElement {
     const searchBox = document.createElement('div');
     searchBox.classList.add('search-wrapper');
 

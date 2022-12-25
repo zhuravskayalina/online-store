@@ -2,13 +2,17 @@
 
 .main {
   flex: 1 1 auto;
-  background-image: url('../assets/images/main-background.webp');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
-  align-items: center;
+
+
+  &.main-page {
+    background-image: url('../assets/images/main-background.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    align-items: center;
+  }
 
   &__container {
     width: 77%;
