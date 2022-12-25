@@ -1,0 +1,60 @@
+.description {
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.description__details {
+  margin-top: 50px;
+}
+
+.description__headers {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 50px;
+  text-transform: uppercase;
+  color: $primary-card-text;
+}
+
+.description__header-block {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 50px;
+  color: $primary-card-text;
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+.description__subheaders {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 140%;
+  color: $primary-card-text;
+  margin-bottom: 20px;
+}
+
+.description__text {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 200%;
+  color: $small-card-description;
+}
+
+.description__payment-text {
+  margin-bottom: 20px;
+}
+
+.description__payment-text:last-child {
+  margin-bottom: 0;
+}
+
+.description__delivery-block {
+  margin-top: 35px;
+}

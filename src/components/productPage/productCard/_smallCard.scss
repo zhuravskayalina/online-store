@@ -1,0 +1,30 @@
+.small-card {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 15%;
+}
+
+.small-card__main-img {
+  width: 100%;
+  height: 100%;
+}
+
+.small-card__description{
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 160%;
+  color: $small-card-description;
+  margin-bottom: 10px;
+}
+
+.small-card__price {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  color: $primary-card-text;
+}

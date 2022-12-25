@@ -7,6 +7,8 @@ import { MainSection } from './components/mainPage/mainSection/Main';
 import { Card } from './components/productPage/productCard/Card';
 import { dataBase } from './dataBase/dataBase';
 import { ErrorPage } from './components/errorPage/ErrorPage';
+import { Detail } from './components/productPage/productDescription/bigCardProductDescription';
+import { createProductPage } from './components/productPage/bigCardPageAssembly/bigCardPageAssembly';
 
 const app = document.querySelector('.app') as HTMLDivElement;
 
@@ -15,18 +17,20 @@ app.append(header);
 
 // const mainPage = new MainSection().element;
 // app.append(mainPage);
+//todo change for createProductPage
+/*let test = new Card(dataBase[5]).card;
+app.appendChild(test);
 
-// let test = new Card(dataBase[5]).card;
-// app.appendChild(test);
+const description = new Detail(dataBase[5]).detail;
+app.append(description);*/
 
 // const cartPage = new CartPage().element;
 // app.append(cartPage);
 
-const errorPage = new ErrorPage().element;
-app.append(errorPage);
+// const errorPage = new ErrorPage().element;
+// app.append(errorPage);
+
+createProductPage(dataBase[5]);
 
 const footer = new Footer().element;
 app.append(footer);
-
-
-
