@@ -1,13 +1,13 @@
 import { CartItem } from './cartItem/CartItem';
 
 export class CartList {
-  element: HTMLElement;
+  public element: HTMLUListElement;
 
   constructor(quantity: number) {
     this.element = this.createList(quantity);
   }
 
-  createList(quantity: number) {
+  private createList(quantity: number): HTMLUListElement {
     const list = document.createElement('ul');
     list.classList.add('cart-list__products-block');
 

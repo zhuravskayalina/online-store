@@ -5,13 +5,13 @@ import { Navigation } from './navigation/Navigation';
 const logoImg = require('../../assets/images/logo.svg');
 
 export class Header {
-  element: HTMLElement;
+  public element: HTMLElement;
 
   constructor() {
     this.element = this.createHeader();
   }
 
-  createHeader() {
+  private createHeader(): HTMLElement {
     const header = document.createElement('header');
     header.classList.add('header');
 

@@ -899,7 +899,8 @@ const accessories: Array<ProductData> = [
     rating: 5,
     quantity: 29,
     description:
-      'Really cool and funny case for your goggles! Made from rPET (recycled polyethylene terephthalate). Surprise your friends and family with your choice of GoogleSoc case :)',
+      'Really cool and funny case for your goggles! Made from rPET (recycled' +
+      ' polyethylene terephthalate). Surprise your friends and family with your choice of GoogleSoc case :)',
     images: [googleHeavenImg1, googleHeavenImg2],
   },
   {
@@ -910,7 +911,8 @@ const accessories: Array<ProductData> = [
     rating: 5,
     quantity: 78,
     description:
-      'Really cool and funny case for your goggles! Made from rPET (recycled polyethylene terephthalate). Surprise your friends and family with your choice of GoogleSoc case :)',
+      'Really cool and funny case for your goggles! Made from rPET (recycled' +
+      ' polyethylene terephthalate). Surprise your friends and family with your choice of GoogleSoc case :)',
     images: [googleMermaidImg1, googleMermaidImg2, googleMermaidImg3],
   },
 ];

@@ -1,5 +1,5 @@
 export class ProductsQuantity {
-  quantity: string;
+  public quantity: string;
 
   constructor(/*quantity: number*/) {
     this.quantity = (5).toString();

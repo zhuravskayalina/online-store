@@ -1,11 +1,11 @@
 export class Main {
-  element: HTMLElement;
+  public element: HTMLElement;
 
   constructor() {
     this.element = this.createMainSection();
   }
 
-  createMainSection() {
+  createMainSection(): HTMLElement {
     const main = document.createElement('main');
     main.classList.add('main');
 

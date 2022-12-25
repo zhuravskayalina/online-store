@@ -1,5 +1,5 @@
 export class TotalProductsSum {
-  sum: string;
+  public sum: string;
 
   constructor() {
     this.sum = this.createSum(10000.993);
@@ -9,7 +9,7 @@ export class TotalProductsSum {
     return this.formatSum(sum);
   }
 
-  formatSum(sum: number) {
+  formatSum(sum: number): string {
     return new Intl.NumberFormat('ru-RU').format(sum);
   }
 }

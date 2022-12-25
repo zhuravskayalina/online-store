@@ -1,11 +1,11 @@
 export class Footer {
-  element: HTMLElement;
+  public element: HTMLElement;
 
   constructor() {
     this.element = this.createFooter();
   }
 
-  createFooter() {
+  private createFooter() : HTMLElement {
     const footer = document.createElement('footer');
     footer.classList.add('footer');
 
@@ -32,11 +32,13 @@ export class Footer {
     return footer;
   }
 
-  createAuthors() {
+  createAuthors(): HTMLDivElement {
     const authors = document.createElement('div');
     authors.classList.add('footer__authors');
 
-    for (let i = 0; i < 2; i++) {
+    const authorsCount = 2;
+
+    for (let i = 0; i < authorsCount; i++) {
       const link = document.createElement('a');
       link.classList.add('footer__author-link');
 

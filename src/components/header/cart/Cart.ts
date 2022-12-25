@@ -2,13 +2,13 @@ import { TotalProductsSum } from '../../totalProductSum/TotalProductsSum';
 import { ProductsQuantity } from '../../productsQuantity/ProductsQuantity';
 
 export class Cart {
-  element: HTMLDivElement;
+  public element: HTMLDivElement;
 
   constructor() {
     this.element = this.createCart();
   }
 
-  createCart() {
+  createCart(): HTMLDivElement {
     const box = document.createElement('div');
     box.classList.add('cart');
 
@@ -57,9 +57,5 @@ export class Cart {
     box.append(cartIconBox, line, sumBlock);
 
     return box;
-  }
-
-  formatSum(sum: number) {
-    return new Intl.NumberFormat('ru-RU').format(sum);
   }
 }
