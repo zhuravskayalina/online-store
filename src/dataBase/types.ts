@@ -8,6 +8,7 @@ export interface ProductData {
   quantity: number;
   description: string;
   sizes?: BootsSize[];
+  vendorCode: number;
 }
 
 type SnowboardBrand =
