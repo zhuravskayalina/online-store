@@ -8,7 +8,7 @@ export class CartItem {
   }
 
   private createItem(/*productImg: string*, productBrand: string, productName:
-   string, productPrice: number */) : HTMLDivElement {
+   string, productPrice: number */): HTMLDivElement {
     const cart = document.createElement('div');
     cart.classList.add('cart-item');
 
@@ -53,11 +53,11 @@ export class CartItem {
     return cart;
   }
 
-  private formatSum(sum: number) : string {
+  private formatSum(sum: number): string {
     return new Intl.NumberFormat('ru-RU').format(sum);
   }
 
-  private createCountBox() :  HTMLDivElement {
+  private createCountBox(): HTMLDivElement {
     const sizeCountBox = document.createElement('div');
     sizeCountBox.classList.add('cart-item__size-count');
 

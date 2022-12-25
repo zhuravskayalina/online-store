@@ -5,7 +5,7 @@ export class Footer {
     this.element = this.createFooter();
   }
 
-  private createFooter() : HTMLElement {
+  private createFooter(): HTMLElement {
     const footer = document.createElement('footer');
     footer.classList.add('footer');
 

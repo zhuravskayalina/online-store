@@ -5,7 +5,7 @@
 @import '../components/header/cart/_cart';
 @import '../components/header/navigation/navigation';
 @import './fonts/montserrat';
-@import '../components/mainPage/main-section';
+@import '../components/mainPage/mainSection/main-section';
 @import '../components/footer/footer';
 
 @import '../components/cartPage/cartList/cartItem/_cartItem';
@@ -29,7 +29,9 @@ body {
 }
 
 .main {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
 }
 
 @import url('./fonts/_icons-font.css');

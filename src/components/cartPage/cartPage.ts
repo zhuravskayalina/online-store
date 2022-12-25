@@ -1,5 +1,6 @@
 import { TotalSum } from './cartList/totalSum/TotalSum';
 import { CartList } from './cartList/CartList';
+import { Main } from '../mainPage/Main';
 
 export class CartPage {
   public element: HTMLElement;
@@ -9,7 +10,7 @@ export class CartPage {
   }
 
   private createCartPage(): HTMLElement {
-    const main = document.createElement('main');
+    const main = new Main().element;
     main.classList.add('cart-list');
 
     const container = document.createElement('div');
