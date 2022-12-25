@@ -1,5 +1,5 @@
-@import url('./base/reset.scss');
-@import url('./fonts/_icons-font.css');
+@import './base/reset.scss';
+@import './fonts/_icons-font.css';
 @import '../components/header/_header';
 @import '../components/header/search/_search';
 @import '../components/header/cart/_cart';
@@ -16,6 +16,7 @@
 @import '../components/productPage/productCard/_card.scss';
 @import './variables/_wrappers.scss';
 
+@import '../components/errorPage/_error-page.scss';
 
 html {
   height: 100%;
