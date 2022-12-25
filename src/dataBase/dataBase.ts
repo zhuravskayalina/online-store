@@ -200,7 +200,8 @@ const snowBoards: Array<ProductData> = [
     rating: 5,
     quantity: 29,
     description:
-      'Expand horizons on the Burton Free Thinker Snowboard, an all-mountain machine with a penchant for the park and the ability to surf side-hits. With a true twin shape and a classic camber profile, the Free Thinker delivers excellent control while riding regular or switch, and a mid-stiff profile offers the reactivity we crave for big jumps and tight turns. Burton finished off this board with their speed-demon WFO base and 45° Carbon Highlights for ideal torsional stiffness and extra snap.',
+      'Expand horizons on the Burton Free Thinker Snowboard, an' +
+      ' all-mountain machine with a penchant for the park and the ability to surf side-hits. With a true twin shape and a classic camber profile, the Free Thinker delivers excellent control while riding regular or switch, and a mid-stiff profile offers the reactivity we crave for big jumps and tight turns. Burton finished off this board with their speed-demon WFO base and 45° Carbon Highlights for ideal torsional stiffness and extra snap.',
     images: [
       burtonFreeThinkerImg1,
       burtonFreeThinkerImg2,

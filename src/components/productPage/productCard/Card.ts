@@ -1,15 +1,22 @@
-import { dataBase } from '../../../dataBase/dataBase';
 import { ProductData } from '../../../dataBase/types';
 
 export class Card {
-  card: DocumentFragment;
+  public card: DocumentFragment;
 
   constructor(product: ProductData) {
     this.card = this.createCard(product);
   }
 
-  createCard( {category, brand, name, price, rating, images, quantity,
-    description, sizes, vendorCode}: ProductData): DocumentFragment {
+  private createCard({
+    brand,
+    name,
+    price,
+    rating,
+    images,
+    quantity,
+    vendorCode,
+    ...rest
+  }: ProductData): DocumentFragment {
     const fragment = document.createDocumentFragment() as DocumentFragment;
     const card = document.createElement('div') as HTMLDivElement;
     const gallery = document.createElement('div') as HTMLDivElement;
@@ -21,7 +28,9 @@ export class Card {
     const ratingBlock = document.createElement('div') as HTMLDivElement;
     const ratingText = document.createElement('p') as HTMLParagraphElement;
     const brandName = document.createElement('p') as HTMLParagraphElement;
-    const productDescription = document.createElement('p') as HTMLParagraphElement;
+    const productDescription = document.createElement(
+      'p'
+    ) as HTMLParagraphElement;
     const vendor = document.createElement('p') as HTMLParagraphElement;
     const priceOfProduct = document.createElement('p') as HTMLParagraphElement;
     const inStock = document.createElement('p') as HTMLParagraphElement;
@@ -29,7 +38,7 @@ export class Card {
 
     card.classList.add('card');
 
-    gallery.classList.add('card_gallery')
+    gallery.classList.add('card_gallery');
 
     galleryImg1.alt = 'Product look';
     galleryImg1.src = images[0];
@@ -41,8 +50,11 @@ export class Card {
 
     mainImage.alt = 'Product look';
     mainImage.src = images[0];
+    mainImage.classList.add('card_main-img');
 
-    ratingBlock.classList.add('card_rating')
+    ratingBlock.classList.add('card_info');
+
+    ratingBlock.classList.add('card_rating');
     ratingText.textContent = `Rating: ${rating}`;
     ratingBlock.appendChild(ratingText);
 
@@ -55,7 +67,7 @@ export class Card {
     vendor.classList.add('card_vendor');
     vendor.textContent = `Article number: ${vendorCode}`;
 
-    priceOfProduct.classList.add('card_price')
+    priceOfProduct.classList.add('card_price');
     priceOfProduct.textContent = `${price}$`;
 
     inStock.classList.add('card_stock');
