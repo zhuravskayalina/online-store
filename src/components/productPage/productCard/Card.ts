@@ -1,13 +1,14 @@
 import { ProductData } from '../../../dataBase/types';
+import { Main } from '../../mainPage/Main';
 
 export class Card {
   public card: DocumentFragment;
 
   constructor(product: ProductData) {
-    this.card = this.createCard(product);
+    this.card = this.createBigCard(product);
   }
 
-  private createCard({
+  private createBigCard({
     brand,
     name,
     price,
@@ -15,7 +16,6 @@ export class Card {
     images,
     quantity,
     vendorCode,
-    ...rest
   }: ProductData): DocumentFragment {
     const fragment = document.createDocumentFragment() as DocumentFragment;
     const card = document.createElement('div') as HTMLDivElement;
@@ -36,44 +36,49 @@ export class Card {
     const inStock = document.createElement('p') as HTMLParagraphElement;
     const button = document.createElement('button') as HTMLButtonElement;
 
+    // const main = new Main().element;
+    // main.classList.add('main-page');
+    // const container = document.createElement('div');
+    // container.classList.add('main__container');
+
     card.classList.add('card');
 
-    gallery.classList.add('card_gallery');
+    gallery.classList.add('card__gallery');
 
     galleryImg1.alt = 'Product look';
     galleryImg1.src = images[0];
-    galleryImg1.classList.add('card_gallery-img');
+    galleryImg1.classList.add('card__gallery-img');
 
     galleryImg2.alt = 'Product look';
     galleryImg2.src = images[0];
-    galleryImg2.classList.add('card_gallery-img');
+    galleryImg2.classList.add('card__gallery-img');
 
     mainImage.alt = 'Product look';
     mainImage.src = images[0];
-    mainImage.classList.add('card_main-img');
+    mainImage.classList.add('card__main-img');
 
-    ratingBlock.classList.add('card_info');
+    ratingBlock.classList.add('card__info');
 
-    ratingBlock.classList.add('card_rating');
+    ratingBlock.classList.add('card__rating');
     ratingText.textContent = `Rating: ${rating}`;
     ratingBlock.appendChild(ratingText);
 
-    brandName.classList.add('card_brand');
+    brandName.classList.add('card__brand');
     brandName.textContent = brand;
 
-    productDescription.classList.add('card_description');
+    productDescription.classList.add('card__description');
     productDescription.textContent = name;
 
-    vendor.classList.add('card_vendor');
+    vendor.classList.add('card__vendor');
     vendor.textContent = `Article number: ${vendorCode}`;
 
-    priceOfProduct.classList.add('card_price');
-    priceOfProduct.textContent = `${price}$`;
+    priceOfProduct.classList.add('card__price');
+    priceOfProduct.textContent = `$ ${price}`;
 
-    inStock.classList.add('card_stock');
+    inStock.classList.add('card__stock');
     inStock.textContent = `${quantity} in stock`;
 
-    button.classList.add('card_button');
+    button.classList.add('card__button');
     button.type = 'button';
     button.textContent = 'Add to shopping';
 
@@ -85,7 +90,7 @@ export class Card {
       galleryImg3.setAttribute('alt', 'src');
       galleryImg3.alt = 'Product look';
       galleryImg3.src = images[2];
-      galleryImg3.classList.add('card_gallery-img');
+      galleryImg3.classList.add('card__gallery-img');
       gallery.appendChild(galleryImg3);
     }
     card.appendChild(mainImageBlock);
@@ -98,6 +103,48 @@ export class Card {
     info.appendChild(priceOfProduct);
     info.appendChild(inStock);
     info.appendChild(button);
+    fragment.appendChild(card);
+    return fragment;
+  }
+
+  private createSmallCard({
+    brand,
+    name,
+    price,
+    images,
+  }: ProductData): DocumentFragment {
+    const fragment = document.createDocumentFragment() as DocumentFragment;
+    const card = document.createElement('div') as HTMLDivElement;
+    const mainImage = document.createElement('img') as HTMLImageElement;
+    const brandName = document.createElement('p') as HTMLParagraphElement;
+    const productDescription = document.createElement(
+      'p'
+    ) as HTMLParagraphElement;
+    const priceOfProduct = document.createElement('p') as HTMLParagraphElement;
+    // const main = new Main().element;
+    // main.classList.add('main-page');
+    // const container = document.createElement('div');
+    // container.classList.add('main__container');
+
+    card.classList.add('small-card');
+
+    mainImage.alt = 'Product look';
+    mainImage.src = images[0];
+    mainImage.classList.add('small-card__main-img');
+
+    brandName.classList.add('small-card__description');
+    brandName.textContent = brand;
+
+    productDescription.classList.add('small-card__description');
+    productDescription.textContent = name;
+
+    priceOfProduct.classList.add('small-card__price');
+    priceOfProduct.textContent = `$ ${price}`;
+
+    card.appendChild(mainImage);
+    card.appendChild(brandName);
+    card.appendChild(productDescription);
+    card.appendChild(priceOfProduct);
     fragment.appendChild(card);
     return fragment;
   }

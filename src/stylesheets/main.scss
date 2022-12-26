@@ -1,5 +1,6 @@
 @import './base/reset.scss';
 @import './fonts/_icons-font.css';
+@import './variables/_colors.scss';
 @import '../components/header/_header';
 @import '../components/header/search/_search';
 @import '../components/header/cart/_cart';
@@ -12,11 +13,11 @@
 @import '../components/cartPage/_cart-page';
 @import '../components/cartPage/cartList/_cart-list';
 @import '../components/cartPage/cartList/totalSum/_total-sum';
-
-@import '../components/productPage/productCard/_card.scss';
 @import './variables/_wrappers.scss';
-
 @import '../components/errorPage/_error-page.scss';
+@import '../components/productPage/productCard/_card.scss';
+@import '../components/productPage/productCard/_smallCard.scss';
+@import '../components/productPage/productDescription/_bigCardProductDescription.scss';
 
 html {
   height: 100%;
