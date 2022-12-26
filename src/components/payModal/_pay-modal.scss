@@ -1,0 +1,42 @@
+@import '../../stylesheets/variables/_colors.scss';
+
+.modal {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(2.5px);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &__window {
+    border-radius: 7px;
+    width: 410px;
+    height: 584px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+  }
+
+  &__heading {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 140%;
+  }
+
+  &__input {
+    width: 100%;
+    border: 1px solid $light-gray;
+    border-radius: 2px;
+    color: #999999;
+    text-transform: capitalize;
+  }
+
+  &__name {
+  }
+
+  &__number {}
+
+
+}
