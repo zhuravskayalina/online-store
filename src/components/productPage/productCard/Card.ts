@@ -1,6 +1,7 @@
 import { ProductData } from '../../../dataBase/types';
 import { Main } from '../../mainPage/Main';
 import { SmallImage } from './galleryImages/SmallImage';
+import { Button } from '../../button/Button';
 
 export class Card {
   public card: DocumentFragment;
@@ -21,9 +22,8 @@ export class Card {
     const fragment = document.createDocumentFragment();
     const card = document.createElement('div');
     const gallery = document.createElement('div');
-    const galleryImg1 = document.createElement('img');
-    const galleryImg2 = document.createElement('img');
     const mainImage = document.createElement('img');
+    const mainImgBlock = document.createElement('div');
     const info = document.createElement('div');
     const ratingText = document.createElement('p');
     const brandName = document.createElement('p');
@@ -31,12 +31,7 @@ export class Card {
     const vendor = document.createElement('p');
     const priceOfProduct = document.createElement('p');
     const inStock = document.createElement('p');
-    const button = document.createElement('button');
-
-    // const main = new Main().element;
-    // main.classList.add('main-page');
-    // const container = document.createElement('div');
-    // container.classList.add('main__container');
+    const button = new Button('Add to cart', 'card__button').addToCardButton;
 
     card.classList.add('card');
 
@@ -47,9 +42,23 @@ export class Card {
       gallery.append(img);
     });
 
+    mainImgBlock.classList.add('card__main-img-box');
+
     mainImage.alt = 'Product look';
     mainImage.src = images[0];
     mainImage.classList.add('card__main-img');
+
+    mainImage.addEventListener('click', function (event) {
+      const target = event.target as HTMLImageElement;
+
+      if (target.classList.contains('card__main-img_zoom')) {
+        target.classList.remove('card__main-img_zoom');
+      } else {
+        target.classList.add('card__main-img_zoom');
+      }
+    });
+
+    mainImgBlock.append(mainImage);
 
     ratingText.classList.add('card__info', 'card__rating');
     ratingText.textContent = `Rating: ${rating}`;
@@ -69,15 +78,8 @@ export class Card {
     inStock.classList.add('card__stock');
     inStock.textContent = `${quantity} in stock`;
 
-    button.classList.add('card__button');
-    button.type = 'button';
-    button.textContent = 'Add to shopping';
-
     card.appendChild(gallery);
-    gallery.appendChild(galleryImg1);
-    gallery.appendChild(galleryImg2);
-
-    card.appendChild(mainImage);
+    card.appendChild(mainImgBlock);
     card.appendChild(info);
     info.appendChild(ratingText);
     info.appendChild(brandName);
@@ -87,6 +89,7 @@ export class Card {
     info.appendChild(inStock);
     info.appendChild(button);
     fragment.appendChild(card);
+
     return fragment;
   }
 
@@ -134,38 +137,36 @@ export class Card {
 }
 
 // ToDo: it's for draw card our choiced product
-/*
-Логика: ищем в массиве базы данных элемент, у которого артикул совпадает
-с искомым, по индексу найденного элемента запускаем отрисовку
-необходимой карточки
-
-class CardContainer {
-  constructor(vendor) {
-    this.cardsContainer = document.createElement('article') as HTMLElement;
-    this.cardsContainer.classList.add('container');
-    this.cardsContainer.appendChild(this.createCards());
-    document.body.appendChild(this.cardsContainer);
-    this.vendorCode = vendor;
-  }
-
-  createCards(): DocumentFragment {
-    const fragment = document.createDocumentFragment();
-    let index:number = -1;
-    [...dataBase].forEach(function (productInstance): number {
-      if (productInstance[vendorCode]  == this.vendorCode {
-        return index +=1;
-      }
-      else {
-        index +=1;
-      }
-    }
-  )
-
-      const card = new Card(dataBase[index]});
-      fragment.appendChild(card.card);
-    });
-    return fragment;
-  }
-}
-
-*/
+//
+// Логика: ищем в массиве базы данных элемент, у которого артикул совпадает
+// с искомым, по индексу найденного элемента запускаем отрисовку
+// необходимой карточки
+//
+// class CardContainer {
+//   constructor(vendor) {
+//     this.cardsContainer = document.createElement('article') as HTMLElement;
+//     this.cardsContainer.classList.add('container');
+//     this.cardsContainer.appendChild(this.createCards());
+//     document.body.appendChild(this.cardsContainer);
+//     this.vendorCode = vendor;
+//   }
+//
+//   createCards(): DocumentFragment {
+//     const fragment = document.createDocumentFragment();
+//     let index:number = -1;
+//     [...dataBase].forEach(function (productInstance): number {
+//       if (productInstance[vendorCode]  == this.vendorCode {
+//         return index +=1;
+//       }
+//       else {
+//         index +=1;
+//       }
+//     }
+//   )
+//
+//       const card = new Card(dataBase[index]});
+//       fragment.appendChild(card.card);
+//     });
+//     return fragment;
+//   }
+// }

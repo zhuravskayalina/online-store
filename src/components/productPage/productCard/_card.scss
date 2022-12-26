@@ -17,11 +17,36 @@
     width: 95px;
     height: 95px;
     margin-bottom: 15px;
+    padding: 5px;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid $light-gray;
+      border-radius: 10px;
+    }
+  }
+
+  &__main-img-box {
+    display: flex;
+    height: 500px;
+    justify-content: center;
   }
 
   &__main-img {
    max-width: 100%;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
+
+    &:hover {
+      cursor: zoom-in;
+    }
+
+    &_zoom {
+      transition: 0.5s;
+      transform: scale(1.5);
+      border: 1px solid $light-gray;
+      border-radius: 10px;
+    }
   }
 
   &__info {
@@ -47,10 +72,14 @@
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
-    line-height: 140%;
+    line-height: 100%;
     color: $primary-card-text;
     text-transform: uppercase;
     margin-top: 10px;
+  }
+
+  &__description {
+    margin-top: 0;
   }
 
   &__vendor {
@@ -84,6 +113,7 @@
   &__button {
     @include button;
     padding: 11px 80px;
+    white-space: nowrap;
 
     &:hover {
       @include button-hover
@@ -91,6 +121,10 @@
 
     &:active {
       @include button-active;
+    }
+
+    &_added {
+      @include button-added;
     }
   }
 }
