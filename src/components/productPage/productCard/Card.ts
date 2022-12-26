@@ -1,5 +1,6 @@
 import { ProductData } from '../../../dataBase/types';
 import { Main } from '../../mainPage/Main';
+import { SmallImage } from './galleryImages/SmallImage';
 
 export class Card {
   public card: DocumentFragment;
@@ -17,24 +18,20 @@ export class Card {
     quantity,
     vendorCode,
   }: ProductData): DocumentFragment {
-    const fragment = document.createDocumentFragment() as DocumentFragment;
-    const card = document.createElement('div') as HTMLDivElement;
-    const gallery = document.createElement('div') as HTMLDivElement;
-    const galleryImg1 = document.createElement('img') as HTMLImageElement;
-    const galleryImg2 = document.createElement('img') as HTMLImageElement;
-    const mainImageBlock = document.createElement('div') as HTMLDivElement;
-    const mainImage = document.createElement('img') as HTMLImageElement;
-    const info = document.createElement('div') as HTMLDivElement;
-    const ratingBlock = document.createElement('div') as HTMLDivElement;
-    const ratingText = document.createElement('p') as HTMLParagraphElement;
-    const brandName = document.createElement('p') as HTMLParagraphElement;
-    const productDescription = document.createElement(
-      'p'
-    ) as HTMLParagraphElement;
-    const vendor = document.createElement('p') as HTMLParagraphElement;
-    const priceOfProduct = document.createElement('p') as HTMLParagraphElement;
-    const inStock = document.createElement('p') as HTMLParagraphElement;
-    const button = document.createElement('button') as HTMLButtonElement;
+    const fragment = document.createDocumentFragment();
+    const card = document.createElement('div');
+    const gallery = document.createElement('div');
+    const galleryImg1 = document.createElement('img');
+    const galleryImg2 = document.createElement('img');
+    const mainImage = document.createElement('img');
+    const info = document.createElement('div');
+    const ratingText = document.createElement('p');
+    const brandName = document.createElement('p');
+    const productDescription = document.createElement('p');
+    const vendor = document.createElement('p');
+    const priceOfProduct = document.createElement('p');
+    const inStock = document.createElement('p');
+    const button = document.createElement('button');
 
     // const main = new Main().element;
     // main.classList.add('main-page');
@@ -45,23 +42,17 @@ export class Card {
 
     gallery.classList.add('card__gallery');
 
-    galleryImg1.alt = 'Product look';
-    galleryImg1.src = images[0];
-    galleryImg1.classList.add('card__gallery-img');
-
-    galleryImg2.alt = 'Product look';
-    galleryImg2.src = images[0];
-    galleryImg2.classList.add('card__gallery-img');
+    images.forEach((image) => {
+      const img = new SmallImage(image).image;
+      gallery.append(img);
+    });
 
     mainImage.alt = 'Product look';
     mainImage.src = images[0];
     mainImage.classList.add('card__main-img');
 
-    ratingBlock.classList.add('card__info');
-
-    ratingBlock.classList.add('card__rating');
+    ratingText.classList.add('card__info', 'card__rating');
     ratingText.textContent = `Rating: ${rating}`;
-    ratingBlock.appendChild(ratingText);
 
     brandName.classList.add('card__brand');
     brandName.textContent = brand;
@@ -85,18 +76,10 @@ export class Card {
     card.appendChild(gallery);
     gallery.appendChild(galleryImg1);
     gallery.appendChild(galleryImg2);
-    if (images.length === 3) {
-      const galleryImg3 = document.createElement('img') as HTMLImageElement;
-      galleryImg3.setAttribute('alt', 'src');
-      galleryImg3.alt = 'Product look';
-      galleryImg3.src = images[2];
-      galleryImg3.classList.add('card__gallery-img');
-      gallery.appendChild(galleryImg3);
-    }
-    card.appendChild(mainImageBlock);
-    mainImageBlock.appendChild(mainImage);
+
+    card.appendChild(mainImage);
     card.appendChild(info);
-    info.appendChild(ratingBlock);
+    info.appendChild(ratingText);
     info.appendChild(brandName);
     info.appendChild(productDescription);
     info.appendChild(vendor);

@@ -1,3 +1,5 @@
+@import '../../../stylesheets/variables/_colors.scss';
+
 .small-card {
   display: flex;
   flex-direction: column;
@@ -10,7 +12,7 @@
   height: 100%;
 }
 
-.small-card__description{
+.small-card__description {
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
   font-weight: 300;
