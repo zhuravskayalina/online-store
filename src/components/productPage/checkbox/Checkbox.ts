@@ -1,42 +1,31 @@
-import {
-  SnowboardBrand,
-  BootsBrand,
-  AccessoriesBrand,
-  Category,
-  BootsSize
-} from '../../../dataBase/types';
-
-type CheckboxCategories =
-  SnowboardBrand
-  | BootsBrand
-  | AccessoriesBrand
-  | Category
-  | BootsSize;
-
-type CheckboxLabel = <T extends CheckboxCategories>;
+import { CheckboxLabelText} from './checkboxTypes';
+import { Main } from '../../mainPage/Main';
 
 export class Checkbox {
+
   public checkbox: DocumentFragment;
 
-  constructor(category: <T>) {
-      this.checkbox = this.createCheckbox(category: <T>)
-    }
+  constructor(category: CheckboxLabelText) {
+    this.checkbox = this.createCheckbox(category);
+  }
 
-    private createCheckbox({ category: <T>): DocumentFragment {
+  private createCheckbox(category: CheckboxLabelText): DocumentFragment {
     const fragment = document.createDocumentFragment();
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.name = 'name';
-    // checkbox.value = 'value';
-    // checkbox.id = 'id';
+    const formForInput = document.createElement('form');
+    const inputCheckbox = document.createElement('input')
+    const label = document.createElement('label');
 
-    const.label = document.createElement('label');
-    label.htmlFor = 'id';
-    label.textContent = category;
+    inputCheckbox.classList.add('filters_checkbox-custom');
+    inputCheckbox.type = 'checkbox';
+    inputCheckbox.id = `checkbox-${category.toString().toLowerCase()}`;
 
-    fragment.appendChild(checkbox);
+    inputCheckbox.classList.add('filters_label');
+    label.htmlFor = `checkbox-${category.toString().toLowerCase()}`;
+    label.textContent = category.toString();
 
-    fragment.appendChild(label);
+    formForInput.appendChild(inputCheckbox);
+    formForInput.appendChild(label);
+    fragment.appendChild(formForInput);
 
     return fragment;
   }

@@ -9,6 +9,7 @@ import { dataBase } from './dataBase/dataBase';
 import { ErrorPage } from './components/errorPage/ErrorPage';
 import { Detail } from './components/productPage/productDescription/bigCardProductDescription';
 import { createProductPage } from './components/productPage/bigCardPageAssembly/bigCardPageAssembly';
+import { Checkbox } from './components/productPage/checkbox/Checkbox';
 
 const app = document.querySelector('.app') as HTMLDivElement;
 
@@ -30,7 +31,10 @@ app.append(description);*/
 // const errorPage = new ErrorPage().element;
 // app.append(errorPage);
 
-createProductPage(dataBase[5]);
+// createProductPage(dataBase[5]);
+
+const checkbox = new Checkbox('Nitro').checkbox;
+app.append(checkbox);
 
 const footer = new Footer().element;
 app.append(footer);
