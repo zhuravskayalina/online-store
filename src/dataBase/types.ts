@@ -11,7 +11,7 @@ export interface ProductData {
   vendorCode: number;
 }
 
-type SnowboardBrand =
+export type SnowboardBrand =
   | 'Burton'
   | 'Nitro'
   | 'Ride'
@@ -20,7 +20,7 @@ type SnowboardBrand =
   | 'Roxy'
   | 'Drake';
 
-type BootsBrand =
+export type BootsBrand =
   | 'ThirtyTwo'
   | 'Burton'
   | 'Vans'
@@ -28,7 +28,7 @@ type BootsBrand =
   | 'Nitro'
   | 'Northwave Snow';
 
-type AccessoriesBrand =
+export type AccessoriesBrand =
   | 'Smith'
   | 'Anon'
   | 'Sweet Protection'
@@ -36,6 +36,6 @@ type AccessoriesBrand =
   | 'Oakley'
   | 'GoogleSoc';
 
-type Category = 'snowboards' | 'boots' | 'accessories';
+export type Category = 'snowboards' | 'boots' | 'accessories';
 
-type BootsSize = 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type BootsSize = 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;

@@ -1,5 +1,4 @@
 import { ProductData } from '../../../dataBase/types';
-import { Main } from '../../mainPage/Main';
 import { SmallImage } from './galleryImages/SmallImage';
 import { Button } from '../../button/Button';
 
@@ -99,18 +98,14 @@ export class Card {
     price,
     images,
   }: ProductData): DocumentFragment {
-    const fragment = document.createDocumentFragment() as DocumentFragment;
-    const card = document.createElement('div') as HTMLDivElement;
-    const mainImage = document.createElement('img') as HTMLImageElement;
-    const brandName = document.createElement('p') as HTMLParagraphElement;
+    const fragment = document.createDocumentFragment();
+    const card = document.createElement('div');
+    const mainImage = document.createElement('img');
+    const brandName = document.createElement('p');
     const productDescription = document.createElement(
       'p'
     ) as HTMLParagraphElement;
-    const priceOfProduct = document.createElement('p') as HTMLParagraphElement;
-    // const main = new Main().element;
-    // main.classList.add('main-page');
-    // const container = document.createElement('div');
-    // container.classList.add('main__container');
+    const priceOfProduct = document.createElement('p');
 
     card.classList.add('small-card');
 
