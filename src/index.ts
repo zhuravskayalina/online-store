@@ -10,6 +10,8 @@ import { ErrorPage } from './components/errorPage/ErrorPage';
 import { Detail } from './components/productPage/productDescription/bigCardProductDescription';
 import { createProductPage } from './components/productPage/bigCardPageAssembly/bigCardPageAssembly';
 
+import {PayModal} from './components/payModal/PayModal';
+
 const app = document.querySelector('.app') as HTMLDivElement;
 
 const header = new Header().element;
@@ -30,7 +32,10 @@ app.append(description);*/
 // const errorPage = new ErrorPage().element;
 // app.append(errorPage);
 
-createProductPage(dataBase[5]);
+// createProductPage(dataBase[5]);
+
+// const payModal = new PayModal().element;
+// app.append(payModal);
 
 const footer = new Footer().element;
 app.append(footer);

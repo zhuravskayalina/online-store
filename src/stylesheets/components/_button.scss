@@ -11,6 +11,10 @@
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   text-decoration: none;
+
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 @mixin button-hover {

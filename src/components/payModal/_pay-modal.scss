@@ -1,21 +1,39 @@
 @import '../../stylesheets/variables/_colors.scss';
+@import '../../stylesheets/components/_button.scss';
+@import '../../stylesheets/components/_input.scss';
 
 .modal {
   position: absolute;
-  background: rgba(0, 0, 0, 0.03);
+  background: $modal-background;
   backdrop-filter: blur(2.5px);
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 
+  &_success-payment {
+    background-color: white;
+    backdrop-filter: none;
+  }
+
+  &_hidden {
+    display: none;
+  }
+
   &__window {
     border-radius: 7px;
     width: 410px;
-    height: 584px;
     display: flex;
     flex-direction: column;
     padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+  }
+
+  &__form {
   }
 
   &__heading {
@@ -23,20 +41,221 @@
     font-weight: 500;
     font-size: 24px;
     line-height: 140%;
+    margin-bottom: 25px;
   }
 
   &__input {
     width: 100%;
     border: 1px solid $light-gray;
     border-radius: 2px;
-    color: #999999;
     text-transform: capitalize;
+    display: block;
+    padding: 12px;
+    margin-bottom: 15px;
+    color: black;
+    position: relative;
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &_valid {
+      border: 1px solid $valid;
+    }
+
+    &_invalid {
+      border: 1px solid $invalid;
+    }
   }
 
   &__name {
   }
 
-  &__number {}
+  &__number {
+    @include input-number-non-arrows;
+  }
 
+  &__delivery {
+  }
 
+  &__email {
+    text-transform: lowercase;
+
+    &::placeholder {
+      text-transform: none;
+    }
+  }
+
+  &__cart-data {
+    position: relative;
+  }
+
+  &__credit-card {
+    @include input-number-non-arrows;
+  }
+
+  &__payment-icon {
+    position: absolute;
+    width: 40px;
+    top: 1px;
+    right: 5px;
+  }
+
+  &__security-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  &__expiration-box {
+    position: relative;
+    display: flex;
+    border: 1px solid $light-gray;
+    border-radius: 2px;
+    width: 50%;
+
+    &:after {
+      content: '/';
+      position: absolute;
+      left: 50%;
+      top: 10px;
+      color: $gray-text;
+    }
+
+    &_valid {
+      border-color: $valid;
+    }
+  }
+
+  &__exp-input {
+    display: block;
+    border: 1px solid transparent;
+    width: 50%;
+    padding: 12px;
+    text-align: center;
+    margin-bottom: 0;
+    @include input-number-non-arrows;
+
+    &_valid {
+      border: 1px solid $valid;
+    }
+
+    &_valid[data-type='month'],
+    &_invalid[data-type='month'] {
+      border-right: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &_valid[data-type='year'],
+    &_invalid[data-type='year'] {
+      border-left: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &_invalid[data-type='month'],
+    &_invalid[data-type='year'] {
+      border-color: $invalid;
+    }
+  }
+
+  &__cvc-input {
+    @include input-number-non-arrows;
+    width: 50%;
+    margin-bottom: 0;
+  }
+
+  &__submit-btn {
+    @include button;
+    padding: 10px 50px;
+    width: 100%;
+    margin-top: 25px;
+
+    &:hover {
+      @include button-hover;
+    }
+
+    &:active {
+      @include button-active;
+    }
+
+    &_disabled {
+      background: #dddddd;
+      box-shadow: none;
+
+      &:hover,
+      &:active {
+        background: #dddddd;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__close-icon {
+    position: absolute;
+    top: -10px;
+    right: -11px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $light-gray;
+    font-size: 10px;
+    background-color: white;
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.64);
+      cursor: pointer;
+    }
+  }
+}
+
+.success-container {
+  display: flex;
+  width: 77%;
+  justify-content: space-between;
+
+  &__img {
+    width: 65%;
+    background-image: url('../assets/images/success-payment.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  &_hidden {
+    display: none;
+  }
+}
+
+.message-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #53c296;
+  margin-bottom: 112px;
+
+  &__heading {
+    font-size: 46px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    font-size: 21px;
+    line-height: 144%;
+    color: #53c296c7;
+  }
+}
+
+.invalid-message {
+  background-color: red;
+  color: white;
+  padding: 5px 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
