@@ -1,27 +1,59 @@
 import { SelectSort } from '../selectSort/selectSort';
 
 export class CatalogMenu {
-  public catalogMenu: DocumentFragment;
+  public catalogMenu: HTMLDivElement;
 
   constructor() {
     this.catalogMenu = this.createMenu();
   }
 
-  private createMenu(): DocumentFragment {
-    const fragment = document.createDocumentFragment();
+  private createMenu(): HTMLDivElement{
+    const menuBlock = document.createElement('div');
     const filtersResetButton = document.createElement('button');
     const copyLinkButton = document.createElement('button');
+    const selectContainer = document.createElement('div');
     const selectForm = new SelectSort().selectForme;
-    const grigButton = document.createElement('button');
+    const selectFormArrow = document.createElement('span');
+    const gridButton = document.createElement('button');
+    const emptyDiv = document.createElement('div');
 
-    filtersResetButton.classList.add('catalog__menu-reset');
-    filtersResetButton.textContent = 'Reset filters'
+    selectContainer.classList.add('catalog__menu-sort');
+    selectForm.classList.add('catalog__menu-form');
+    selectFormArrow.classList.add('icon-arrow', 'catalog__menu-sort-arrow');
 
-    fragment.append(filtersResetButton);
-    fragment.append(copyLinkButton);
-    fragment.append(selectForm);
-    fragment.append(grigButton);
+    menuBlock.classList.add('catalog__menu');
 
-    return fragment;
+    filtersResetButton.classList.add('catalog__menu-buttons');
+    const iconReset = document.createElement('span');
+    iconReset.classList.add('icon-reset', 'catalog__icon-pos');
+    filtersResetButton.append(iconReset);
+    filtersResetButton.append('Reset filters');
+    filtersResetButton.type = 'button';
+
+    copyLinkButton.classList.add('catalog__menu-buttons');
+    const iconCopyLink = document.createElement('span');
+    iconCopyLink.classList.add('icon-copy', 'catalog__icon-pos');
+    copyLinkButton.append(iconCopyLink);
+    copyLinkButton.append('Copy Link');
+    copyLinkButton.type = 'button';
+
+    gridButton.classList.add('catalog__menu-buttons');
+    const iconGrid = document.createElement('span');
+    iconGrid.classList.add('icon-list');
+    gridButton.append(iconGrid);
+    gridButton.type = 'button';
+
+    emptyDiv.classList.add('catalog__menu-empty-div');
+    emptyDiv.textContent = '';
+
+    menuBlock.append(filtersResetButton);
+    menuBlock.append(copyLinkButton);
+    menuBlock.append(emptyDiv);
+    selectContainer.append(selectForm);
+    selectContainer.append(selectFormArrow);
+    menuBlock.append(selectContainer);
+    menuBlock.append(gridButton);
+
+    return menuBlock;
   }
 }

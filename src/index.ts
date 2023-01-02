@@ -17,6 +17,7 @@ import { SelectSort } from './components/productPage/selectSort/selectSort';
 import {PayModal} from './components/payModal/PayModal';
 import { Catalog } from './components/productPage/catalog/catalog';
 
+
 const app = document.querySelector('.app') as HTMLDivElement;
 
 const header = new Header().element;
@@ -46,7 +47,7 @@ app.append(description);*/
 // app.append(checkboxBlock);
 // const  filtersBlock = new AllFiltersBlock(categoriesList, brandsList).allFiltersBlock;
 // app.append(filtersBlock);
-const catalog = new Catalog(dataBase[5]).catalog;
+const catalog = new Catalog(dataBase, categoriesList, brandsList).catalog;
 app.append(catalog);
 
 
