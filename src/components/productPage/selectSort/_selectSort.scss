@@ -1,0 +1,23 @@
+@import '../../../stylesheets/variables/_colors.scss';
+
+.catalog {
+  &__select-list {
+    border: 1px solid $border-sort-block;
+    border-radius: 2px;
+    background: $btn-disabled;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 10px;
+    width: 35%;
+  }
+
+  //ToDo добавить стречоку из иконочного шрифта
+
+  &__sort-option {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    color: $primary-card-text;
+  }
+}

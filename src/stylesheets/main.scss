@@ -20,6 +20,11 @@
 @import '../components/productPage/productDescription/_bigCardProductDescription.scss';
 @import '../components/payModal/_pay-modal.scss';
 @import '../components/productPage/checkbox/_checkbox.scss';
+@import '../components/productPage/filters/filters';
+@import '../components/productPage/checkboxFilters/checkboxFiltersBlock';
+@import '../components/productPage/catalogMenu/_catalogMenu.scss';
+@import '../components/productPage/selectSort/_selectSort.scss';
+@import '../components/productPage/catalog/_catalog.scss';
 
 html {
   height: 100%;
