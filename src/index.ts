@@ -1,17 +1,21 @@
 import './stylesheets/main.scss';
-
+//ToDo наверное стоит перенести импорт переменных на самый верх
 import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
 import { CartPage } from './components/cartPage/cartPage';
 import { MainSection } from './components/mainPage/mainSection/Main';
 import { Card } from './components/productPage/productCard/Card';
 import { dataBase } from './dataBase/dataBase';
+import { snowboardBrandList, bootsBrandList, accessoriesBrandList, categoriesList, brandsList } from './dataBase/filtersList';
 import { ErrorPage } from './components/errorPage/ErrorPage';
 import { Detail } from './components/productPage/productDescription/bigCardProductDescription';
 import { createProductPage } from './components/productPage/bigCardPageAssembly/bigCardPageAssembly';
 import { Checkbox } from './components/productPage/checkbox/Checkbox';
-
+import { CheckboxBlock } from './components/productPage/checkboxFilters/checkboxFiltersBlock';
+import { AllFiltersBlock } from './components/productPage/filters/filters';
+import { SelectSort } from './components/productPage/selectSort/selectSort';
 import {PayModal} from './components/payModal/PayModal';
+import { Catalog } from './components/productPage/catalog/catalog';
 
 const app = document.querySelector('.app') as HTMLDivElement;
 
@@ -35,13 +39,22 @@ app.append(description);*/
 
 // createProductPage(dataBase[5]);
 
+/* test for checkbox*/
+// const checkbox = new Checkbox('Nitro').checkbox;
+// app.append(checkbox);
+// const checkboxBlock = new CheckboxBlock(categoriesList).checkboxBlock;
+// app.append(checkboxBlock);
+// const  filtersBlock = new AllFiltersBlock(categoriesList, brandsList).allFiltersBlock;
+// app.append(filtersBlock);
+const catalog = new Catalog(dataBase[5]).catalog;
+app.append(catalog);
 
-const checkbox = new Checkbox('Nitro').checkbox;
-app.append(checkbox);
+
+// const select = new SelectSort().selectForme;
+// app.append(select);
 
 // const payModal = new PayModal().element;
 // app.append(payModal);
-
 
 const footer = new Footer().element;
 app.append(footer);

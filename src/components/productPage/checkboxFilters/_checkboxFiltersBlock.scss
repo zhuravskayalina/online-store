@@ -1,0 +1,9 @@
+@import '../../../stylesheets/variables/_colors.scss';
+
+.filters__checkbox-alignment {
+  margin-bottom: 10px;
+}
+
+.filters__checkbox-alignment:last-child {
+  margin-bottom: 0px;
+}

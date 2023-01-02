@@ -1,16 +1,14 @@
 import { CheckboxLabelText} from './checkboxTypes';
-import { Main } from '../../mainPage/Main';
 
 export class Checkbox {
 
-  public checkbox: DocumentFragment;
+  public checkbox: HTMLFormElement;
 
   constructor(category: CheckboxLabelText) {
     this.checkbox = this.createCheckbox(category);
   }
 
-  private createCheckbox(category: CheckboxLabelText): DocumentFragment {
-    const fragment = document.createDocumentFragment();
+  private createCheckbox(category: CheckboxLabelText): HTMLFormElement {
     const formForInput = document.createElement('form');
     const inputCheckbox = document.createElement('input')
     const label = document.createElement('label');
@@ -25,8 +23,7 @@ export class Checkbox {
 
     formForInput.appendChild(inputCheckbox);
     formForInput.appendChild(label);
-    fragment.appendChild(formForInput);
 
-    return fragment;
+    return formForInput;
   }
 }
