@@ -3,10 +3,12 @@ import { SmallImage } from './galleryImages/SmallImage';
 import { Button } from '../../button/Button';
 
 export class Card {
-  public card: DocumentFragment;
+  public bigCard: DocumentFragment;
+  public smallCard: DocumentFragment;
 
   constructor(product: ProductData) {
-    this.card = this.createBigCard(product);
+    this.bigCard = this.createBigCard(product);
+    this.smallCard = this.createSmallCard(product);
   }
 
   private createBigCard({
@@ -101,6 +103,7 @@ export class Card {
     const fragment = document.createDocumentFragment();
     const card = document.createElement('div');
     const mainImage = document.createElement('img');
+    const productInfo = document.createElement('div');
     const brandName = document.createElement('p');
     const productDescription = document.createElement(
       'p'
@@ -123,9 +126,10 @@ export class Card {
     priceOfProduct.textContent = `$ ${price}`;
 
     card.appendChild(mainImage);
-    card.appendChild(brandName);
-    card.appendChild(productDescription);
-    card.appendChild(priceOfProduct);
+    productInfo.appendChild(brandName);
+    productInfo.appendChild(productDescription);
+    productInfo.appendChild(priceOfProduct);
+    card.appendChild(productInfo);
     fragment.appendChild(card);
     return fragment;
   }

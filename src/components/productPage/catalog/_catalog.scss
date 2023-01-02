@@ -1,6 +1,12 @@
 @import '../../../stylesheets/variables/_colors.scss';
 
 .catalog {
+  &__menu {
+    padding-bottom: 20px;
+    border-bottom: 1px solid $border-sort-block;
+    margin-bottom: 50px;
+  }
+
   &__container {
     width: 77%;
   }
@@ -16,11 +22,32 @@
 
   &__context {
     display: grid;
-    grid-template-columns: 1fr 7fr;
-    column-gap: 0.45%;
+    grid-template-columns: 1fr 3.5fr;
+    column-gap: 5%;
   }
 
-  &__reset-button {
+  &__menu-sort {
+    position: relative;
+  }
 
+  &__menu-form {
+    position: relative;
+  }
+
+  &__menu-sort-arrow {
+    position: absolute;
+    top: 15px;
+    bottom: auto;
+    left: auto;
+    right: 15px;
+    font-size: 8px;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 50px;
   }
 }
