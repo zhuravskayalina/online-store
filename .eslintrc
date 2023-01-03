@@ -22,12 +22,12 @@
   "rules": {
     "no-plusplus": "off",
     "no-console": "warn",
-    "max-len": [
-      "warn",
-      {
-        "code": 80
-      }
-    ],
+//    "max-len": [
+//      "warn",
+//      {
+//        "code": 80
+//      }
+//    ],
     "indent": [
       "warn",
       2,

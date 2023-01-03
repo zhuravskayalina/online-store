@@ -3,5 +3,3 @@ export enum PaymentSystem {
   Visa,
   MasterCard,
 }
-
-

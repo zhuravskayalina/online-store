@@ -16,6 +16,7 @@ import { AllFiltersBlock } from './components/productPage/filters/filters';
 import { SelectSort } from './components/productPage/selectSort/selectSort';
 import {PayModal} from './components/payModal/PayModal';
 import { Catalog } from './components/productPage/catalog/catalog';
+import { DualSlider } from './components/productPage/dualSlider/DualSlider';
 
 const app = document.querySelector('.app') as HTMLDivElement;
 
@@ -46,8 +47,8 @@ app.append(description);*/
 // app.append(checkboxBlock);
 // const  filtersBlock = new AllFiltersBlock(categoriesList, brandsList).allFiltersBlock;
 // app.append(filtersBlock);
-const catalog = new Catalog(dataBase[5]).catalog;
-app.append(catalog);
+// const catalog = new Catalog(dataBase[5]).catalog;
+// app.append(catalog);
 
 
 // const select = new SelectSort().selectForme;
@@ -55,6 +56,16 @@ app.append(catalog);
 
 // const payModal = new PayModal().element;
 // app.append(payModal);
+
+const quantitySlider = new DualSlider();
+const element = quantitySlider.quantitySlider;
+app.append(element);
+quantitySlider.initSliderStyle('quantity');
+
+const priceSlider = new DualSlider();
+const elem = priceSlider.priceSlider;
+app.append(elem);
+priceSlider.initSliderStyle('price');
 
 const footer = new Footer().element;
 app.append(footer);

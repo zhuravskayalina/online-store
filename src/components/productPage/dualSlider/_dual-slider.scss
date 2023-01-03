@@ -1,0 +1,101 @@
+@import '../../../stylesheets/variables/_colors.scss';
+@import '../../../stylesheets/components/_input.scss';
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  width: 235px;
+  margin: 0 auto 30px;
+
+  &__slider-to {
+    z-index: 0;
+  }
+
+  &__controls {
+    margin-top: 10px;
+  }
+}
+
+.num-controls {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  align-items: center;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  &__label {
+    text-transform: capitalize;
+    color: $slider-text;
+    font-size: 10px;
+    line-height: 140%;
+    margin-bottom: 5px;
+
+    &_max {
+      text-align: end;
+    }
+  }
+
+  &__times-input {
+    @include input-number-non-arrows;
+    font-size: 18px;
+    border: none;
+    padding-left: 20px;
+    width: 67px;
+
+    &[data-type='max'] {
+      text-align: end;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  &__dollar-icon {
+    position: absolute;
+    color: $slider-text;
+    top: 22px;
+
+    &_max {
+      left: 20px;
+    }
+  }
+}
+
+.input-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  width: 235px;
+  position: absolute;
+  background-color: $slider-background;
+  pointer-events: none;
+  margin: 0;
+  border-radius: 2px;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    pointer-events: all;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px $blue;
+    cursor: pointer;
+
+    &:hover {
+      background: #f7f7f7;
+    }
+  }
+}
+
+.slider__slider-from {
+  height: 0;
+  z-index: 1;
+  margin-top: 2px;
+}
