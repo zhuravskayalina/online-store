@@ -2,11 +2,27 @@ import { SelectSort } from '../selectSort/selectSort';
 
 export class CatalogMenu {
   public catalogMenu: HTMLDivElement;
+  public changeViewButton: HTMLButtonElement;
 
   constructor() {
     this.catalogMenu = this.createMenu();
+    this.changeViewButton = this.createChangeViewButton();
+    this.catalogMenu.append(this.changeViewButton);
   }
-
+  handleChangeView(handler: () => void) {
+    this.changeViewButton.addEventListener('click', () => {
+      handler();
+    });
+  }
+  private createChangeViewButton() {
+    const gridButton = document.createElement('button');
+    gridButton.classList.add('catalog__menu-buttons');
+    const iconGrid = document.createElement('span');
+    iconGrid.classList.add('icon-list');
+    gridButton.append(iconGrid);
+    gridButton.type = 'button';
+    return gridButton;
+  }
   private createMenu(): HTMLDivElement{
     const menuBlock = document.createElement('div');
     const filtersResetButton = document.createElement('button');
@@ -14,8 +30,8 @@ export class CatalogMenu {
     const selectContainer = document.createElement('div');
     const selectForm = new SelectSort().selectForme;
     const selectFormArrow = document.createElement('span');
-    const gridButton = document.createElement('button');
     const emptyDiv = document.createElement('div');
+
 
     selectContainer.classList.add('catalog__menu-sort');
     selectForm.classList.add('catalog__menu-form');
@@ -37,11 +53,7 @@ export class CatalogMenu {
     copyLinkButton.append('Copy Link');
     copyLinkButton.type = 'button';
 
-    gridButton.classList.add('catalog__menu-buttons');
-    const iconGrid = document.createElement('span');
-    iconGrid.classList.add('icon-list');
-    gridButton.append(iconGrid);
-    gridButton.type = 'button';
+
 
     emptyDiv.classList.add('catalog__menu-empty-div');
     emptyDiv.textContent = '';
@@ -52,8 +64,10 @@ export class CatalogMenu {
     selectContainer.append(selectForm);
     selectContainer.append(selectFormArrow);
     menuBlock.append(selectContainer);
-    menuBlock.append(gridButton);
-
+    // const gridButton = this.changeViewButton;
+    // menuBlock.append(gridButton);
+    // console.log(gridButton);
+    // console.log(this.changeViewButton);
     return menuBlock;
   }
 }
