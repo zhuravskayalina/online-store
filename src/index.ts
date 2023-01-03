@@ -38,7 +38,7 @@ app.append(description);*/
 // const errorPage = new ErrorPage().element;
 // app.append(errorPage);
 
-// createProductPage(dataBase[5]);
+createProductPage(dataBase[5]);
 
 /* test for checkbox*/
 // const checkbox = new Checkbox('Nitro').checkbox;
@@ -57,15 +57,15 @@ app.append(description);*/
 // const payModal = new PayModal().element;
 // app.append(payModal);
 
-const quantitySlider = new DualSlider();
-const element = quantitySlider.quantitySlider;
-app.append(element);
-quantitySlider.initSliderStyle('quantity');
-
-const priceSlider = new DualSlider();
-const elem = priceSlider.priceSlider;
-app.append(elem);
-priceSlider.initSliderStyle('price');
+// const quantitySlider = new DualSlider();
+// const element = quantitySlider.quantitySlider;
+// app.append(element);
+// quantitySlider.initSliderStyle('quantity');
+//
+// const priceSlider = new DualSlider();
+// const elem = priceSlider.priceSlider;
+// app.append(elem);
+// priceSlider.initSliderStyle('price');
 
 const footer = new Footer().element;
 app.append(footer);
