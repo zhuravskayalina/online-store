@@ -10,6 +10,11 @@
     appearance: none;
     padding: 10px;
     width: 35%;
+    text-transform: capitalize;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
 
   //ToDo добавить стречоку из иконочного шрифта

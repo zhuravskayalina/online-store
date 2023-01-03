@@ -38,7 +38,7 @@ app.append(description);*/
 // const errorPage = new ErrorPage().element;
 // app.append(errorPage);
 
-createProductPage(dataBase[5]);
+// createProductPage(dataBase[5]);
 
 /* test for checkbox*/
 // const checkbox = new Checkbox('Nitro').checkbox;
@@ -51,8 +51,8 @@ createProductPage(dataBase[5]);
 // app.append(catalog);
 
 
-// const select = new SelectSort().selectForme;
-// app.append(select);
+const select = new SelectSort().selectForme;
+app.append(select);
 
 // const payModal = new PayModal().element;
 // app.append(payModal);
