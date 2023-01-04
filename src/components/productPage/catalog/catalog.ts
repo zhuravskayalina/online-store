@@ -26,7 +26,6 @@ export class Catalog {
     brandsList: Array<Filters>
   ) {
     this.isGridView = true;
-    // this.catalog = this.createCatalog(productArray, categoriesList, brandsList);
     this.productArray = productArray;
     this.categoriesList = categoriesList;
     this.brandsList = brandsList;
@@ -53,7 +52,6 @@ export class Catalog {
 
   setView = () => {
     this.isGridView = !this.isGridView;
-    console.log(this.isGridView);
     if (!this.isGridView) {
       this.productBlock.classList.remove('grid');
       this.productBlock.replaceChildren(this.createProductBlock(this.productArray));
@@ -113,7 +111,6 @@ export class Catalog {
   private createProductBlock(productArray: Array<ProductData>) {
     const productGrid = document.createElement('div');
     productGrid.classList.add('catalog__cards');
-    console.log(this.isGridView);
     for (let i = 0; i < productArray.length; i++) {
       const productItem = productArray[i];
       if (this.isGridView) {
@@ -131,62 +128,4 @@ export class Catalog {
     }
     return productGrid;
   }
-
-  // private createCatalog(
-  //   productArray: Array<ProductData>,
-  //   categoriesList: Array<Filters>,
-  //   brandsList: Array<Filters>
-  // ): HTMLElement {
-  //   const main = new Main().element;
-  //   main.classList.add('catalog');
-  //
-  //   const catalogWrapper = document.createElement('div');
-  //   const catalogHeader = document.createElement('p');
-  //   const catalogContext = document.createElement('div');
-  //   const filtersBlock = document.createElement('div');
-  //   const productWrapper = document.createElement('div');
-  //   const catalogMenu = new CatalogMenu();
-  //   catalogMenu.handleChangeView(this.setView);
-  //   const functionalBlock = catalogMenu.catalogMenu;
-  //   const productGrid = document.createElement('div');
-  //   catalogWrapper.classList.add('catalog__container');
-  //
-  //   catalogHeader.classList.add('catalog__header');
-  //   catalogHeader.textContent = 'Catalog';
-  //
-  //   catalogContext.classList.add('catalog__context');
-  //
-  //   const filters = new AllFiltersBlock(categoriesList, brandsList)
-  //     .allFiltersBlock;
-  //   filtersBlock.append(filters);
-  //
-  //   // ToDo  здесь нужно предусмотреть отрисовку smallCardInline
-  //   productGrid.classList.add('catalog__cards');
-  //   console.log(this.isGridView);
-  //   for (let i = 0; i < productArray.length; i++) {
-  //     const productItem = productArray[i];
-  //     if (this.isGridView) {
-  //       const productCard = new Card(productItem).smallCard;
-  //       productGrid.append(productCard);
-  //       productGrid.classList.remove('table');
-  //       productGrid.classList.add('grid');
-  //     }
-  //     if (!this.isGridView) {
-  //       const productCard = new Card(productItem).smallCardTable;
-  //       productGrid.append(productCard);
-  //       productGrid.classList.remove('grid');
-  //       productGrid.classList.add('table');
-  //     }
-  //   }
-  //
-  //   productWrapper.appendChild(functionalBlock);
-  //   productWrapper.appendChild(productGrid);
-  //   catalogContext.appendChild(filtersBlock);
-  //   catalogContext.appendChild(productWrapper);
-  //   catalogWrapper.appendChild(catalogHeader);
-  //   catalogWrapper.appendChild(catalogContext);
-  //
-  //   main.appendChild(catalogWrapper);
-  //   return main;
-  // }
 }
