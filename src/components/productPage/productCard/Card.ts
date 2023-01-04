@@ -1,12 +1,13 @@
 import { ProductData } from '../../../dataBase/types';
 import { SmallImage } from './galleryImages/SmallImage';
 import { Button } from '../../button/Button';
-import { BuyNowButton} from '../../button/buyNowButton';
+import { BuyNowButton } from '../../button/buyNowButton';
 
 export class Card {
   public bigCard: DocumentFragment;
   public smallCard: DocumentFragment;
   public smallCardTable: DocumentFragment;
+
   constructor(product: ProductData) {
     this.bigCard = this.createBigCard(product);
     this.smallCard = this.createSmallCard(product, false);
@@ -35,7 +36,8 @@ export class Card {
     const priceOfProduct = document.createElement('p');
     const inStock = document.createElement('p');
     const button = new Button('Add to cart', 'card__button').addToCardButton;
-    const buyNowButton = new BuyNowButton('Quick buy', 'card__button-now').buyNowButton;
+    const buyNowButton = new BuyNowButton('Quick buy', 'card__button-now')
+      .buyNowButton;
 
     card.classList.add('card');
 
@@ -98,12 +100,10 @@ export class Card {
     return fragment;
   }
 
-  private createSmallCard({
-    brand,
-    name,
-    price,
-    images,
-  }: ProductData, isTableView: boolean): DocumentFragment {
+  private createSmallCard(
+    { brand, name, price, images }: ProductData,
+    isTableView: boolean
+  ): DocumentFragment {
     const fragment = document.createDocumentFragment();
     const card = document.createElement('div');
     const mainImage = document.createElement('img');
@@ -115,7 +115,6 @@ export class Card {
     const priceOfProduct = document.createElement('p');
 
     if (isTableView) {
-
     }
 
     card.classList.add('small-card');
