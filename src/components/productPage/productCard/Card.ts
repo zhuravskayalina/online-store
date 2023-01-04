@@ -1,6 +1,7 @@
 import { ProductData } from '../../../dataBase/types';
 import { SmallImage } from './galleryImages/SmallImage';
 import { Button } from '../../button/Button';
+import { BuyNowButton} from '../../button/buyNowButton';
 
 export class Card {
   public bigCard: DocumentFragment;
@@ -34,6 +35,7 @@ export class Card {
     const priceOfProduct = document.createElement('p');
     const inStock = document.createElement('p');
     const button = new Button('Add to cart', 'card__button').addToCardButton;
+    const buyNowButton = new BuyNowButton('Quick buy', 'card__button-now').buyNowButton;
 
     card.classList.add('card');
 
@@ -90,6 +92,7 @@ export class Card {
     info.appendChild(priceOfProduct);
     info.appendChild(inStock);
     info.appendChild(button);
+    info.appendChild(buyNowButton);
     fragment.appendChild(card);
 
     return fragment;

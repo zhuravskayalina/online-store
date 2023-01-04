@@ -27,11 +27,11 @@ app.append(header);
 // const mainPage = new MainSection().element;
 // app.append(mainPage);
 //todo change for createProductPage
-/*let test = new Card(dataBase[5]).card;
+let test = new Card(dataBase[5]).bigCard;
 app.appendChild(test);
 
 const description = new Detail(dataBase[5]).detail;
-app.append(description);*/
+app.append(description);
 
 // const cartPage = new CartPage().element;
 // app.append(cartPage);
@@ -49,8 +49,8 @@ app.append(description);*/
 // const  filtersBlock = new AllFiltersBlock(categoriesList, brandsList).allFiltersBlock;
 // app.append(filtersBlock);
 
-const catalog = new Catalog(dataBase, categoriesList, brandsList).catalog;
-app.append(catalog);
+// const catalog = new Catalog(dataBase, categoriesList, brandsList).catalog;
+// app.append(catalog);
 
 
 // const select = new SelectSort().selectList;
