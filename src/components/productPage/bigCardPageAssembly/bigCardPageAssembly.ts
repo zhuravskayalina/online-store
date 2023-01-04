@@ -13,7 +13,7 @@ export function createProductPage(product: ProductData): void {
   container.classList.add('main__container');
   main.appendChild(container);
 
-  const card = new Card(product).card;
+  const card = new Card(product).bigCard;
   container.appendChild(card);
 
   const description = new Detail(product).detail;
