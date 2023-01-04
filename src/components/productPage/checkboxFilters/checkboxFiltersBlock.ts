@@ -7,13 +7,13 @@ export class CheckboxBlock {
   constructor(filter: Array<Filters>) {
     this.checkboxBlock = this.createCheckboxBlock(filter);
   }
-
+//ToDo добавить обработчик handler
   private createCheckboxBlock(filter: Array<Filters>) {
 
     const fragment = document.createDocumentFragment();
     const categoryBlock = document.createElement('div');
-    filter.map(element => {
-      const rangeCheckbox = new Checkbox(element).checkbox;
+    filter.map(filterUnit => {
+      const rangeCheckbox = new Checkbox(filterUnit).checkbox;
       rangeCheckbox.classList.add('filters__checkbox-alignment');
       categoryBlock.append(rangeCheckbox);
     });

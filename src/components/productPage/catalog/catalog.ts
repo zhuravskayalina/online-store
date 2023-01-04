@@ -6,13 +6,25 @@ import { Filters} from '../../../dataBase/types';
 import { Card } from '../productCard/Card';
 
 
-// ToDo написать здесь класс для сборки итоговой страницы. Отдельно сделать класс с фильтрами, отдельно с продуктовой сеткой
-
 export class Catalog {
   public catalog: HTMLElement;
-
+  public isGridView: boolean;
+  public productArray: Array<ProductData>;
+  public categoriesList: Array<Filters>;
+  public brandsList: Array<Filters>;
   constructor(productArray: Array<ProductData>, categoriesList: Array<Filters>, brandsList: Array<Filters>) {
     this.catalog = this.createCatalog(productArray, categoriesList, brandsList);
+    this.isGridView = true;
+    this.productArray = productArray;
+    this.categoriesList = categoriesList;
+    this.brandsList = brandsList;
+  }
+  setView = () => {
+    this.isGridView = !this.isGridView;
+    if (!this.isGridView) {
+      this.catalog.replaceChildren(''); //вместо пустой строки метод,
+      // рисующий линии продуктов
+    }
   }
 
   private createCatalog(productArray: Array<ProductData>, categoriesList: Array<Filters>, brandsList: Array<Filters>): HTMLElement {
@@ -21,12 +33,15 @@ export class Catalog {
 
     const catalogWrapper = document.createElement('div');
     const catalogHeader = document.createElement('p');
-    const catalogContext = document.createElement('div'); // todo display-grid
+    const catalogContext = document.createElement('div');
     const filtersBlock = document.createElement('div');
     const productWrapper = document.createElement('div');
-    const functionalBlock = new CatalogMenu().catalogMenu;
-    const productGrid = document.createElement('div');
 
+    const catalogMenu = new CatalogMenu();
+    catalogMenu.handleChangeView(this.setView);
+
+    const functionalBlock = catalogMenu.catalogMenu;
+    const productGrid = document.createElement('div');
     catalogWrapper.classList.add('catalog__container');
 
     catalogHeader.classList.add('catalog__header');
@@ -37,13 +52,20 @@ export class Catalog {
     const filters = new AllFiltersBlock(categoriesList, brandsList).allFiltersBlock;
     filtersBlock.append(filters);
 
+    // ToDo  здесь нужно предусмотреть отрисовку smallCardInline - добавить
+    //  такой тип в конструктор класса Card
+
     productGrid.classList.add('catalog__cards');
     for (let i = 0; i < 15; i++) {
-      const productItem = productArray[i];
-      const productCard = new Card(productItem).smallCard;
-      productGrid.append(productCard);
-    }
-
+      const productItem = productArray[i]
+      if (this.isGridView) {
+        const productCard = new Card(productItem).smallCard;
+        productGrid.append(productCard);
+      } else {
+        const productCard = new Card(productItem).smallCard;
+        productGrid.append(productCard);
+      }
+     }
 
     productWrapper.appendChild(functionalBlock);
     productWrapper.appendChild(productGrid);
