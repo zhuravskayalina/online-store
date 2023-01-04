@@ -1,4 +1,5 @@
 import { SelectSort } from '../selectSort/selectSort';
+import { ProductData } from '../../../dataBase/types';
 
 export class CatalogMenu {
   public catalogMenu: HTMLDivElement;

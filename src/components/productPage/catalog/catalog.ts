@@ -55,8 +55,11 @@ export class Catalog {
     this.isGridView = !this.isGridView;
     console.log(this.isGridView);
     if (!this.isGridView) {
-      this.catalog.replaceChildren(''); //вместо пустой строки метод,
-      // рисующий линии продуктов
+      this.productBlock.classList.remove('grid');
+      this.productBlock.replaceChildren(this.createProductBlock(this.productArray));
+    }
+    if (this.isGridView) {
+        this.productBlock.replaceChildren(this.createProductBlock(this.productArray));
     }
   };
 
