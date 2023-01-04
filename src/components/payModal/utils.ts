@@ -53,7 +53,7 @@ export function switchInputBorder(
   }
 }
 
-export function changeSubmitButtonClass(event: Event): void {
+export function changeSubmitButtonClass(): void {
   const button = document.querySelector(
     '.modal__submit-btn'
   ) as HTMLButtonElement;

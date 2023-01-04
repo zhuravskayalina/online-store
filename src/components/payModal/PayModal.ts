@@ -81,7 +81,7 @@ export class PayModal {
     });
 
     name.addEventListener('input', function (event) {
-      changeSubmitButtonClass(event);
+      changeSubmitButtonClass();
     });
 
     return name;
@@ -104,7 +104,7 @@ export class PayModal {
     });
 
     number.addEventListener('input', function (event) {
-      changeSubmitButtonClass(event);
+      changeSubmitButtonClass();
     });
     return number;
   }
@@ -121,7 +121,7 @@ export class PayModal {
     });
 
     delivery.addEventListener('input', function (event) {
-      changeSubmitButtonClass(event);
+      changeSubmitButtonClass();
     });
 
     return delivery;
@@ -139,7 +139,7 @@ export class PayModal {
     });
 
     email.addEventListener('input', function (event) {
-      changeSubmitButtonClass(event);
+      changeSubmitButtonClass();
     });
 
     return email;
@@ -182,7 +182,7 @@ export class PayModal {
     });
 
     creditCard.addEventListener('input', function (event) {
-      changeSubmitButtonClass(event);
+      changeSubmitButtonClass();
     });
 
     return creditCard;
@@ -234,7 +234,7 @@ export class PayModal {
     });
 
     exp.addEventListener('input', function (event) {
-      changeSubmitButtonClass(event);
+      changeSubmitButtonClass();
     });
 
     return exp;
@@ -255,7 +255,7 @@ export class PayModal {
     });
 
     cvc.addEventListener('input', function (event) {
-      changeSubmitButtonClass(event);
+      changeSubmitButtonClass();
     });
 
     return cvc;

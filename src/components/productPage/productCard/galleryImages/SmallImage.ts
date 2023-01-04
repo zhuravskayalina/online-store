@@ -10,6 +10,12 @@ export class SmallImage {
     image.classList.add('card__gallery-img');
     image.setAttribute('alt', 'Product look');
     image.setAttribute('src', url);
+
+    image.addEventListener('click', function(event) {
+      const bigImage = document.querySelector('.card__main-img') as HTMLImageElement;
+      bigImage.src = image.src;
+    })
+
     return image;
   }
 }
