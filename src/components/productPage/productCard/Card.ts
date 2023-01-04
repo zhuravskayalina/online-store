@@ -5,10 +5,11 @@ import { Button } from '../../button/Button';
 export class Card {
   public bigCard: DocumentFragment;
   public smallCard: DocumentFragment;
-
+  public smallCardTable: DocumentFragment;
   constructor(product: ProductData) {
     this.bigCard = this.createBigCard(product);
     this.smallCard = this.createSmallCard(product);
+    this.smallCardTable = this.createSmallCardTable(product);
   }
 
   private createBigCard({
@@ -123,6 +124,46 @@ export class Card {
     productDescription.textContent = name;
 
     priceOfProduct.classList.add('small-card__price');
+    priceOfProduct.textContent = `$ ${price}`;
+
+    card.appendChild(mainImage);
+    productInfo.appendChild(brandName);
+    productInfo.appendChild(productDescription);
+    productInfo.appendChild(priceOfProduct);
+    card.appendChild(productInfo);
+    fragment.appendChild(card);
+    return fragment;
+  }
+
+  private createSmallCardTable({
+    brand,
+    name,
+    price,
+    images,
+  }: ProductData): DocumentFragment {
+    const fragment = document.createDocumentFragment();
+    const card = document.createElement('div');
+    const mainImage = document.createElement('img');
+    const productInfo = document.createElement('div');
+    const brandName = document.createElement('p');
+    const productDescription = document.createElement(
+      'p'
+    ) as HTMLParagraphElement;
+    const priceOfProduct = document.createElement('p');
+
+    card.classList.add('small-card-table');
+
+    mainImage.alt = 'Product look';
+    mainImage.src = images[0];
+    mainImage.classList.add('small-card-table__main-img');
+
+    brandName.classList.add('small-card-table__description');
+    brandName.textContent = brand;
+
+    productDescription.classList.add('small-card-table__description');
+    productDescription.textContent = name;
+
+    priceOfProduct.classList.add('small-card-table__price');
     priceOfProduct.textContent = `$ ${price}`;
 
     card.appendChild(mainImage);
