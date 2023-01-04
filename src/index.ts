@@ -53,9 +53,8 @@ const catalog = new Catalog(dataBase, categoriesList, brandsList).catalog;
 app.append(catalog);
 
 
-
-const select = new SelectSort().selectForme;
-app.append(select);
+// const select = new SelectSort().selectList;
+// app.append(select);
 
 // const payModal = new PayModal().element;
 // app.append(payModal);
