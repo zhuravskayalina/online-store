@@ -4,6 +4,7 @@ import { AllFiltersBlock } from '../filters/filters';
 import { CatalogMenu } from '../catalogMenu/catalogMenu';
 import { Filters } from '../../../dataBase/types';
 import { Card } from '../productCard/Card';
+const bannerPath = require('../../../assets/images/banner.jpg');
 
 export class Catalog {
   public catalog: HTMLElement;
@@ -70,8 +71,14 @@ export class Catalog {
   private createCatalogContainer() {
     const catalogWrapper = document.createElement('div');
     catalogWrapper.classList.add('catalog__container');
-    const catalogHeader = document.createElement('p');
 
+    const catalogBanner = document.createElement('img');
+    catalogBanner.classList.add('catalog__banner');
+    catalogBanner.src = bannerPath;
+    catalogBanner.alt = 'Banner';
+    catalogWrapper.append(catalogBanner);
+
+    const catalogHeader = document.createElement('p');
     catalogHeader.classList.add('catalog__header');
     catalogHeader.textContent = 'Catalog';
 

@@ -1,4 +1,4 @@
-import { Filters } from "./types";
+import { Filters } from './types';
 
 export const snowboardBrandList: Array<Filters> = [
   'Burton',
@@ -7,7 +7,8 @@ export const snowboardBrandList: Array<Filters> = [
   'Backcountry',
   'Rome',
   'Roxy',
-  'Drake']
+  'Drake',
+];
 
 export const bootsBrandList: Array<Filters> = [
   'ThirtyTwo',
@@ -15,7 +16,8 @@ export const bootsBrandList: Array<Filters> = [
   'Vans',
   'DC',
   'Nitro',
-  'Northwave Snow']
+  'Northwave Snow',
+];
 
 export const accessoriesBrandList: Array<Filters> = [
   'Smith',
@@ -23,12 +25,24 @@ export const accessoriesBrandList: Array<Filters> = [
   'Sweet Protection',
   'Giro',
   'Oakley',
-  'GoogleSoc']
+  'GoogleSoc',
+];
 
-export const categoriesList: Array<Filters> = ['snowboards', 'boots', 'accessories']
+export const categoriesList: Array<Filters> = [
+  'snowboards',
+  'boots',
+  'accessories',
+];
 
-export const brandsList: Array<Filters> = [
+const allBrands: Array<Filters> = [
   ...snowboardBrandList,
   ...bootsBrandList,
   ...accessoriesBrandList,
-  ]
+];
+
+export const brandsList: Array<Filters> = [];
+allBrands.forEach((brand) => {
+  if (brandsList.indexOf(brand) === -1) {
+    brandsList.push(brand);
+  }
+});
