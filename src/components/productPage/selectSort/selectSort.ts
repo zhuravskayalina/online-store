@@ -1,12 +1,11 @@
 export class SelectSort {
-  public selectForme: HTMLFormElement;
+  public selectList: HTMLSelectElement;
 
   constructor() {
-    this.selectForme = this.createSelectForme();
+    this.selectList = this.createSelectList();
   }
 
-  createSelectForme(): HTMLFormElement {
-    const selectForme = document.createElement('form');
+  createSelectList(): HTMLSelectElement {
     const selectList = document.createElement('select');
     const selectOptionEmpty = document.createElement('option');
     const selectOptionPrice = document.createElement('option');
@@ -31,9 +30,7 @@ export class SelectSort {
     selectList.appendChild(selectOptionPrice);
     selectList.appendChild(selectOptionRating);
 
-    selectForme.appendChild(selectList);
-
-    return selectForme;
+    return selectList;
   }
 
 }
