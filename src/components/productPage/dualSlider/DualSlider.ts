@@ -1,5 +1,5 @@
 import { rangeSliderTypes } from './types';
-import { getNumbersValues, fillLine, setZIndex } from './utils';
+import { fillLine, getNumbersValues, setZIndex } from './utils';
 
 export class DualSlider {
   priceSlider: HTMLDivElement;
@@ -92,7 +92,7 @@ export class DualSlider {
 
       const [from, to] = getNumbersValues(fromSlider, toSlider);
 
-      console.log('from:', target.dataset.type , from);
+      console.log('from:', target.dataset.type, from);
 
       fillLine(fromSlider, toSlider, toSlider);
       if (from > to) {
@@ -184,10 +184,10 @@ export class DualSlider {
 
     const dollarIcon = document.createElement('p');
     dollarIcon.classList.add('num-controls__dollar-icon');
-    dollarIcon.innerHTML = '$';
+    dollarIcon.innerHTML = dataType === 'price' ? '$' : '-';
 
     if (type === 'max') {
-      dollarIcon.classList.add('num-controls__dollar-icon_max')
+      dollarIcon.classList.add('num-controls__dollar-icon_max');
     }
 
     const label = document.createElement('label');
@@ -196,7 +196,7 @@ export class DualSlider {
     label.innerHTML = `${type} ${dataType}`;
 
     if (type === 'max') {
-      label.classList.add('num-controls__label_max')
+      label.classList.add('num-controls__label_max');
     }
 
     let input;
