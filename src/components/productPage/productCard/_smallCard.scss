@@ -5,6 +5,13 @@
   flex-direction: column;
   align-content: center;
 
+  &_table {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;
+    border-bottom: 1px solid $border-sort-block;
+  }
+
   &:hover {
     cursor: pointer;
 
@@ -19,6 +26,11 @@
   height: 100%;
   margin-bottom: 15px;
   transition: 0.5s;
+
+  &_table {
+    width: 20%;
+    padding-bottom: 10px;
+  }
 }
 
 .small-card__description {
@@ -29,6 +41,11 @@
   line-height: 100%;
   color: $small-card-description;
   margin-bottom: 10px;
+
+  &_table {
+    display: inline-block;
+    margin-right: 5px;
+  }
 }
 
 .small-card__price {
