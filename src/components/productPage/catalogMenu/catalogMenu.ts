@@ -5,12 +5,23 @@ export class CatalogMenu {
   public catalogMenu: HTMLDivElement;
   public changeViewButton: HTMLButtonElement;
   public isGridView: boolean;
-  // public newIconViewButton: HTMLSpanElement;
+  public copyLinkButton: HTMLButtonElement;
+  public resetFiltersButton: HTMLButtonElement;
+  public selectSortContainer: HTMLDivElement;
+  private selectSort: HTMLSelectElement;
 
   constructor() {
     this.isGridView = true;
     this.catalogMenu = this.createMenu();
+    this.copyLinkButton = this.createCopyLinkButton();
     this.changeViewButton = this.createChangeViewButton();
+    this.resetFiltersButton = this.createResetFiltersButton();
+    this.selectSort = new SelectSort().selectList;
+    this.selectSortContainer = this.createSelectSortContainer();
+
+    this.catalogMenu.append(this.copyLinkButton);
+    this.catalogMenu.append(this.resetFiltersButton);
+    this.catalogMenu.append(this.selectSortContainer);
     this.catalogMenu.append(this.changeViewButton);
   }
 
@@ -21,6 +32,18 @@ export class CatalogMenu {
       this.changeViewButton.replaceChildren(this.createNewIconViewButton());
     });
   }
+
+  private createResetFiltersButton() {
+    const resetFiltersButton = document.createElement('button');
+    resetFiltersButton.classList.add('catalog__menu-buttons');
+    const iconReset = document.createElement('span');
+    iconReset.classList.add('icon-reset', 'catalog__icon-pos');
+    resetFiltersButton.append(iconReset);
+    resetFiltersButton.append('Reset filters');
+    resetFiltersButton.type = 'button';
+    return resetFiltersButton;
+  }
+
 
   private createChangeViewButton() {
     const gridButton = document.createElement('button');
@@ -44,48 +67,32 @@ export class CatalogMenu {
     return iconGrid;
   }
 
-  private createMenu(): HTMLDivElement {
-    const menuBlock = document.createElement('div');
-    const filtersResetButton = document.createElement('button');
+  private createCopyLinkButton() {
     const copyLinkButton = document.createElement('button');
-    const selectContainer = document.createElement('div');
-    const selectForm = new SelectSort().selectForme;
-    const selectFormArrow = document.createElement('span');
-    const emptyDiv = document.createElement('div');
-
-    selectContainer.classList.add('catalog__menu-sort');
-    selectForm.classList.add('catalog__menu-form');
-    selectFormArrow.classList.add('icon-arrow', 'catalog__menu-sort-arrow');
-
-    menuBlock.classList.add('catalog__menu');
-
-    filtersResetButton.classList.add('catalog__menu-buttons');
-    const iconReset = document.createElement('span');
-    iconReset.classList.add('icon-reset', 'catalog__icon-pos');
-    filtersResetButton.append(iconReset);
-    filtersResetButton.append('Reset filters');
-    filtersResetButton.type = 'button';
-
     copyLinkButton.classList.add('catalog__menu-buttons');
     const iconCopyLink = document.createElement('span');
     iconCopyLink.classList.add('icon-copy', 'catalog__icon-pos');
     copyLinkButton.append(iconCopyLink);
     copyLinkButton.append('Copy Link');
     copyLinkButton.type = 'button';
+    return copyLinkButton;
+  }
 
-    emptyDiv.classList.add('catalog__menu-empty-div');
-    emptyDiv.textContent = '';
+  private createSelectSortContainer() {
+    const selectContainer = document.createElement('div');
+    selectContainer.classList.add('catalog__menu-sort');
 
-    menuBlock.append(filtersResetButton);
-    menuBlock.append(copyLinkButton);
-    menuBlock.append(emptyDiv);
-    selectContainer.append(selectForm);
-    selectContainer.append(selectFormArrow);
-    menuBlock.append(selectContainer);
-    // const gridButton = this.changeViewButton;
-    // menuBlock.append(gridButton);
-    // console.log(gridButton);
-    // console.log(this.changeViewButton);
+    const selectFormArrow = document.createElement('span');
+    selectFormArrow.classList.add('icon-arrow', 'catalog__menu-sort-arrow');
+
+    selectContainer.append(this.selectSort, selectFormArrow);
+    return selectContainer;
+  }
+
+  private createMenu(): HTMLDivElement {
+    const menuBlock = document.createElement('div');
+    menuBlock.classList.add('catalog__menu');
+
     return menuBlock;
   }
 }

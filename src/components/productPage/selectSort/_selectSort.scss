@@ -9,11 +9,17 @@
     -moz-appearance: none;
     appearance: none;
     padding: 10px;
-    width: 35%;
+    width: 200px;
     text-transform: capitalize;
+    height: 40px;
 
     &:focus-visible {
       outline: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+      border-color: $border-sort-block-hover;
     }
   }
 
