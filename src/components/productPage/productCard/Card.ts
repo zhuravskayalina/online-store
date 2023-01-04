@@ -117,6 +117,8 @@ export class Card {
 
     card.classList.add('small-card');
 
+    productInfo.classList.add('small-card__info-box');
+
     mainImage.alt = 'Product look';
     mainImage.src = images[0];
     mainImage.classList.add('small-card__main-img');
@@ -132,6 +134,7 @@ export class Card {
 
     if (isTableView) {
       card.classList.add('small-card_table');
+      productInfo.classList.add('small-card__info-box_table');
       mainImage.classList.add('small-card__main-img_table');
       brandName.classList.add('small-card__description_table');
       productDescription.classList.add('small-card__description_table');
