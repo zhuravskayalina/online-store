@@ -1,0 +1,35 @@
+@import '../../../stylesheets/variables/_colors.scss';
+
+.small-card-table {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border-bottom: 1px solid $border-sort-block;
+
+  &__main-img {
+    width: 20%;
+    height: 100%;
+    padding-bottom: 10px;
+  }
+
+  &__description {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 100%;
+    color: $small-card-description;
+    margin-bottom: 10px;
+    margin-right: 5px;
+  }
+
+  &__price {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+    color: $primary-card-text;
+  }
+}
