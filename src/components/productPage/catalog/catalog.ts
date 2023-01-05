@@ -86,8 +86,7 @@ export class Catalog {
         return filters.includes(brand) && filters.includes(category);
       });
       console.log('category && brand');
-    }
-    if (
+    } else if (
       this.productArray.some(
         ({ brand, category }) =>
           filters.includes(brand) && !filters.includes(category)
@@ -96,8 +95,7 @@ export class Catalog {
       filtredProducts = this.productArray.filter(({ brand }) => {
         return filters.includes(brand);
       });
-    }
-    if (
+    } else if (
       this.productArray.some(
         ({ brand, category }) =>
           !filters.includes(brand) && filters.includes(category)
