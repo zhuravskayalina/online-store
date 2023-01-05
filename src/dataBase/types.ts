@@ -40,9 +40,4 @@ export type Category = 'snowboards' | 'boots' | 'accessories';
 
 export type BootsSize = 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
-export type Filters =
-  | SnowboardBrand
-  | BootsBrand
-  | AccessoriesBrand
-  | Category
-  | BootsSize;
+export type Filters = SnowboardBrand | BootsBrand | AccessoriesBrand | Category;

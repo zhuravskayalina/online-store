@@ -5,7 +5,9 @@ import { BuyNowButton } from '../../button/buyNowButton';
 
 export class Card {
   public bigCard: DocumentFragment;
+
   public smallCard: DocumentFragment;
+
   public smallCardTable: DocumentFragment;
 
   constructor(product: ProductData) {
@@ -113,9 +115,6 @@ export class Card {
       'p'
     ) as HTMLParagraphElement;
     const priceOfProduct = document.createElement('p');
-
-    if (isTableView) {
-    }
 
     card.classList.add('small-card');
 
