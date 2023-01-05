@@ -1,20 +1,33 @@
-import { CheckboxBlock } from "../checkboxFilters/checkboxFiltersBlock";
-import { Filters } from "../../../dataBase/types";
+import { CheckboxBlock } from '../checkboxFilters/checkboxFiltersBlock';
+import { Filters } from '../../../dataBase/types';
 import { DualSlider } from '../dualSlider/DualSlider';
 
 export class AllFiltersBlock {
   public allFiltersBlock: DocumentFragment;
 
-  constructor(categories: Array<Filters>, brands: Array<Filters>) {
-    this.allFiltersBlock = this.createAllFiltersBlock(categories, brands);
+  constructor(
+    categories: Array<Filters>,
+    brands: Array<Filters>,
+    setFilters: (category: string) => void
+  ) {
+    this.allFiltersBlock = this.createAllFiltersBlock(
+      categories,
+      brands,
+      setFilters
+    );
   }
 
-  private createAllFiltersBlock(categories: Array<Filters>, brands: Array<Filters>): DocumentFragment {
+  private createAllFiltersBlock(
+    categories: Array<Filters>,
+    brands: Array<Filters>,
+    setFilters: (category: string) => void
+  ): DocumentFragment {
     const fragment = document.createDocumentFragment();
     const categoriesHeader = document.createElement('p');
-    const assortmentSet = new CheckboxBlock(categories).checkboxBlock;
+    const assortmentSet = new CheckboxBlock(categories, setFilters)
+      .checkboxBlock;
     const brandsHeader = document.createElement('p');
-    const brandsSet = new CheckboxBlock(brands).checkboxBlock;
+    const brandsSet = new CheckboxBlock(brands, setFilters).checkboxBlock;
     const priceHeader = document.createElement('p');
     const priceSlider = new DualSlider().priceSlider;
     const stockHeader = document.createElement('p');

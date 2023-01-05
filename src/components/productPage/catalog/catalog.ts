@@ -4,6 +4,7 @@ import { AllFiltersBlock } from '../filters/filters';
 import { CatalogMenu } from '../catalogMenu/catalogMenu';
 import { Filters } from '../../../dataBase/types';
 import { Card } from '../productCard/Card';
+
 const bannerPath = require('../../../assets/images/banner.jpg');
 
 export class Catalog {
@@ -20,6 +21,7 @@ export class Catalog {
   public productWrapper: HTMLDivElement;
   public catalogMenu: HTMLDivElement;
   public productBlock: HTMLDivElement;
+  public applyedFilters: Array<string>;
 
   constructor(
     productArray: Array<ProductData>,
@@ -37,6 +39,7 @@ export class Catalog {
     this.catalogMenu = this.createMenu();
     this.productBlock = this.createProductBlock(productArray);
     this.catalog = this.collectCatalog();
+    this.applyedFilters = [];
   }
 
   collectCatalog() {
@@ -55,11 +58,59 @@ export class Catalog {
     this.isGridView = !this.isGridView;
     if (!this.isGridView) {
       this.productBlock.classList.remove('grid');
-      this.productBlock.replaceChildren(this.createProductBlock(this.productArray));
+      this.productBlock.replaceChildren(
+        this.createProductBlock(this.productArray)
+      );
     }
     if (this.isGridView) {
-        this.productBlock.replaceChildren(this.createProductBlock(this.productArray));
+      this.productBlock.replaceChildren(
+        this.createProductBlock(this.productArray)
+      );
     }
+  };
+
+  //ToDo 3 хранилища фильтров
+  setFilter = (label: string) => {
+    this.applyedFilters = this.applyedFilters.includes(label)
+      ? this.applyedFilters.filter((item) => item !== label)
+      : [...this.applyedFilters, label];
+    const filters = this.applyedFilters.join('');
+    let filtredProducts: Array<ProductData> = [];
+    if (
+      this.productArray.some(
+        ({ brand, category }) =>
+          filters.includes(brand) && filters.includes(category)
+      )
+    ) {
+      filtredProducts = this.productArray.filter(({ brand, category }) => {
+        return filters.includes(brand) && filters.includes(category);
+      });
+      console.log('category && brand');
+    }
+    if (
+      this.productArray.some(
+        ({ brand, category }) =>
+          filters.includes(brand) && !filters.includes(category)
+      )
+    ) {
+      filtredProducts = this.productArray.filter(({ brand }) => {
+        return filters.includes(brand);
+      });
+    }
+    if (
+      this.productArray.some(
+        ({ brand, category }) =>
+          !filters.includes(brand) && filters.includes(category)
+      )
+    ) {
+      filtredProducts = this.productArray.filter(({ category }) => {
+        return filters.includes(category);
+      });
+    }
+
+    console.log(filtredProducts);
+    console.log(filters);
+    this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
   };
 
   private createBase() {
@@ -97,8 +148,11 @@ export class Catalog {
     brandsList: Array<Filters>
   ) {
     const filtersBlock = document.createElement('div');
-    const filters = new AllFiltersBlock(categoriesList, brandsList)
-      .allFiltersBlock;
+    const filters = new AllFiltersBlock(
+      categoriesList,
+      brandsList,
+      this.setFilter
+    ).allFiltersBlock;
     filtersBlock.append(filters);
     return filtersBlock;
   }

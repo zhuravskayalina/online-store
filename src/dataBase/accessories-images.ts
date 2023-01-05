@@ -78,6 +78,3 @@ export const googleMermaidImg3 = require('../assets/images/accessories/google-me
 export const googleInterImg1 = require('../assets/images/accessories/google-inter-1.webp');
 export const googleInterImg2 = require('../assets/images/accessories/google-inter-2.webp');
 export const googleInterImg3 = require('../assets/images/accessories/google-inter-3.webp');
-
-
-
