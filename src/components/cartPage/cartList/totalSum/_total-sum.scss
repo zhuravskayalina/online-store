@@ -58,6 +58,7 @@
     @include button;
     text-transform: uppercase;
     font-size: 18px;
+    padding: 10px;
 
     &:hover {
       @include button-hover;

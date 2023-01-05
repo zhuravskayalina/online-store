@@ -21,9 +21,9 @@
   &__logo {
     width: 185px;
     height: 40px;
-  }
 
-  &__logo-link {
-    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
