@@ -1,4 +1,5 @@
 import { Main } from '../Main';
+import { router } from '../../../index';
 
 export class MainSection {
   public element: HTMLElement;
@@ -18,13 +19,22 @@ export class MainSection {
     heading.classList.add('main__heading');
     heading.innerHTML = 'Snowboard shop';
 
-    const button = document.createElement('a');
-    button.setAttribute('href', '#');
-    button.innerHTML = 'Go to catalog';
-    button.classList.add('main__catalog-btn');
+    const button = this.createButton();
 
     container.append(heading, button);
     main.append(container);
     return main;
+  }
+
+  createButton() {
+    const button = document.createElement('button');
+    button.innerHTML = 'Go to catalog';
+    button.classList.add('main__catalog-btn');
+
+    button.addEventListener('click', function () {
+      router.loadRoute('shop');
+    });
+
+    return button;
   }
 }

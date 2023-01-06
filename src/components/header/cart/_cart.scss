@@ -10,15 +10,6 @@
   &__icon {
     position: relative;
     align-self: flex-end;
-  }
-
-  &__icon-cart {
-    font-size: 26px;
-  }
-
-  &__icon-link {
-    text-decoration: none;
-    color: black;
 
     &:hover {
       cursor: pointer;
@@ -27,6 +18,10 @@
         color: $gray-text;
       }
     }
+  }
+
+  &__icon-cart {
+    font-size: 26px;
   }
 
   &__quantity {

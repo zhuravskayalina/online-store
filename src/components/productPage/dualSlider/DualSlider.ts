@@ -1,4 +1,4 @@
-import { rangeSliderTypes } from './types';
+import { RangeSliderTypes } from './types';
 import { fillLine, getNumbersValues, setZIndex } from './utils';
 
 export class DualSlider {
@@ -10,7 +10,7 @@ export class DualSlider {
     this.quantitySlider = this.createSlider('quantity', 'slider-quantity');
   }
 
-  public initSliderStyle(dataType: rangeSliderTypes): void {
+  public initSliderStyle(dataType: RangeSliderTypes): void {
     let fromSlider = document.querySelector(
       `.slider__slider-from[data-type='${dataType}']`
     ) as HTMLInputElement;
@@ -24,7 +24,7 @@ export class DualSlider {
   }
 
   private createSlider(
-    dataType: rangeSliderTypes,
+    dataType: RangeSliderTypes,
     className: string
   ): HTMLDivElement {
     const container = document.createElement('div');
@@ -159,7 +159,7 @@ export class DualSlider {
   }
 
   private createRangeInput(
-    dataType: rangeSliderTypes,
+    dataType: RangeSliderTypes,
     className: string,
     min: number,
     max: number
@@ -175,7 +175,7 @@ export class DualSlider {
   }
 
   private createInputContainer(
-    dataType: rangeSliderTypes,
+    dataType: RangeSliderTypes,
     type: 'min' | 'max',
     direction: 'from' | 'to'
   ): HTMLDivElement {
@@ -221,7 +221,7 @@ export class DualSlider {
   }
 
   private createFromInput(
-    dataType: rangeSliderTypes,
+    dataType: RangeSliderTypes,
     initialValue: number,
     min: number,
     max: number
@@ -280,7 +280,7 @@ export class DualSlider {
   }
 
   private createToInput(
-    dataType: rangeSliderTypes,
+    dataType: RangeSliderTypes,
     initialValue: number,
     min: number,
     max: number

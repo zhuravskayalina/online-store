@@ -1,4 +1,6 @@
 import { Main } from '../mainPage/Main';
+import { router } from '../../index';
+
 const errorImg = require('../../assets/images/error.webp');
 
 export class ErrorPage {
@@ -24,6 +26,10 @@ export class ErrorPage {
     button.setAttribute('alt', 'Go to main page');
     button.classList.add('error-page__back-btn');
     button.innerHTML = 'back to Home page';
+
+    button.addEventListener('click', function () {
+      router.loadRoute('');
+    });
 
     container.append(image, button);
     main.append(container);

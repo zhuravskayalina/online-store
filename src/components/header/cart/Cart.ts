@@ -1,5 +1,6 @@
 import { TotalProductsSum } from '../../totalProductSum/TotalProductsSum';
 import { ProductsQuantity } from '../../productsQuantity/ProductsQuantity';
+import { router } from '../../../index';
 
 export class Cart {
   public element: HTMLDivElement;
@@ -15,14 +16,12 @@ export class Cart {
     const cartIconBox = document.createElement('div');
     cartIconBox.classList.add('cart__icon');
 
-    const iconLink = document.createElement('a');
-    iconLink.setAttribute('href', '#');
-    iconLink.classList.add('cart__icon-link');
+    cartIconBox.addEventListener('click', function () {
+      router.loadRoute('cart');
+    });
 
     const icon = document.createElement('div');
     icon.classList.add('icon-cart', 'cart__icon-cart');
-
-    iconLink.append(icon);
 
     const quantityBox = document.createElement('div');
     quantityBox.classList.add('cart__quantity');
@@ -30,12 +29,11 @@ export class Cart {
     const quantityTxt = document.createElement('span');
     quantityTxt.classList.add('cart__quantity-num');
 
-    const quantityStr = new ProductsQuantity().quantity;
-    quantityTxt.innerHTML = quantityStr;
+    quantityTxt.innerHTML = new ProductsQuantity().quantity;
 
     quantityBox.append(quantityTxt);
 
-    cartIconBox.append(iconLink, quantityBox);
+    cartIconBox.append(icon, quantityBox);
 
     const line = document.createElement('div');
     line.classList.add('cart__line');

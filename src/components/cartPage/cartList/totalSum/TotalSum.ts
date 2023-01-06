@@ -34,6 +34,11 @@ export class TotalSum {
     button.classList.add('sum-box__button');
     button.innerHTML = 'Proceed to payment';
 
+    button.addEventListener('click', function () {
+      const modal = document.querySelector('.app-modal') as HTMLDivElement;
+      modal.classList.add('app-modal_shown');
+    });
+
     sumBlock.append(sumHead, input, button);
     return sumBlock;
   }

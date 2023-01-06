@@ -17,6 +17,9 @@ export class PayModal {
 
   constructor() {
     this.element = this.createModal();
+
+    const modalOutlet = document.querySelector('.app-modal') as HTMLDivElement;
+    modalOutlet.append(this.element);
   }
 
   private createModal(): HTMLElement {
@@ -80,7 +83,7 @@ export class PayModal {
       switchInputBorder(event, 'name', Infinity);
     });
 
-    name.addEventListener('input', function (event) {
+    name.addEventListener('input', function () {
       changeSubmitButtonClass();
     });
 
@@ -103,7 +106,7 @@ export class PayModal {
       switchInputBorder(event, 'number', Infinity);
     });
 
-    number.addEventListener('input', function (event) {
+    number.addEventListener('input', function () {
       changeSubmitButtonClass();
     });
     return number;
@@ -120,7 +123,7 @@ export class PayModal {
       switchInputBorder(event, 'delivery', 5);
     });
 
-    delivery.addEventListener('input', function (event) {
+    delivery.addEventListener('input', function () {
       changeSubmitButtonClass();
     });
 
@@ -138,7 +141,7 @@ export class PayModal {
       switchInputBorder(event, 'email', Infinity);
     });
 
-    email.addEventListener('input', function (event) {
+    email.addEventListener('input', function () {
       changeSubmitButtonClass();
     });
 
@@ -181,7 +184,7 @@ export class PayModal {
       switchInputBorder(event, 'creditCard', 16);
     });
 
-    creditCard.addEventListener('input', function (event) {
+    creditCard.addEventListener('input', function () {
       changeSubmitButtonClass();
     });
 
@@ -233,7 +236,7 @@ export class PayModal {
       switchInputBorder(event, 'exp', 2);
     });
 
-    exp.addEventListener('input', function (event) {
+    exp.addEventListener('input', function () {
       changeSubmitButtonClass();
     });
 
@@ -254,7 +257,7 @@ export class PayModal {
       switchInputBorder(event, 'cvc', 3);
     });
 
-    cvc.addEventListener('input', function (event) {
+    cvc.addEventListener('input', function () {
       changeSubmitButtonClass();
     });
 
@@ -284,8 +287,8 @@ export class PayModal {
     closeIcon.classList.add('icon-cross', 'modal__close-icon');
 
     closeIcon.addEventListener('click', function () {
-      const modal = document.querySelector('.modal') as HTMLDivElement;
-      modal.classList.add('modal_hidden');
+      const modal = document.querySelector('.app-modal') as HTMLDivElement;
+      modal.classList.remove('app-modal_shown');
     });
 
     return closeIcon;

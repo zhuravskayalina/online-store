@@ -1,7 +1,11 @@
+import { router } from '../../../index';
+
 export class Navigation {
   public element: HTMLElement;
+  public navItems: string[];
 
   constructor() {
+    this.navItems = ['all', 'snowboards', 'boots', 'accessories'];
     this.element = this.createNavigation();
   }
 
@@ -14,24 +18,33 @@ export class Navigation {
   }
 
   private createList(): HTMLUListElement {
-    const navItems = ['all', 'snowboards', 'boots', 'accessories'];
-
     const list = document.createElement('ul');
     list.classList.add('nav__list');
 
-    navItems.forEach((navItem) => {
-      const item = document.createElement('li');
-      item.classList.add('nav__item');
+    this.navItems.forEach((navItem) => {
+      const item = this.createListItem(navItem);
 
-      const link = document.createElement('a');
-      link.classList.add('nav__link');
-      link.setAttribute('href', '#');
-
-      link.innerHTML = navItem;
-      item.append(link);
+      if (navItem === 'all') {
+        item.addEventListener('click', function (event: MouseEvent) {
+          event.preventDefault();
+          router.loadRoute('shop');
+        });
+      }
       list.append(item);
     });
 
     return list;
+  }
+
+  private createListItem(itemName: string) {
+    const item = document.createElement('li');
+    item.classList.add('nav__item');
+
+    const link = document.createElement('a');
+    link.classList.add('nav__link');
+    link.setAttribute('href', '');
+
+    link.innerHTML = itemName;
+    return link;
   }
 }

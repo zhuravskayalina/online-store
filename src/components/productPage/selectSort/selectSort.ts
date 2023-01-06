@@ -32,5 +32,4 @@ export class SelectSort {
 
     return selectList;
   }
-
 }

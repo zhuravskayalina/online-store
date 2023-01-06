@@ -1,1 +1,1 @@
-export type rangeSliderTypes = 'price' | 'quantity';
+export type RangeSliderTypes = 'price' | 'quantity';

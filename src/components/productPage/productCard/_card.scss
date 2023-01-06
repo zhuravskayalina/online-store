@@ -110,15 +110,13 @@
     margin-bottom: 50px;
   }
 
-  &__button-now {
-    margin-top: 40px;
-  }
 
-  &__button, &__button-now {
+  &__button, &__button_now {
     @include button;
     padding: 11px 80px;
     white-space: nowrap;
-    width: 50%;
+    width: 100%;
+    margin-bottom: 20px;
 
     &:hover {
       @include button-hover
