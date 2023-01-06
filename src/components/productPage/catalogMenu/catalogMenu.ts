@@ -8,7 +8,6 @@ export class CatalogMenu {
   public resetFiltersButton: HTMLButtonElement;
   public selectSortContainer: HTMLDivElement;
   private selectSort: HTMLSelectElement;
-  private copyLinkText: HTMLElement;
 
   constructor() {
     this.isGridView = true;
@@ -18,21 +17,22 @@ export class CatalogMenu {
     this.resetFiltersButton = this.createResetFiltersButton();
     this.selectSort = new SelectSort().selectList;
     this.selectSortContainer = this.createSelectSortContainer();
-    this.copyLinkText = this.createCopyLinkText('copy link');
 
     this.catalogMenu.append(this.copyLinkButton);
     this.catalogMenu.append(this.resetFiltersButton);
     this.catalogMenu.append(this.selectSortContainer);
     this.catalogMenu.append(this.changeViewButton);
 
-    // this.copyLinkButton.addEventListener('click', function (event: MouseEvent) {
-    //   const target = event.target as HTMLDivElement;
-    //   const link = window.location.href;
-    //   navigator.clipboard.writeText(link).catch((err) => console.error(err));
-    //   setTimeout(() => {
-    //     target.textContent = 'Copy link';
-    //   }, 1000);
-    // });
+    this.copyLinkButton.addEventListener('click', function (event: MouseEvent) {
+      const target = event.currentTarget as HTMLDivElement;
+      const text = target.children[target.children.length - 1];
+      text.innerHTML = 'Copied!';
+      const link = window.location.href;
+      navigator.clipboard.writeText(link).catch((err) => console.error(err));
+      setTimeout(() => {
+        text.innerHTML = 'Copy link';
+      }, 1000);
+    });
   }
 
   handleChangeView(handler: () => void) {
@@ -78,9 +78,9 @@ export class CatalogMenu {
 
   private createCopyLinkButton() {
     const copyLinkButton = document.createElement('button');
-    copyLinkButton.classList.add('catalog__menu-buttons');
+    copyLinkButton.classList.add('catalog__menu-buttons', 'catalog__menu-buttons_copy-link');
     const iconCopyLink = this.createCopyLinkIcon();
-    const text = this.createCopyLinkText('copy link');
+    const text = this.createCopyLinkText();
     copyLinkButton.append(iconCopyLink, text);
     return copyLinkButton;
   }
@@ -91,10 +91,10 @@ export class CatalogMenu {
     return iconCopyLink;
   }
 
-  private createCopyLinkText(text: 'copied' | 'copy link') {
+  private createCopyLinkText() {
     const span = document.createElement('span');
     span.classList.add('copy-link__text');
-    span.innerHTML = text;
+    span.innerHTML = 'Copy link';
     return span;
   }
 
