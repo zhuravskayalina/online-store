@@ -8,6 +8,7 @@ export class CatalogMenu {
   public resetFiltersButton: HTMLButtonElement;
   public selectSortContainer: HTMLDivElement;
   private selectSort: HTMLSelectElement;
+  private copyLinkText: HTMLElement;
 
   constructor() {
     this.isGridView = true;
@@ -17,11 +18,21 @@ export class CatalogMenu {
     this.resetFiltersButton = this.createResetFiltersButton();
     this.selectSort = new SelectSort().selectList;
     this.selectSortContainer = this.createSelectSortContainer();
+    this.copyLinkText = this.createCopyLinkText('copy link');
 
     this.catalogMenu.append(this.copyLinkButton);
     this.catalogMenu.append(this.resetFiltersButton);
     this.catalogMenu.append(this.selectSortContainer);
     this.catalogMenu.append(this.changeViewButton);
+
+    // this.copyLinkButton.addEventListener('click', function (event: MouseEvent) {
+    //   const target = event.target as HTMLDivElement;
+    //   const link = window.location.href;
+    //   navigator.clipboard.writeText(link).catch((err) => console.error(err));
+    //   setTimeout(() => {
+    //     target.textContent = 'Copy link';
+    //   }, 1000);
+    // });
   }
 
   handleChangeView(handler: () => void) {
@@ -68,12 +79,23 @@ export class CatalogMenu {
   private createCopyLinkButton() {
     const copyLinkButton = document.createElement('button');
     copyLinkButton.classList.add('catalog__menu-buttons');
+    const iconCopyLink = this.createCopyLinkIcon();
+    const text = this.createCopyLinkText('copy link');
+    copyLinkButton.append(iconCopyLink, text);
+    return copyLinkButton;
+  }
+
+  private createCopyLinkIcon() {
     const iconCopyLink = document.createElement('span');
     iconCopyLink.classList.add('icon-copy', 'catalog__icon-pos');
-    copyLinkButton.append(iconCopyLink);
-    copyLinkButton.append('Copy Link');
-    copyLinkButton.type = 'button';
-    return copyLinkButton;
+    return iconCopyLink;
+  }
+
+  private createCopyLinkText(text: 'copied' | 'copy link') {
+    const span = document.createElement('span');
+    span.classList.add('copy-link__text');
+    span.innerHTML = text;
+    return span;
   }
 
   private createSelectSortContainer() {
