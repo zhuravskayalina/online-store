@@ -1,4 +1,5 @@
 import { amExImg, defaultCard, masterCardImg, visaImg } from './cardImages';
+import { router } from '../../index';
 
 export function updateCardDataIcon(paymentMethod: number): void {
   const icon = document.querySelector(
@@ -143,18 +144,15 @@ export function isValid(
 }
 
 export function showMessage(): void {
-  const successContainer = document.querySelector(
-    '.success-container'
-  ) as HTMLDivElement;
   const modal = document.querySelector('.modal') as HTMLElement;
 
   if (checkAllFields()) {
-    modal.classList.add('modal_success-payment');
+    document.body.classList.remove('open-modal');
+    router.loadRoute('success');
     modal.classList.add('modal_hidden');
-    successContainer.classList.remove('success-container_hidden');
   }
 }
 
 export function redirectToMainPage(): void {
-  console.log('redirect to main page');
+  router.loadRoute('');
 }

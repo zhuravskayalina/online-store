@@ -8,6 +8,7 @@ import { brandsList, categoriesList } from '../../dataBase/filtersList';
 import { CartPage } from '../cartPage/cartPage';
 import { ErrorPage } from '../errorPage/ErrorPage';
 import { CreateProductItemPage } from '../productPage/bigCardPageAssembly/bigCardPageAssembly';
+import { SuccessPaymentPage } from '../successPaymentPage/SuccessPaymentPage';
 
 export class PageConstructor {
   container: HTMLDivElement;
@@ -33,6 +34,8 @@ export class PageConstructor {
       main = new CartPage().element;
     } else if (pageKind === 'error') {
       main = new ErrorPage().element;
+    } else if (pageKind === 'success') {
+      main = new SuccessPaymentPage().element;
     }
 
     this.container.append(header, main, footer);

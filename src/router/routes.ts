@@ -5,6 +5,7 @@ const homePage = new PageConstructor().buildPage('home');
 const shopPage = new PageConstructor().buildPage('shop');
 const cartPage = new PageConstructor().buildPage('cart');
 const errorPage = new PageConstructor().buildPage('error');
+const successPage = new PageConstructor().buildPage('success');
 
 export const routes = [
   {
@@ -22,6 +23,10 @@ export const routes = [
   {
     path: '/error',
     getTemplate: () => errorPage,
+  },
+  {
+    path: '/success',
+    getTemplate: () => successPage,
   },
   {
     path: '/shop/:productId',

@@ -37,6 +37,8 @@ export class TotalSum {
     button.addEventListener('click', function () {
       const modal = document.querySelector('.app-modal') as HTMLDivElement;
       modal.classList.add('app-modal_shown');
+      document.body.classList.add('open-modal');
+      document.body.scrollIntoView({ behavior: 'smooth' });
     });
 
     sumBlock.append(sumHead, input, button);

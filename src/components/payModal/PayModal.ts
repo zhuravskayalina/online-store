@@ -10,13 +10,23 @@ import {
   checkAllFields,
 } from './utils';
 
-const successImg = require('../../assets/images/success-payment.webp');
-
 export class PayModal {
   public element: HTMLElement;
+  public confirmButton: HTMLButtonElement;
 
   constructor() {
+    this.confirmButton = this.createSubmitButton();
+
     this.element = this.createModal();
+
+    this.confirmButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      const isAllFieldsValid = checkAllFields();
+      if (isAllFieldsValid) {
+        showMessage();
+        setTimeout(redirectToMainPage, 5000);
+      }
+    });
 
     const modalOutlet = document.querySelector('.app-modal') as HTMLDivElement;
     modalOutlet.append(this.element);
@@ -35,8 +45,6 @@ export class PayModal {
     const form = document.createElement('form');
     form.classList.add('modal__form');
 
-    const successBox = this.createSuccessBox();
-
     const heading = this.createHeading();
     const name = this.createNameField();
     const number = this.createPhoneField();
@@ -44,7 +52,7 @@ export class PayModal {
     const email = this.createEmailField();
     const cartData = this.createCardDataField();
     const securityData = this.createSecurityData();
-    const confirmBtn = this.createSubmitButton();
+    const confirmBtn = this.confirmButton;
     const closeIcon = this.createCloseIcon();
 
     form.append(
@@ -60,7 +68,7 @@ export class PayModal {
     );
     modal.append(form);
     container.append(modal);
-    main.append(container, successBox);
+    main.append(container);
 
     return main;
   }
@@ -267,17 +275,7 @@ export class PayModal {
   private createSubmitButton(): HTMLButtonElement {
     const confirmBtn = document.createElement('button');
     confirmBtn.classList.add('modal__submit-btn', 'modal__submit-btn_disabled');
-    confirmBtn.setAttribute('type', 'submit');
     confirmBtn.innerHTML = 'submit';
-
-    confirmBtn.addEventListener('click', function (event) {
-      event.preventDefault();
-      const isAllFieldsValid = checkAllFields();
-      if (isAllFieldsValid) {
-        showMessage();
-        setTimeout(redirectToMainPage, 5000);
-      }
-    });
 
     return confirmBtn;
   }
@@ -289,41 +287,9 @@ export class PayModal {
     closeIcon.addEventListener('click', function () {
       const modal = document.querySelector('.app-modal') as HTMLDivElement;
       modal.classList.remove('app-modal_shown');
+      document.body.classList.remove('open-modal');
     });
 
     return closeIcon;
-  }
-
-  private createSuccessBox(): HTMLDivElement {
-    const successContainer = document.createElement('div');
-    successContainer.classList.add(
-      'success-container',
-      'success-container_hidden'
-    );
-
-    const messageBox = document.createElement('div');
-    messageBox.classList.add('message-box');
-
-    const paragraph1 = document.createElement('h3');
-    paragraph1.classList.add('message-box__heading');
-    paragraph1.innerHTML = 'Thank you!';
-
-    const paragraph2 = document.createElement('p');
-    paragraph2.classList.add('message-box__title');
-    paragraph2.innerHTML = 'Your order is accepted.';
-
-    const paragraph3 = document.createElement('p');
-    paragraph3.classList.add('message-box__title');
-    paragraph3.innerHTML = 'We will contact you soon.';
-
-    messageBox.append(paragraph1, paragraph2, paragraph3);
-
-    const img = document.createElement('div');
-    img.classList.add('success-container__img');
-    img.setAttribute('src', successImg);
-
-    successContainer.append(messageBox, img);
-
-    return successContainer;
   }
 }

@@ -41,8 +41,13 @@ export class Card {
     buyNowButton.classList.add('card__button_now');
 
     buyNowButton.addEventListener('click', function () {
+      // добавление в корзину (если еще не добавлен)
+
+      router.loadRoute('cart');
       const modal = document.querySelector('.app-modal') as HTMLDivElement;
       modal.classList.add('app-modal_shown');
+      document.body.classList.add('open-modal');
+      document.body.scrollIntoView({ behavior: 'smooth' });
     });
 
     card.classList.add('card');
