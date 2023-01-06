@@ -3,6 +3,7 @@ import { ProductData, Filters } from '../../../dataBase/types';
 import { AllFiltersBlock } from '../filters/filters';
 import { CatalogMenu } from '../catalogMenu/catalogMenu';
 import { Card } from '../productCard/Card';
+import { categoriesList } from '../../../dataBase/filtersList';
 
 const bannerPath = require('../../../assets/images/banner.jpg');
 
@@ -71,6 +72,10 @@ export class Catalog {
       ? this.applyedFilters.filter((item) => item !== label)
       : [...this.applyedFilters, label];
     const filters = this.applyedFilters.join('');
+
+    // console.log('filters', filters);
+    // console.log('this.applyedFilters',this.applyedFilters);
+
     let filtredProducts: Array<ProductData> = [];
     if (
       this.productArray.some(
@@ -79,8 +84,10 @@ export class Catalog {
       )
     ) {
       filtredProducts = this.productArray.filter(({ brand, category }) => {
+        console.log('бренд и категория');
         return filters.includes(brand) && filters.includes(category);
       });
+      console.log('filtredProducts:', filtredProducts);
     } else if (
       this.productArray.some(
         ({ brand, category }) =>
@@ -88,8 +95,10 @@ export class Catalog {
       )
     ) {
       filtredProducts = this.productArray.filter(({ brand }) => {
+        console.log('только бренд');
         return filters.includes(brand);
       });
+      console.log('filtredProducts:', filtredProducts);
     } else if (
       this.productArray.some(
         ({ brand, category }) =>
@@ -97,8 +106,12 @@ export class Catalog {
       )
     ) {
       filtredProducts = this.productArray.filter(({ category }) => {
+        console.log('только категория');
         return filters.includes(category);
       });
+      console.log('filtredProducts:', filtredProducts);
+    } else {
+      filtredProducts = this.productArray;
     }
     this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
     this.productBlock.classList.remove('grid');

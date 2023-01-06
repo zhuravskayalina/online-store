@@ -18,20 +18,10 @@ export class Router {
       '.app'
     ) as HTMLDivElement;
 
-    const modalOutletElement = document.querySelector(
-      '.app-modal'
-    ) as HTMLDivElement;
-
     if (matchedRoute.path) {
-      if (matchedRoute.path === '/payment') {
-        modalOutletElement.append(
-          matchedRoute.getTemplate(matchedRoute.params)
-        );
-      } else {
-        routerOutletElement.replaceChildren(
-          matchedRoute.getTemplate(matchedRoute.params)
-        );
-      }
+      routerOutletElement.replaceChildren(
+        matchedRoute.getTemplate(matchedRoute.params)
+      );
     } else {
       this.loadRoute('error');
     }
