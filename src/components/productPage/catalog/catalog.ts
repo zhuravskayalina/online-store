@@ -45,7 +45,6 @@ export class Catalog {
   collectCatalog() {
     const pageBase = this.createBase();
     pageBase.append(this.catalogContainer);
-    // pageBase.append(this.pageContext);
     this.catalogContainer.append(this.pageContext);
     this.pageContext.append(this.filtersBlock);
     this.productWrapper.append(this.catalogMenu);
@@ -57,7 +56,6 @@ export class Catalog {
   setView = () => {
     this.isGridView = !this.isGridView;
     if (!this.isGridView) {
-      this.productBlock.classList.remove('grid');
       this.productBlock.replaceChildren(
         this.createProductBlock(this.productArray)
       );
@@ -69,7 +67,6 @@ export class Catalog {
     }
   };
 
-  //ToDo 3 хранилища фильтров
   setFilter = (label: string) => {
     this.applyedFilters = this.applyedFilters.includes(label)
       ? this.applyedFilters.filter((item) => item !== label)
@@ -86,8 +83,7 @@ export class Catalog {
         return filters.includes(brand) && filters.includes(category);
       });
       console.log('category && brand');
-    }
-    if (
+    } else if (
       this.productArray.some(
         ({ brand, category }) =>
           filters.includes(brand) && !filters.includes(category)
@@ -96,8 +92,7 @@ export class Catalog {
       filtredProducts = this.productArray.filter(({ brand }) => {
         return filters.includes(brand);
       });
-    }
-    if (
+    } else if (
       this.productArray.some(
         ({ brand, category }) =>
           !filters.includes(brand) && filters.includes(category)
@@ -111,6 +106,7 @@ export class Catalog {
     console.log(filtredProducts);
     console.log(filters);
     this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
+    this.productBlock.classList.remove('grid');
   };
 
   private createBase() {
