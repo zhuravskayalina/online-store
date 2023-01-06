@@ -1,5 +1,4 @@
 import { SelectSort } from '../selectSort/selectSort';
-import { ProductData } from '../../../dataBase/types';
 
 export class CatalogMenu {
   public catalogMenu: HTMLDivElement;
@@ -43,7 +42,6 @@ export class CatalogMenu {
     resetFiltersButton.type = 'button';
     return resetFiltersButton;
   }
-
 
   private createChangeViewButton() {
     const gridButton = document.createElement('button');

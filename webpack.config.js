@@ -5,32 +5,42 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
-const devServer = (isDev) => !isDev ? {} : {
-  devServer: {
-    open: true,
-    port: 8081,
-    static: {
-      directory: path.join(__dirname, "public")
-    },
-  },
-};
+const devServer = (isDev) =>
+  !isDev
+    ? {}
+    : {
+        devServer: {
+          open: true,
+          port: 8081,
+          static: {
+            directory: path.join(__dirname, 'public'),
+          },
+          historyApiFallback: {
+            rewrites: [
+              { from: /./, to: '/index.html' }, // all requests to index.html
+            ],
+          },
+        },
+      };
 
-const esLintPlugin = (isDev) => isDev ? [] : [ new ESLintPlugin({ extensions: ['ts', 'js'] }) ];
+const esLintPlugin = (isDev) =>
+  isDev ? [] : [new ESLintPlugin({ extensions: ['ts', 'js'] })];
 
 module.exports = ({ development }) => ({
-    mode: development ? 'development' : 'production',
-    devtool: development ? 'inline-source-map' : false,
-    entry: './src/index.ts',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[contenthash].js',
-        assetModuleFilename: 'assets/[name][ext]'
-    },
+  mode: development ? 'development' : 'production',
+  devtool: development ? 'inline-source-map' : false,
+  entry: './src/index.ts',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    filename: '[name].[contenthash].js',
+    assetModuleFilename: 'assets/[name][ext]',
+  },
   module: {
     rules: [
       {
         test: /\.[tj]s$/,
-        loader: "ts-loader",
+        loader: 'ts-loader',
         exclude: /node_modules/,
       },
       {
@@ -39,7 +49,7 @@ module.exports = ({ development }) => ({
       },
       {
         test: /\.html$/i,
-        loader: "html-loader",
+        loader: 'html-loader',
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
@@ -51,12 +61,12 @@ module.exports = ({ development }) => ({
       // },
       {
         test: /.(sa|sc)ss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-      }
-    ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+    ],
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     ...esLintPlugin(development),
@@ -66,11 +76,9 @@ module.exports = ({ development }) => ({
       favicon: './public/favicon.ico',
     }),
     new CopyWebpackPlugin({
-      patterns: [
-        { from: './public' }
-      ]
+      patterns: [{ from: './public' }],
     }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
   ],
-  ...devServer(development)
+  ...devServer(development),
 });

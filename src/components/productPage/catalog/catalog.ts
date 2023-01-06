@@ -1,8 +1,7 @@
 import { Main } from '../../mainPage/Main';
-import { ProductData } from '../../../dataBase/types';
+import { ProductData, Filters } from '../../../dataBase/types';
 import { AllFiltersBlock } from '../filters/filters';
 import { CatalogMenu } from '../catalogMenu/catalogMenu';
-import { Filters } from '../../../dataBase/types';
 import { Card } from '../productCard/Card';
 
 const bannerPath = require('../../../assets/images/banner.jpg');
@@ -69,7 +68,6 @@ export class Catalog {
     }
   };
 
-  //ToDo 3 хранилища фильтров
   setFilter = (label: string) => {
     this.applyedFilters = this.applyedFilters.includes(label)
       ? this.applyedFilters.filter((item) => item !== label)
@@ -85,7 +83,6 @@ export class Catalog {
       filtredProducts = this.productArray.filter(({ brand, category }) => {
         return filters.includes(brand) && filters.includes(category);
       });
-      console.log('category && brand');
     }
     if (
       this.productArray.some(
@@ -107,9 +104,6 @@ export class Catalog {
         return filters.includes(category);
       });
     }
-
-    console.log(filtredProducts);
-    console.log(filters);
     this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
   };
 
@@ -176,6 +170,7 @@ export class Catalog {
       const productItem = productArray[i];
       if (this.isGridView) {
         const productCard = new Card(productItem).smallCard;
+        productCard.addEventListener('click', function () {});
         productGrid.append(productCard);
         productGrid.classList.remove('table');
         productGrid.classList.add('grid');

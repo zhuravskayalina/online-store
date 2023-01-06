@@ -40,6 +40,14 @@ body {
   height: 100%;
 }
 
+.app-modal {
+  display: none;
+
+  &_shown {
+    display: block;
+  }
+}
+
 .app-container {
   display: flex;
   flex-direction: column;

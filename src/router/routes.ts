@@ -1,20 +1,31 @@
 import { PageConstructor } from '../components/pageConstructor/PageConstructor';
+import { TemplateParams } from './types';
 
 const homePage = new PageConstructor().buildPage('home');
-const shopPage = new  PageConstructor().buildPage('shop');
+const shopPage = new PageConstructor().buildPage('shop');
 const cartPage = new PageConstructor().buildPage('cart');
+const errorPage = new PageConstructor().buildPage('error');
 
 export const routes = [
   {
     path: '/',
-    template: homePage,
+    getTemplate: () => homePage,
   },
   {
     path: '/shop',
-    template: shopPage,
+    getTemplate: () => shopPage,
   },
   {
     path: '/cart',
-    template: cartPage,
+    getTemplate: () => cartPage,
+  },
+  {
+    path: '/error',
+    getTemplate: () => errorPage,
+  },
+  {
+    path: '/shop/:productId',
+    getTemplate: (params: TemplateParams) =>
+      new PageConstructor().buildProductItemPage('products', params.productId),
   },
 ];

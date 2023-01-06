@@ -22,19 +22,13 @@ export class Header {
     const headerUpper = document.createElement('div');
     headerUpper.classList.add('header__upper-box');
 
-    // const logoLink = document.createElement('a');
-    // logoLink.setAttribute('href', '');
-    // logoLink.classList.add('header__logo-link');
-
     const logo = document.createElement('img');
     logo.setAttribute('src', logoImg);
     logo.classList.add('header__logo');
 
-    logo.addEventListener('click', function (event) {
+    logo.addEventListener('click', function () {
       router.loadRoute('');
     });
-
-    // logoLink.append(logo);
 
     const input = new Search().element;
     const cart = new Cart().element;

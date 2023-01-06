@@ -1,59 +1,79 @@
 import { Routes } from './types';
-import { makeLogger } from 'ts-loader/dist/logger';
 
 export class Router {
   routes: Routes;
 
   constructor(routes: Routes) {
     this.routes = routes;
-    this._loadInitialRoute();
-    this._listenURLChanges();
+    this.loadInitialRoute();
+    this.listenToURLChanges();
   }
 
-  loadRoute(...urlSegments: string[]) {
-    const matchedRoute = this._matchUrlToRoute(urlSegments);
-
-    const url = `/${urlSegments.join('/')}`;
+  public loadRoute(...urlParts: string[]) {
+    const matchedRoute = this.findMatchRoute(urlParts);
+    const url = `/${urlParts.join('/')}`;
     history.pushState({}, '', url);
 
-    const routerOutletElement = document.querySelector('.app') as HTMLDivElement;
-    if (matchedRoute) {
-      routerOutletElement.replaceChildren(matchedRoute.template);
+    const routerOutletElement = document.querySelector(
+      '.app'
+    ) as HTMLDivElement;
+
+    const modalOutletElement = document.querySelector(
+      '.app-modal'
+    ) as HTMLDivElement;
+
+    if (matchedRoute.path) {
+      if (matchedRoute.path === '/payment') {
+        modalOutletElement.append(
+          matchedRoute.getTemplate(matchedRoute.params)
+        );
+      } else {
+        routerOutletElement.replaceChildren(
+          matchedRoute.getTemplate(matchedRoute.params)
+        );
+      }
     } else {
-      console.log('no matching route');
+      this.loadRoute('error');
     }
   }
 
-  _matchUrlToRoute(urlSegments: string[]) {
+  private findMatchRoute(urlParts: string[]) {
+    const routeParams: any = {};
+
     const matchedRoute = this.routes.find((route) => {
       const routePathSegments = route.path.split('/').slice(1);
 
-      if (routePathSegments.length !== urlSegments.length) {
+      if (routePathSegments.length !== urlParts.length) {
         return false;
       }
 
-      return routePathSegments.every(
-        (routePathSegment, i) => routePathSegment === urlSegments[i]
-      );
+      const match = routePathSegments.every((routePathSegment, i) => {
+        return routePathSegment === urlParts[i] || routePathSegment[0] === ':';
+      });
+
+      if (match) {
+        routePathSegments.forEach((segment, i) => {
+          if (segment[0] === ':') {
+            const propName = segment.slice(1);
+            routeParams[propName] = decodeURIComponent(urlParts[i]);
+          }
+        });
+      }
+      return match;
     });
-    return matchedRoute;
+    return { ...matchedRoute, params: routeParams };
   }
 
-  _loadInitialRoute() {
-    const pathnameSplit = window.location.pathname.split('/');
-    const pathSegments = pathnameSplit.length > 1 ? pathnameSplit.slice(1) : '';
-    this.loadRoute('');
-    this.loadRoute(...pathSegments);
+  private loadInitialRoute(): void {
+    const pathname = window.location.pathname.split('/');
+    const path = pathname.length > 1 ? pathname.slice(1) : '';
+
+    this.loadRoute(...path);
   }
 
-  _listenURLChanges() {
-    window.addEventListener('popstate', (event: PopStateEvent) => {
-
+  private listenToURLChanges(): void {
+    window.addEventListener('popstate', () => {
+      this.loadInitialRoute();
     });
   }
-
-}
-
-interface PopStateEventCustom extends PopStateEvent {
-  path: string[];
 }

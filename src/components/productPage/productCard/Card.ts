@@ -2,13 +2,12 @@ import { ProductData } from '../../../dataBase/types';
 import { SmallImage } from './galleryImages/SmallImage';
 import { Button } from '../../button/Button';
 import { BuyNowButton } from '../../button/buyNowButton';
+import { router } from '../../../index';
 
 export class Card {
-  public bigCard: DocumentFragment;
-
-  public smallCard: DocumentFragment;
-
-  public smallCardTable: DocumentFragment;
+  public bigCard: HTMLDivElement;
+  public smallCard: HTMLDivElement;
+  public smallCardTable: HTMLDivElement;
 
   constructor(product: ProductData) {
     this.bigCard = this.createBigCard(product);
@@ -24,8 +23,7 @@ export class Card {
     images,
     quantity,
     vendorCode,
-  }: ProductData): DocumentFragment {
-    const fragment = document.createDocumentFragment();
+  }: ProductData): HTMLDivElement {
     const card = document.createElement('div');
     const gallery = document.createElement('div');
     const mainImage = document.createElement('img');
@@ -38,8 +36,14 @@ export class Card {
     const priceOfProduct = document.createElement('p');
     const inStock = document.createElement('p');
     const button = new Button('Add to cart', 'card__button').addToCardButton;
-    const buyNowButton = new BuyNowButton('Quick buy', 'card__button-now')
+    const buyNowButton = new BuyNowButton('Buy now', 'card__button')
       .buyNowButton;
+    buyNowButton.classList.add('card__button_now');
+
+    buyNowButton.addEventListener('click', function () {
+      const modal = document.querySelector('.app-modal') as HTMLDivElement;
+      modal.classList.add('app-modal_shown');
+    });
 
     card.classList.add('card');
 
@@ -86,9 +90,6 @@ export class Card {
     inStock.classList.add('card__stock');
     inStock.textContent = `${quantity} in stock`;
 
-    card.appendChild(gallery);
-    card.appendChild(mainImgBlock);
-    card.appendChild(info);
     info.appendChild(ratingText);
     info.appendChild(brandName);
     info.appendChild(productDescription);
@@ -97,16 +98,18 @@ export class Card {
     info.appendChild(inStock);
     info.appendChild(button);
     info.appendChild(buyNowButton);
-    fragment.appendChild(card);
 
-    return fragment;
+    card.appendChild(gallery);
+    card.appendChild(mainImgBlock);
+    card.appendChild(info);
+
+    return card;
   }
 
-  private createSmallCard(
-    { brand, name, price, images }: ProductData,
+  public createSmallCard(
+    { brand, name, price, images, vendorCode }: ProductData,
     isTableView: boolean
-  ): DocumentFragment {
-    const fragment = document.createDocumentFragment();
+  ): HTMLDivElement {
     const card = document.createElement('div');
     const mainImage = document.createElement('img');
     const productInfo = document.createElement('div');
@@ -147,42 +150,11 @@ export class Card {
     productInfo.appendChild(productDescription);
     productInfo.appendChild(priceOfProduct);
     card.appendChild(productInfo);
-    fragment.appendChild(card);
-    return fragment;
+
+    card.addEventListener('click', function () {
+      router.loadRoute('shop', vendorCode.toString());
+    });
+
+    return card;
   }
 }
-
-// ToDo: it's for draw card our choiced product
-//
-// Логика: ищем в массиве базы данных элемент, у которого артикул совпадает
-// с искомым, по индексу найденного элемента запускаем отрисовку
-// необходимой карточки
-//
-// class CardContainer {
-//   constructor(vendor) {
-//     this.cardsContainer = document.createElement('article') as HTMLElement;
-//     this.cardsContainer.classList.add('container');
-//     this.cardsContainer.appendChild(this.createCards());
-//     document.body.appendChild(this.cardsContainer);
-//     this.vendorCode = vendor;
-//   }
-//
-//   createCards(): DocumentFragment {
-//     const fragment = document.createDocumentFragment();
-//     let index:number = -1;
-//     [...dataBase].forEach(function (productInstance): number {
-//       if (productInstance[vendorCode]  == this.vendorCode {
-//         return index +=1;
-//       }
-//       else {
-//         index +=1;
-//       }
-//     }
-//   )
-//
-//       const card = new Card(dataBase[index]});
-//       fragment.appendChild(card.card);
-//     });
-//     return fragment;
-//   }
-// }

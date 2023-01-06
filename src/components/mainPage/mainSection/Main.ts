@@ -1,6 +1,4 @@
 import { Main } from '../Main';
-import { Router } from '../../../router/Router';
-import { routes } from '../../../router/routes';
 import { router } from '../../../index';
 
 export class MainSection {
@@ -33,7 +31,7 @@ export class MainSection {
     button.innerHTML = 'Go to catalog';
     button.classList.add('main__catalog-btn');
 
-    button.addEventListener('click', function (event) {
+    button.addEventListener('click', function () {
       router.loadRoute('shop');
     });
 

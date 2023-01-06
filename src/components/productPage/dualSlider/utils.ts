@@ -1,4 +1,7 @@
-export function getNumbersValues(currentFrom: HTMLInputElement, currentTo: HTMLInputElement) {
+export function getNumbersValues(
+  currentFrom: HTMLInputElement,
+  currentTo: HTMLInputElement
+) {
   const from = Number(currentFrom.value);
   const to = Number(currentTo.value);
   return [from, to];
