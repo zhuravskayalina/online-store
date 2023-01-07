@@ -24,6 +24,10 @@ export class Catalog {
   public applyedCategoryFilters: Array<string>;
   public applyedBrandFilters: Array<string>;
   public filtersState: CheckObject;
+  public priceFrom: void;
+  public priceTo: void;
+  public quantityFrom: void;
+  public quantityTo: void;
 
   constructor(
     productArray: Array<ProductData>,
@@ -45,6 +49,32 @@ export class Catalog {
     this.applyedCategoryFilters = [];
     this.applyedBrandFilters = [];
     this.filtersState = {};
+    this.priceFrom = this.setLS('priceFrom', 0);
+    this.priceTo = this.setLS('priceTo', 900);
+    this.quantityFrom = this.setLS('quantityFrom', 0);
+    this.quantityTo = this.setLS('quantityTo', 150);
+  }
+
+  //Local Storage methods
+  setLS(key: string, value: string | number): void {
+    localStorage.removeItem(key);
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  getLS(key: string): string | null {
+    return localStorage.getItem(key);
+  }
+
+  clearLSItem(key: string): void {
+    localStorage.removeItem(key);
+  }
+
+  clearLSAll(): void {
+    localStorage.clear();
+    this.priceFrom = this.setLS('priceFrom', 0);
+    this.priceTo = this.setLS('priceTo', 900);
+    this.quantityFrom = this.setLS('quantityFrom', 0);
+    this.quantityTo = this.setLS('quantityTo', 150);
   }
 
   collectCatalog() {
@@ -57,6 +87,8 @@ export class Catalog {
     this.pageContext.append(this.productWrapper);
     return pageBase;
   }
+
+  setPriceFilter = () => {};
 
   setView = () => {
     this.isGridView = !this.isGridView;
@@ -71,6 +103,7 @@ export class Catalog {
       );
     }
   };
+
   setFilter = (
     label: string,
     categoriesList: Array<Filters>,
@@ -156,13 +189,6 @@ export class Catalog {
         filtredProducts = this.productArray;
       }
     }
-
-    console.log(
-      'category:',
-      this.filtersState.category,
-      'brand:',
-      this.filtersState.brand
-    );
 
     this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
     this.productBlock.classList.remove('grid');

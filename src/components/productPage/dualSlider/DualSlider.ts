@@ -1,19 +1,37 @@
 import { RangeSliderTypes } from './types';
 import { fillLine, getNumbersValues, setZIndex } from './utils';
+import { Filters } from '../../../dataBase/types';
 
 export class DualSlider {
   priceSlider: HTMLDivElement;
   quantitySlider: HTMLDivElement;
-  from: number;
+  priceFrom: number;
+  quantityFrom: number;
   priceTo: number;
   quantityTo: number;
 
   constructor() {
     this.priceSlider = this.createSlider('price', 'slider-price');
     this.quantitySlider = this.createSlider('quantity', 'slider-quantity');
-    this.from = 0;
+    this.priceFrom = 0;
+    this.quantityFrom = 900;
     this.priceTo = 0;
-    this.quantityTo = 0;
+    this.quantityTo = 150;
+  }
+
+  handleChangeInput(
+    callback: (min: number, max: number) => void,
+    minPrice: number,
+    maxPrice: number,
+    minQuantity: number,
+    maxQuantity: number
+  ) {
+    this.priceSlider.addEventListener('input', () => {
+      callback(minPrice, maxPrice);
+    });
+    this.quantitySlider.addEventListener('input', () => {
+      callback(minQuantity, maxQuantity);
+    });
   }
 
   public initSliderStyle(dataType: RangeSliderTypes): void {
@@ -98,6 +116,8 @@ export class DualSlider {
 
       const [from, to] = getNumbersValues(fromSlider, toSlider);
       console.log('from:', target.dataset.type, from);
+      localStorage.setItem(`${target.dataset.type}From`, JSON.stringify(from));
+      // localStorage.clear();
 
       fillLine(fromSlider, toSlider, toSlider);
       if (from > to) {
@@ -129,6 +149,7 @@ export class DualSlider {
       const [from, to] = getNumbersValues(fromSlider, target);
 
       console.log('to:', target.dataset.type, to);
+      localStorage.setItem(`${target.dataset.type}To`, JSON.stringify(to));
       const type = target.dataset.type;
 
       fillLine(fromSlider, target, target);
