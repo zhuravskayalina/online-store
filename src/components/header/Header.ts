@@ -27,7 +27,7 @@ export class Header {
     logo.classList.add('header__logo');
 
     logo.addEventListener('click', function () {
-      router.loadRoute('');
+      router.loadRoute(false, '');
     });
 
     const input = new Search().element;

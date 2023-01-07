@@ -43,7 +43,7 @@ export class Card {
     buyNowButton.addEventListener('click', function () {
       // добавление в корзину (если еще не добавлен)
 
-      router.loadRoute('cart');
+      router.loadRoute(false, 'cart');
       const modal = document.querySelector('.app-modal') as HTMLDivElement;
       modal.classList.add('app-modal_shown');
       document.body.classList.add('open-modal');
@@ -157,7 +157,7 @@ export class Card {
     card.appendChild(productInfo);
 
     card.addEventListener('click', function () {
-      router.loadRoute('shop', vendorCode.toString());
+      router.loadRoute(false, 'shop', vendorCode.toString());
     });
 
     return card;

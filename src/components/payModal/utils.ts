@@ -148,11 +148,11 @@ export function showMessage(): void {
 
   if (checkAllFields()) {
     document.body.classList.remove('open-modal');
-    router.loadRoute('success');
+    router.loadRoute(false, 'success');
     modal.classList.add('modal_hidden');
   }
 }
 
 export function redirectToMainPage(): void {
-  router.loadRoute('');
+  router.loadRoute(false, '');
 }

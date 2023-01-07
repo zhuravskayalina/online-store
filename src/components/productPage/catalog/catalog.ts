@@ -73,9 +73,6 @@ export class Catalog {
       : [...this.applyedFilters, label];
     const filters = this.applyedFilters.join('');
 
-    // console.log('filters', filters);
-    // console.log('this.applyedFilters',this.applyedFilters);
-
     let filtredProducts: Array<ProductData> = [];
     if (
       this.productArray.some(
@@ -84,10 +81,8 @@ export class Catalog {
       )
     ) {
       filtredProducts = this.productArray.filter(({ brand, category }) => {
-        console.log('бренд и категория');
         return filters.includes(brand) && filters.includes(category);
       });
-      console.log('filtredProducts:', filtredProducts);
     } else if (
       this.productArray.some(
         ({ brand, category }) =>
@@ -95,7 +90,6 @@ export class Catalog {
       )
     ) {
       filtredProducts = this.productArray.filter(({ brand }) => {
-        console.log('только бренд');
         return filters.includes(brand);
       });
       console.log('filtredProducts:', filtredProducts);
@@ -106,10 +100,8 @@ export class Catalog {
       )
     ) {
       filtredProducts = this.productArray.filter(({ category }) => {
-        console.log('только категория');
         return filters.includes(category);
       });
-      console.log('filtredProducts:', filtredProducts);
     } else {
       filtredProducts = this.productArray;
     }

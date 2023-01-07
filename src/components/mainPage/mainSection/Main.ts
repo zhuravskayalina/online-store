@@ -32,7 +32,7 @@ export class MainSection {
     button.classList.add('main__catalog-btn');
 
     button.addEventListener('click', function () {
-      router.loadRoute('shop');
+      router.loadRoute(false, 'shop');
     });
 
     return button;
