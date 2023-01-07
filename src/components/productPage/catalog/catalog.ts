@@ -28,6 +28,7 @@ export class Catalog {
   public priceTo: void;
   public quantityFrom: void;
   public quantityTo: void;
+  public filtredProducts: Array<ProductData>;
 
   constructor(
     productArray: Array<ProductData>,
@@ -53,6 +54,7 @@ export class Catalog {
     this.priceTo = this.setLS('priceTo', 900);
     this.quantityFrom = this.setLS('quantityFrom', 0);
     this.quantityTo = this.setLS('quantityTo', 150);
+    this.filtredProducts = [];
   }
 
   //Local Storage methods
@@ -109,6 +111,15 @@ export class Catalog {
     categoriesList: Array<Filters>,
     brandsList: Array<Filters>
   ) => {
+    const renderingByCheckbox = (
+      filtredProducts: Array<ProductData> = this.filtredProducts
+    ) => {
+      this.productBlock.replaceChildren(
+        this.createProductBlock(filtredProducts)
+      );
+      this.productBlock.classList.remove('grid');
+    };
+
     //проверка содержится ли чекнутый чекбокс в массиве с категориями
     //проверка на категорию, формирование строки из категорий
     if (categoriesList.some((category) => category === label)) {
@@ -131,8 +142,6 @@ export class Catalog {
     this.filtersState.category = categoryFilters;
     this.filtersState.brand = brandFilters;
 
-    // создаем массив отфильтрованных продуктов
-    let filtredProducts: Array<ProductData> = [];
     //проверка на категорию
     //вариант когда выбрана категория, две ветки -  есть бренд и нет бренда
     if (this.filtersState.category) {
@@ -144,11 +153,16 @@ export class Catalog {
               this.filtersState.brand!.includes(brand)
           )
         ) {
-          filtredProducts = this.productArray.filter(({ brand, category }) => {
-            return (
-              brandFilters.includes(brand) && categoryFilters.includes(category)
-            );
-          });
+          this.filtredProducts = this.productArray.filter(
+            ({ brand, category }) => {
+              return (
+                brandFilters.includes(brand) &&
+                categoryFilters.includes(category)
+              );
+            }
+          );
+          renderingByCheckbox();
+          return this.filtredProducts;
         }
       }
       if (!this.filtersState.brand) {
@@ -157,9 +171,13 @@ export class Catalog {
             this.filtersState.category!.includes(category)
           )
         ) {
-          filtredProducts = this.productArray.filter(({ brand, category }) => {
-            return categoryFilters.includes(category);
-          });
+          this.filtredProducts = this.productArray.filter(
+            ({ brand, category }) => {
+              return categoryFilters.includes(category);
+            }
+          );
+          renderingByCheckbox();
+          return this.filtredProducts;
         }
       }
     }
@@ -171,9 +189,13 @@ export class Catalog {
             this.filtersState.brand!.includes(brand)
           )
         ) {
-          filtredProducts = this.productArray.filter(({ brand, category }) => {
-            return brandFilters.includes(brand);
-          });
+          this.filtredProducts = this.productArray.filter(
+            ({ brand, category }) => {
+              return brandFilters.includes(brand);
+            }
+          );
+          renderingByCheckbox();
+          return this.filtredProducts;
         }
       }
     }
@@ -186,12 +208,11 @@ export class Catalog {
           'brand:',
           this.filtersState.brand
         );
-        filtredProducts = this.productArray;
+        this.filtredProducts = this.productArray;
+        renderingByCheckbox();
+        return this.filtredProducts;
       }
     }
-
-    this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
-    this.productBlock.classList.remove('grid');
   };
 
   private createBase() {
