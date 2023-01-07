@@ -17,7 +17,7 @@ export class Cart {
     cartIconBox.classList.add('cart__icon');
 
     cartIconBox.addEventListener('click', function () {
-      router.loadRoute('cart');
+      router.loadRoute(false, 'cart');
     });
 
     const icon = document.createElement('div');

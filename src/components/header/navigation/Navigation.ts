@@ -27,7 +27,7 @@ export class Navigation {
       if (navItem === 'all') {
         item.addEventListener('click', function (event: MouseEvent) {
           event.preventDefault();
-          router.loadRoute('shop');
+          router.loadRoute(false, 'shop');
         });
       }
       list.append(item);

@@ -28,7 +28,7 @@ export class ErrorPage {
     button.innerHTML = 'back to Home page';
 
     button.addEventListener('click', function () {
-      router.loadRoute('');
+      router.loadRoute(false, '');
     });
 
     container.append(image, button);
