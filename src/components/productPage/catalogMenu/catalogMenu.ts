@@ -22,6 +22,17 @@ export class CatalogMenu {
     this.catalogMenu.append(this.resetFiltersButton);
     this.catalogMenu.append(this.selectSortContainer);
     this.catalogMenu.append(this.changeViewButton);
+
+    this.copyLinkButton.addEventListener('click', function (event: MouseEvent) {
+      const target = event.currentTarget as HTMLDivElement;
+      const text = target.children[target.children.length - 1];
+      text.innerHTML = 'Copied!';
+      const link = window.location.href;
+      navigator.clipboard.writeText(link).catch((err) => console.error(err));
+      setTimeout(() => {
+        text.innerHTML = 'Copy link';
+      }, 1000);
+    });
   }
 
   handleChangeView(handler: () => void) {
@@ -67,13 +78,24 @@ export class CatalogMenu {
 
   private createCopyLinkButton() {
     const copyLinkButton = document.createElement('button');
-    copyLinkButton.classList.add('catalog__menu-buttons');
+    copyLinkButton.classList.add('catalog__menu-buttons', 'catalog__menu-buttons_copy-link');
+    const iconCopyLink = this.createCopyLinkIcon();
+    const text = this.createCopyLinkText();
+    copyLinkButton.append(iconCopyLink, text);
+    return copyLinkButton;
+  }
+
+  private createCopyLinkIcon() {
     const iconCopyLink = document.createElement('span');
     iconCopyLink.classList.add('icon-copy', 'catalog__icon-pos');
-    copyLinkButton.append(iconCopyLink);
-    copyLinkButton.append('Copy Link');
-    copyLinkButton.type = 'button';
-    return copyLinkButton;
+    return iconCopyLink;
+  }
+
+  private createCopyLinkText() {
+    const span = document.createElement('span');
+    span.classList.add('copy-link__text');
+    span.innerHTML = 'Copy link';
+    return span;
   }
 
   private createSelectSortContainer() {

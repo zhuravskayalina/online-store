@@ -24,6 +24,10 @@
       cursor: pointer;
       border-color: $border-sort-block-hover;
     }
+
+    &_copy-link {
+      width: 112px;
+    }
   }
 
   &__menu-buttons:last-child {
