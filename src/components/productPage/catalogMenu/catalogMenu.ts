@@ -78,7 +78,10 @@ export class CatalogMenu {
 
   private createCopyLinkButton() {
     const copyLinkButton = document.createElement('button');
-    copyLinkButton.classList.add('catalog__menu-buttons', 'catalog__menu-buttons_copy-link');
+    copyLinkButton.classList.add(
+      'catalog__menu-buttons',
+      'catalog__menu-buttons_copy-link'
+    );
     const iconCopyLink = this.createCopyLinkIcon();
     const text = this.createCopyLinkText();
     copyLinkButton.append(iconCopyLink, text);

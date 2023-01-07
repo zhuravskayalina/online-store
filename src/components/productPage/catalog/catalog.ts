@@ -83,7 +83,7 @@ export class Catalog {
         ? this.applyedCategoryFilters.filter((item) => item !== label)
         : [...this.applyedCategoryFilters, label];
     }
-    console.log(this.applyedCategoryFilters);
+    console.log('this.applyedCategoryFilters', this.applyedCategoryFilters);
     let categoryFilters = this.applyedCategoryFilters.join('');
 
     //проверка на бренд, формирование строки из брендов
@@ -92,7 +92,7 @@ export class Catalog {
         ? this.applyedBrandFilters.filter((item) => item !== label)
         : [...this.applyedBrandFilters, label];
     }
-    console.log(this.applyedBrandFilters);
+    console.log('this.applyedBrandFilters', this.applyedBrandFilters);
     let brandFilters = this.applyedBrandFilters.join('');
 
     this.filtersState.category = categoryFilters;
