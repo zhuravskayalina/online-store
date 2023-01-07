@@ -3,17 +3,15 @@ import { ProductData, Filters } from '../../../dataBase/types';
 import { AllFiltersBlock } from '../filters/filters';
 import { CatalogMenu } from '../catalogMenu/catalogMenu';
 import { Card } from '../productCard/Card';
-import { categoriesList } from '../../../dataBase/filtersList';
+import { CheckObject } from './CheckObjectInterface';
 
 const bannerPath = require('../../../assets/images/banner.jpg');
-
 export class Catalog {
   public catalog: HTMLElement;
   public isGridView: boolean;
   public productArray: Array<ProductData>;
   public categoriesList: Array<Filters>;
   public brandsList: Array<Filters>;
-
   // public pageBase: HTMLElement;
   public catalogContainer: HTMLDivElement;
   public pageContext: HTMLDivElement;
@@ -22,7 +20,9 @@ export class Catalog {
   public catalogMenu: HTMLDivElement;
   public productBlock: HTMLDivElement;
   public applyedFilters: Array<string>;
-
+  public applyedCategoryFilters: Array<string>;
+  public applyedBrandFilters: Array<string>;
+  public filtersState: CheckObject;
   constructor(
     productArray: Array<ProductData>,
     categoriesList: Array<Filters>,
@@ -40,8 +40,10 @@ export class Catalog {
     this.productBlock = this.createProductBlock(productArray);
     this.catalog = this.collectCatalog();
     this.applyedFilters = [];
+    this.applyedCategoryFilters = [];
+    this.applyedBrandFilters = [];
+    this.filtersState = {};
   }
-
   collectCatalog() {
     const pageBase = this.createBase();
     pageBase.append(this.catalogContainer);
@@ -52,7 +54,6 @@ export class Catalog {
     this.pageContext.append(this.productWrapper);
     return pageBase;
   }
-
   setView = () => {
     this.isGridView = !this.isGridView;
     if (!this.isGridView) {
@@ -66,87 +67,108 @@ export class Catalog {
       );
     }
   };
-
-  setFilter = (label: string) => {
-    this.applyedFilters = this.applyedFilters.includes(label)
-      ? this.applyedFilters.filter((item) => item !== label)
-      : [...this.applyedFilters, label];
-    const filters = this.applyedFilters.join('');
-
-    // console.log('filters', filters);
-    // console.log('this.applyedFilters',this.applyedFilters);
-
+  setFilter = (
+    label: string,
+    categoriesList: Array<Filters>,
+    brandsList: Array<Filters>
+  ) => {
+    //проверка содержится ли чекнутый чекбокс в массиве с категориями
+    //проверка на категорию, формирование строки из категорий
+    if (categoriesList.some((category) => category === label)) {
+      this.applyedCategoryFilters = this.applyedCategoryFilters.includes(label)
+        ? this.applyedCategoryFilters.filter((item) => item !== label)
+        : [...this.applyedCategoryFilters, label];
+    }
+    const categoryFilters = this.applyedCategoryFilters.join('');
+    //проверка на бренд, формирование строки из брендов
+    if (brandsList.some((brand) => brand === label)) {
+      this.applyedBrandFilters = this.applyedBrandFilters.includes(label)
+        ? this.applyedBrandFilters.filter((item) => item !== label)
+        : [...this.applyedBrandFilters, label];
+    }
+    const brandFilters = this.applyedBrandFilters.join('');
+    // делаем проверку:
+    //  у нас выбраны бренд или категория?
+    // добавляем их в ствойство объекта
+    if (categoryFilters) {
+      this.filtersState.category = categoryFilters;
+    }
+    if (brandFilters) {
+      this.filtersState.brand = brandFilters;
+    }
+    // создаем массив отфильтрованных продуктов
     let filtredProducts: Array<ProductData> = [];
-    if (
-      this.productArray.some(
-        ({ brand, category }) =>
-          filters.includes(brand) && filters.includes(category)
-      )
-    ) {
-      filtredProducts = this.productArray.filter(({ brand, category }) => {
-        console.log('бренд и категория');
-        return filters.includes(brand) && filters.includes(category);
-      });
-      console.log('filtredProducts:', filtredProducts);
-    } else if (
-      this.productArray.some(
-        ({ brand, category }) =>
-          filters.includes(brand) && !filters.includes(category)
-      )
-    ) {
-      filtredProducts = this.productArray.filter(({ brand }) => {
-        console.log('только бренд');
-        return filters.includes(brand);
-      });
-      console.log('filtredProducts:', filtredProducts);
-    } else if (
-      this.productArray.some(
-        ({ brand, category }) =>
-          !filters.includes(brand) && filters.includes(category)
-      )
-    ) {
-      filtredProducts = this.productArray.filter(({ category }) => {
-        console.log('только категория');
-        return filters.includes(category);
-      });
-      console.log('filtredProducts:', filtredProducts);
-    } else {
-      filtredProducts = this.productArray;
+    //проверка на категорию
+    //вариант когда выбрана категория
+    if (this.filtersState.category) {
+      if (this.filtersState.brand) {
+        if (
+          this.productArray.some(
+            ({ brand, category }) =>
+              this.filtersState.category!.includes(category) &&
+              this.filtersState.brand!.includes(brand)
+          )
+        ) {
+          filtredProducts = this.productArray.filter(({ brand, category }) => {
+            return (
+              brandFilters.includes(brand) && categoryFilters.includes(category)
+            );
+          });
+        }
+      }
+      if (!this.filtersState.brand) {
+        if (
+          this.productArray.some(({ category }) =>
+            this.filtersState.category!.includes(category)
+          )
+        ) {
+          filtredProducts = this.productArray.filter(({ brand, category }) => {
+            return categoryFilters.includes(category);
+          });
+        }
+      }
+    }
+    //вариант когда нет категории
+    if (!this.filtersState.category) {
+      if (this.filtersState.brand) {
+        if (
+          this.productArray.some(({ brand }) =>
+            this.filtersState.brand!.includes(brand)
+          )
+        ) {
+          filtredProducts = this.productArray.filter(({ brand, category }) => {
+            return brandFilters.includes(brand);
+          });
+        }
+      }
     }
     this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
     this.productBlock.classList.remove('grid');
   };
-
   private createBase() {
     const main = new Main().element;
     main.classList.add('catalog');
     return main;
   }
-
   private createCatalogContainer() {
     const catalogWrapper = document.createElement('div');
     catalogWrapper.classList.add('catalog__container');
-
     const catalogBanner = document.createElement('img');
     catalogBanner.classList.add('catalog__banner');
     catalogBanner.src = bannerPath;
     catalogBanner.alt = 'Banner';
     catalogWrapper.append(catalogBanner);
-
     const catalogHeader = document.createElement('p');
     catalogHeader.classList.add('catalog__header');
     catalogHeader.textContent = 'Catalog';
-
     catalogWrapper.appendChild(catalogHeader);
     return catalogWrapper;
   }
-
   private createCatalogContext() {
     const catalogContext = document.createElement('div');
     catalogContext.classList.add('catalog__context');
     return catalogContext;
   }
-
   private createFilters(
     categoriesList: Array<Filters>,
     brandsList: Array<Filters>
@@ -160,19 +182,16 @@ export class Catalog {
     filtersBlock.append(filters);
     return filtersBlock;
   }
-
   private createMenu() {
     const catalogMenu = new CatalogMenu();
     catalogMenu.handleChangeView(this.setView);
     const functionalBlock = catalogMenu.catalogMenu;
     return functionalBlock;
   }
-
   private createProductWrapper() {
     const productWrapper = document.createElement('div');
     return productWrapper;
   }
-
   private createProductBlock(productArray: Array<ProductData>) {
     const productGrid = document.createElement('div');
     productGrid.classList.add('catalog__cards');
