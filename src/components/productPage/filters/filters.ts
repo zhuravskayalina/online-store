@@ -8,7 +8,11 @@ export class AllFiltersBlock {
   constructor(
     categories: Array<Filters>,
     brands: Array<Filters>,
-    setFilters: (category: string) => void
+    setFilters: (
+      category: Filters,
+      categoriesList: Array<Filters>,
+      brandsList: Array<Filters>
+    ) => void
   ) {
     this.allFiltersBlock = this.createAllFiltersBlock(
       categories,
@@ -20,7 +24,11 @@ export class AllFiltersBlock {
   private createAllFiltersBlock(
     categories: Array<Filters>,
     brands: Array<Filters>,
-    setFilters: (category: string) => void
+    setFilters: (
+      category: Filters,
+      categoriesList: Array<Filters>,
+      brandsList: Array<Filters>
+    ) => void
   ): DocumentFragment {
     const fragment = document.createDocumentFragment();
     const categoriesHeader = document.createElement('p');

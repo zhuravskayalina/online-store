@@ -4,10 +4,16 @@ import { fillLine, getNumbersValues, setZIndex } from './utils';
 export class DualSlider {
   priceSlider: HTMLDivElement;
   quantitySlider: HTMLDivElement;
+  from: number;
+  priceTo: number;
+  quantityTo: number;
 
   constructor() {
     this.priceSlider = this.createSlider('price', 'slider-price');
     this.quantitySlider = this.createSlider('quantity', 'slider-quantity');
+    this.from = 0;
+    this.priceTo = 0;
+    this.quantityTo = 0;
   }
 
   public initSliderStyle(dataType: RangeSliderTypes): void {
@@ -91,7 +97,6 @@ export class DualSlider {
       }
 
       const [from, to] = getNumbersValues(fromSlider, toSlider);
-
       console.log('from:', target.dataset.type, from);
 
       fillLine(fromSlider, toSlider, toSlider);
