@@ -5,21 +5,17 @@ import { categoriesList, brandsList } from '../../../dataBase/filtersList';
 export class Checkbox {
   public checkbox: HTMLFormElement;
 
-  constructor(
-    category: CheckboxLabelText,
-    categoriesList: Array<Filters>,
-    brandsList: Array<Filters>
-  ) {
+  constructor(category: CheckboxLabelText) {
     this.checkbox = this.createCheckbox(category);
   }
 
   handleChange(
     callback: (
-      category: string,
+      category: Filters,
       categoriesList: Array<Filters>,
       brandsList: Array<Filters>
     ) => void,
-    category: string,
+    category: Filters,
     categoriesList: Array<Filters>,
     brandsList: Array<Filters>
   ) {
@@ -58,7 +54,7 @@ export class Checkbox {
     this.checkbox = this.createCheckbox(category);
   }
 
-  handleChange(callback: (category: string) => void, category: string) {
+  handleChange(callback: (category: Filters) => void, category: Filters) {
     this.checkbox.addEventListener('change', () => {
       callback(category);
     });

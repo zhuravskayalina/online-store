@@ -6,6 +6,7 @@ import { Card } from '../productCard/Card';
 import { CheckObject } from './CheckObjectInterface';
 
 const bannerPath = require('../../../assets/images/banner.jpg');
+
 export class Catalog {
   public catalog: HTMLElement;
   public isGridView: boolean;
@@ -23,6 +24,7 @@ export class Catalog {
   public applyedCategoryFilters: Array<string>;
   public applyedBrandFilters: Array<string>;
   public filtersState: CheckObject;
+
   constructor(
     productArray: Array<ProductData>,
     categoriesList: Array<Filters>,
@@ -44,6 +46,7 @@ export class Catalog {
     this.applyedBrandFilters = [];
     this.filtersState = {};
   }
+
   collectCatalog() {
     const pageBase = this.createBase();
     pageBase.append(this.catalogContainer);
@@ -54,6 +57,7 @@ export class Catalog {
     this.pageContext.append(this.productWrapper);
     return pageBase;
   }
+
   setView = () => {
     this.isGridView = !this.isGridView;
     if (!this.isGridView) {
@@ -79,14 +83,15 @@ export class Catalog {
         ? this.applyedCategoryFilters.filter((item) => item !== label)
         : [...this.applyedCategoryFilters, label];
     }
-    const categoryFilters = this.applyedCategoryFilters.join('');
+    let categoryFilters = this.applyedCategoryFilters.join('');
+
     //проверка на бренд, формирование строки из брендов
     if (brandsList.some((brand) => brand === label)) {
       this.applyedBrandFilters = this.applyedBrandFilters.includes(label)
         ? this.applyedBrandFilters.filter((item) => item !== label)
         : [...this.applyedBrandFilters, label];
     }
-    const brandFilters = this.applyedBrandFilters.join('');
+    let brandFilters = this.applyedBrandFilters.join('');
     // делаем проверку:
     //  у нас выбраны бренд или категория?
     // добавляем их в ствойство объекта
@@ -99,7 +104,7 @@ export class Catalog {
     // создаем массив отфильтрованных продуктов
     let filtredProducts: Array<ProductData> = [];
     //проверка на категорию
-    //вариант когда выбрана категория
+    //вариант когда выбрана категория, две ветки -  есть бренд и нет бренда
     if (this.filtersState.category) {
       if (this.filtersState.brand) {
         if (
@@ -142,14 +147,35 @@ export class Catalog {
         }
       }
     }
+    //нет категории и нет бренда значит рисуем всю страницу
+    else if (!this.filtersState.category) {
+      if (!this.filtersState.brand) {
+        console.log(
+          'NO category:',
+          this.filtersState.category,
+          'brand:',
+          this.filtersState.brand
+        );
+        filtredProducts = this.productArray;
+      }
+    }
+
     this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
+    console.log(
+      'category:',
+      this.filtersState.category,
+      'brand:',
+      this.filtersState.brand
+    );
     this.productBlock.classList.remove('grid');
   };
+
   private createBase() {
     const main = new Main().element;
     main.classList.add('catalog');
     return main;
   }
+
   private createCatalogContainer() {
     const catalogWrapper = document.createElement('div');
     catalogWrapper.classList.add('catalog__container');
@@ -164,11 +190,13 @@ export class Catalog {
     catalogWrapper.appendChild(catalogHeader);
     return catalogWrapper;
   }
+
   private createCatalogContext() {
     const catalogContext = document.createElement('div');
     catalogContext.classList.add('catalog__context');
     return catalogContext;
   }
+
   private createFilters(
     categoriesList: Array<Filters>,
     brandsList: Array<Filters>
@@ -182,16 +210,19 @@ export class Catalog {
     filtersBlock.append(filters);
     return filtersBlock;
   }
+
   private createMenu() {
     const catalogMenu = new CatalogMenu();
     catalogMenu.handleChangeView(this.setView);
     const functionalBlock = catalogMenu.catalogMenu;
     return functionalBlock;
   }
+
   private createProductWrapper() {
     const productWrapper = document.createElement('div');
     return productWrapper;
   }
+
   private createProductBlock(productArray: Array<ProductData>) {
     const productGrid = document.createElement('div');
     productGrid.classList.add('catalog__cards');
