@@ -83,6 +83,7 @@ export class Catalog {
         ? this.applyedCategoryFilters.filter((item) => item !== label)
         : [...this.applyedCategoryFilters, label];
     }
+    console.log(this.applyedCategoryFilters);
     let categoryFilters = this.applyedCategoryFilters.join('');
 
     //проверка на бренд, формирование строки из брендов
@@ -91,16 +92,12 @@ export class Catalog {
         ? this.applyedBrandFilters.filter((item) => item !== label)
         : [...this.applyedBrandFilters, label];
     }
+    console.log(this.applyedBrandFilters);
     let brandFilters = this.applyedBrandFilters.join('');
-    // делаем проверку:
-    //  у нас выбраны бренд или категория?
-    // добавляем их в ствойство объекта
-    if (categoryFilters) {
-      this.filtersState.category = categoryFilters;
-    }
-    if (brandFilters) {
-      this.filtersState.brand = brandFilters;
-    }
+
+    this.filtersState.category = categoryFilters;
+    this.filtersState.brand = brandFilters;
+
     // создаем массив отфильтрованных продуктов
     let filtredProducts: Array<ProductData> = [];
     //проверка на категорию
@@ -148,7 +145,7 @@ export class Catalog {
       }
     }
     //нет категории и нет бренда значит рисуем всю страницу
-    else if (!this.filtersState.category) {
+    if (!this.filtersState.category) {
       if (!this.filtersState.brand) {
         console.log(
           'NO category:',
@@ -160,13 +157,14 @@ export class Catalog {
       }
     }
 
-    this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
     console.log(
       'category:',
       this.filtersState.category,
       'brand:',
       this.filtersState.brand
     );
+
+    this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
     this.productBlock.classList.remove('grid');
   };
 
