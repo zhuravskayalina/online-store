@@ -24,10 +24,7 @@ export class Catalog {
   public applyedCategoryFilters: Array<string>;
   public applyedBrandFilters: Array<string>;
   public filtersState: CheckObject;
-  public priceFrom: void;
-  public priceTo: void;
-  public quantityFrom: void;
-  public quantityTo: void;
+
   public filtredProducts: Array<ProductData>;
 
   constructor(
@@ -50,33 +47,7 @@ export class Catalog {
     this.applyedCategoryFilters = [];
     this.applyedBrandFilters = [];
     this.filtersState = {};
-    this.priceFrom = this.setLS('priceFrom', 0);
-    this.priceTo = this.setLS('priceTo', 900);
-    this.quantityFrom = this.setLS('quantityFrom', 0);
-    this.quantityTo = this.setLS('quantityTo', 150);
-    this.filtredProducts = [];
-  }
-
-  //Local Storage methods
-  setLS(key: string, value: string | number): void {
-    localStorage.removeItem(key);
-    localStorage.setItem(key, JSON.stringify(value));
-  }
-
-  getLS(key: string): string | null {
-    return localStorage.getItem(key);
-  }
-
-  clearLSItem(key: string): void {
-    localStorage.removeItem(key);
-  }
-
-  clearLSAll(): void {
-    localStorage.clear();
-    this.priceFrom = this.setLS('priceFrom', 0);
-    this.priceTo = this.setLS('priceTo', 900);
-    this.quantityFrom = this.setLS('quantityFrom', 0);
-    this.quantityTo = this.setLS('quantityTo', 150);
+    this.filtredProducts = productArray;
   }
 
   collectCatalog() {
@@ -90,7 +61,21 @@ export class Catalog {
     return pageBase;
   }
 
-  setPriceFilter = () => {};
+  getPriceValue = (min: number, max: number): void => {
+    this.filtredProducts = this.filtredProducts.filter(
+      ({ price }) => price >= min && price <= max
+    );
+    this.renderingByFilters();
+    console.log(min, max);
+  };
+
+  getQuantityValue = (min: number, max: number): void => {
+    this.filtredProducts = this.filtredProducts.filter(
+      ({ quantity }) => quantity >= min && quantity <= max
+    );
+    this.renderingByFilters();
+    console.log(min, max);
+  };
 
   setView = () => {
     this.isGridView = !this.isGridView;
@@ -106,20 +91,18 @@ export class Catalog {
     }
   };
 
+  private renderingByFilters() {
+    this.productBlock.replaceChildren(
+      this.createProductBlock(this.filtredProducts)
+    );
+    this.productBlock.classList.remove('grid');
+  }
+
   setFilter = (
     label: string,
     categoriesList: Array<Filters>,
     brandsList: Array<Filters>
   ) => {
-    const renderingByCheckbox = (
-      filtredProducts: Array<ProductData> = this.filtredProducts
-    ) => {
-      this.productBlock.replaceChildren(
-        this.createProductBlock(filtredProducts)
-      );
-      this.productBlock.classList.remove('grid');
-    };
-
     //проверка содержится ли чекнутый чекбокс в массиве с категориями
     //проверка на категорию, формирование строки из категорий
     if (categoriesList.some((category) => category === label)) {
@@ -127,7 +110,6 @@ export class Catalog {
         ? this.applyedCategoryFilters.filter((item) => item !== label)
         : [...this.applyedCategoryFilters, label];
     }
-    console.log('this.applyedCategoryFilters', this.applyedCategoryFilters);
     let categoryFilters = this.applyedCategoryFilters.join('');
 
     //проверка на бренд, формирование строки из брендов
@@ -136,7 +118,7 @@ export class Catalog {
         ? this.applyedBrandFilters.filter((item) => item !== label)
         : [...this.applyedBrandFilters, label];
     }
-    console.log('this.applyedBrandFilters', this.applyedBrandFilters);
+
     let brandFilters = this.applyedBrandFilters.join('');
 
     this.filtersState.category = categoryFilters;
@@ -161,7 +143,7 @@ export class Catalog {
               );
             }
           );
-          renderingByCheckbox();
+          this.renderingByFilters();
           return this.filtredProducts;
         }
       }
@@ -176,7 +158,7 @@ export class Catalog {
               return categoryFilters.includes(category);
             }
           );
-          renderingByCheckbox();
+          this.renderingByFilters();
           return this.filtredProducts;
         }
       }
@@ -194,7 +176,7 @@ export class Catalog {
               return brandFilters.includes(brand);
             }
           );
-          renderingByCheckbox();
+          this.renderingByFilters();
           return this.filtredProducts;
         }
       }
@@ -202,14 +184,8 @@ export class Catalog {
     //нет категории и нет бренда значит рисуем всю страницу
     if (!this.filtersState.category) {
       if (!this.filtersState.brand) {
-        console.log(
-          'NO category:',
-          this.filtersState.category,
-          'brand:',
-          this.filtersState.brand
-        );
         this.filtredProducts = this.productArray;
-        renderingByCheckbox();
+        this.renderingByFilters();
         return this.filtredProducts;
       }
     }
@@ -250,7 +226,9 @@ export class Catalog {
     const filters = new AllFiltersBlock(
       categoriesList,
       brandsList,
-      this.setFilter
+      this.setFilter,
+      this.getPriceValue,
+      this.getQuantityValue
     ).allFiltersBlock;
     filtersBlock.append(filters);
     return filtersBlock;

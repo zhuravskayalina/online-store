@@ -1,50 +1,53 @@
 import { RangeSliderTypes } from './types';
 import { fillLine, getNumbersValues, setZIndex } from './utils';
-import { Filters } from '../../../dataBase/types';
 
 export class DualSlider {
   priceSlider: HTMLDivElement;
   quantitySlider: HTMLDivElement;
-  priceFrom: number;
-  quantityFrom: number;
-  priceTo: number;
-  quantityTo: number;
+  private priceFrom: number;
+  private quantityFrom: number;
+  private priceTo: number;
+  private quantityTo: number;
+  private sliderValues: {
+    [key: string]: {
+      from: number;
+      to: number;
+    };
+  };
 
   constructor() {
     this.priceSlider = this.createSlider('price', 'slider-price');
     this.quantitySlider = this.createSlider('quantity', 'slider-quantity');
     this.priceFrom = 0;
-    this.quantityFrom = 900;
-    this.priceTo = 0;
+    this.priceTo = 900;
+    this.quantityFrom = 0;
     this.quantityTo = 150;
+    this.sliderValues = {
+      price: {
+        from: 0,
+        to: 900,
+      },
+      quantity: {
+        from: 0,
+        to: 150,
+      },
+    };
   }
 
   handleChangeInput(
     callback: (min: number, max: number) => void,
-    minPrice: number,
-    maxPrice: number,
-    minQuantity: number,
-    maxQuantity: number
+    callbackQuantity: (min: number, max: number) => void
   ) {
-    this.priceSlider.addEventListener('input', () => {
-      callback(minPrice, maxPrice);
+    this.priceSlider.addEventListener('change', () => {
+      callback(this.sliderValues.price.from, this.sliderValues.price.to);
     });
-    this.quantitySlider.addEventListener('input', () => {
-      callback(minQuantity, maxQuantity);
+    console.log(this.quantitySlider);
+    this.quantitySlider.addEventListener('change', () => {
+      callbackQuantity(
+        this.sliderValues.quantity.from,
+        this.sliderValues.quantity.to
+      );
     });
-  }
-
-  public initSliderStyle(dataType: RangeSliderTypes): void {
-    let fromSlider = document.querySelector(
-      `.slider__slider-from[data-type='${dataType}']`
-    ) as HTMLInputElement;
-
-    let toSlider = document.querySelector(
-      `.slider__slider-to[data-type='${dataType}']`
-    ) as HTMLInputElement;
-
-    fillLine(fromSlider, toSlider, toSlider);
-    setZIndex(toSlider, dataType);
   }
 
   private createSlider(
@@ -96,7 +99,7 @@ export class DualSlider {
       toSlider.value = max.toString();
     }
 
-    fromSlider.addEventListener('input', function (event) {
+    fromSlider.addEventListener('input', (event) => {
       const target = event.target as HTMLInputElement;
       let fromInput = document.querySelector(
         `.num-controls__times-input_from[data-input-type='price']`
@@ -115,9 +118,7 @@ export class DualSlider {
       }
 
       const [from, to] = getNumbersValues(fromSlider, toSlider);
-      console.log('from:', target.dataset.type, from);
-      localStorage.setItem(`${target.dataset.type}From`, JSON.stringify(from));
-      // localStorage.clear();
+      this.sliderValues[target.dataset.type as string].from = from;
 
       fillLine(fromSlider, toSlider, toSlider);
       if (from > to) {
@@ -128,11 +129,12 @@ export class DualSlider {
       }
     });
 
-    toSlider.addEventListener('input', function (event) {
+    toSlider.addEventListener('input', (event) => {
       const target = event.target as HTMLInputElement;
       let fromSlider = document.querySelector(
         '.slider__slider-from[data-type="price"]'
       ) as HTMLInputElement;
+
       let toInput = document.querySelector(
         '.num-controls__times-input_to[data-input-type="price"]'
       ) as HTMLInputElement;
@@ -141,6 +143,7 @@ export class DualSlider {
         fromSlider = document.querySelector(
           '.slider__slider-from[data-type="quantity"]'
         ) as HTMLInputElement;
+
         toInput = document.querySelector(
           '.num-controls__times-input_to[data-input-type="quantity"]'
         ) as HTMLInputElement;
@@ -148,8 +151,8 @@ export class DualSlider {
 
       const [from, to] = getNumbersValues(fromSlider, target);
 
-      console.log('to:', target.dataset.type, to);
-      localStorage.setItem(`${target.dataset.type}To`, JSON.stringify(to));
+      this.sliderValues[target.dataset.type as string].to = to;
+
       const type = target.dataset.type;
 
       fillLine(fromSlider, target, target);

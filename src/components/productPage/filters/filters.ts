@@ -12,12 +12,16 @@ export class AllFiltersBlock {
       category: Filters,
       categoriesList: Array<Filters>,
       brandsList: Array<Filters>
-    ) => void
+    ) => void,
+    getPriceFilter: (min: number, max: number) => void,
+    getQuantityFilter: (min: number, max: number) => void
   ) {
     this.allFiltersBlock = this.createAllFiltersBlock(
       categories,
       brands,
-      setFilters
+      setFilters,
+      getPriceFilter,
+      getQuantityFilter
     );
   }
 
@@ -28,7 +32,9 @@ export class AllFiltersBlock {
       category: Filters,
       categoriesList: Array<Filters>,
       brandsList: Array<Filters>
-    ) => void
+    ) => void,
+    getPriceFilter: (min: number, max: number) => void,
+    getQuantityFilter: (min: number, max: number) => void
   ): DocumentFragment {
     const fragment = document.createDocumentFragment();
     const categoriesHeader = document.createElement('p');
@@ -37,9 +43,12 @@ export class AllFiltersBlock {
     const brandsHeader = document.createElement('p');
     const brandsSet = new CheckboxBlock(brands, setFilters).checkboxBlock;
     const priceHeader = document.createElement('p');
-    const priceSlider = new DualSlider().priceSlider;
+    const priceInput = new DualSlider();
+    const stockSlider = priceInput.quantitySlider;
+    const priceSlider = priceInput.priceSlider;
+    priceInput.handleChangeInput(getPriceFilter, getQuantityFilter);
     const stockHeader = document.createElement('p');
-    const stockSlider = new DualSlider().quantitySlider;
+    // const stockSlider = new DualSlider().quantitySlider;
 
     categoriesHeader.classList.add('filters__header');
     categoriesHeader.textContent = 'Categories';
