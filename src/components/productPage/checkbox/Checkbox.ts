@@ -29,11 +29,11 @@ export class Checkbox {
     const inputCheckbox = document.createElement('input');
     const label = document.createElement('label');
 
-    inputCheckbox.classList.add('filters_checkbox-custom');
+    inputCheckbox.classList.add('filters__checkbox-custom');
     inputCheckbox.type = 'checkbox';
     inputCheckbox.id = `checkbox-${category.toString().toLowerCase()}`;
 
-    inputCheckbox.classList.add('filters_label');
+    inputCheckbox.classList.add('filters__label');
     label.htmlFor = `checkbox-${category.toString().toLowerCase()}`;
     label.textContent = category.toString();
 
