@@ -13,7 +13,6 @@ export class Catalog {
   public productArray: Array<ProductData>;
   public categoriesList: Array<Filters>;
   public brandsList: Array<Filters>;
-  // public pageBase: HTMLElement;
   public catalogContainer: HTMLDivElement;
   public pageContext: HTMLDivElement;
   public filtersBlock: HTMLDivElement;
@@ -144,7 +143,6 @@ export class Catalog {
             }
           );
           this.renderingByFilters();
-          return this.filtredProducts;
         }
       }
       if (!this.filtersState.brand) {
@@ -159,7 +157,6 @@ export class Catalog {
             }
           );
           this.renderingByFilters();
-          return this.filtredProducts;
         }
       }
     }
@@ -177,7 +174,6 @@ export class Catalog {
             }
           );
           this.renderingByFilters();
-          return this.filtredProducts;
         }
       }
     }
@@ -186,7 +182,6 @@ export class Catalog {
       if (!this.filtersState.brand) {
         this.filtredProducts = this.productArray;
         this.renderingByFilters();
-        return this.filtredProducts;
       }
     }
   };
