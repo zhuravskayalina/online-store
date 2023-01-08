@@ -8,8 +8,9 @@ export class CatalogMenu {
   public resetFiltersButton: HTMLButtonElement;
   public selectSortContainer: HTMLDivElement;
   private selectSort: HTMLSelectElement;
+  private filtredProductsQuantityInscription: HTMLParagraphElement;
 
-  constructor() {
+  constructor(filtredProductsQuantity: number) {
     this.isGridView = true;
     this.catalogMenu = this.createMenu();
     this.copyLinkButton = this.createCopyLinkButton();
@@ -17,9 +18,13 @@ export class CatalogMenu {
     this.resetFiltersButton = this.createResetFiltersButton();
     this.selectSort = new SelectSort().selectList;
     this.selectSortContainer = this.createSelectSortContainer();
+    this.filtredProductsQuantityInscription = this.createHowManyProductsBlock(
+      filtredProductsQuantity
+    );
 
     this.catalogMenu.append(this.copyLinkButton);
     this.catalogMenu.append(this.resetFiltersButton);
+    this.catalogMenu.append(this.filtredProductsQuantityInscription);
     this.catalogMenu.append(this.selectSortContainer);
     this.catalogMenu.append(this.changeViewButton);
 
@@ -117,5 +122,12 @@ export class CatalogMenu {
     menuBlock.classList.add('catalog__menu');
 
     return menuBlock;
+  }
+
+  private createHowManyProductsBlock(filtredProductsQuantity: number) {
+    const quantityInscription = document.createElement('p');
+    quantityInscription.classList.add('catalog__menu-quantity-inscription');
+    quantityInscription.textContent = `Found: ${filtredProductsQuantity}`;
+    return quantityInscription;
   }
 }

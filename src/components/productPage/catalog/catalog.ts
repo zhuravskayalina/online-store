@@ -34,17 +34,6 @@ export class Catalog {
     categoriesList: Array<Filters>,
     brandsList: Array<Filters>
   ) {
-    this.isGridView = true;
-    this.productArray = productArray;
-    this.categoriesList = categoriesList;
-    this.brandsList = brandsList;
-    this.catalogContainer = this.createCatalogContainer();
-    this.pageContext = this.createCatalogContext();
-    this.filtersBlock = this.createFilters(categoriesList, brandsList);
-    this.productWrapper = this.createProductWrapper();
-    this.catalogMenu = this.createMenu();
-    this.productBlock = this.createProductBlock(productArray);
-    this.catalog = this.collectCatalog();
     this.applyedFilters = [];
     this.applyedCategoryFilters = [];
     this.applyedBrandFilters = [];
@@ -54,6 +43,18 @@ export class Catalog {
     this.filtredByCheckboxProducts = productArray;
     this.filtredBySliderProducts = productArray;
     this.filtredByAllFiltersProducts = productArray;
+    this.isGridView = true;
+    this.productArray = productArray;
+    this.categoriesList = categoriesList;
+    this.brandsList = brandsList;
+
+    this.catalogContainer = this.createCatalogContainer();
+    this.pageContext = this.createCatalogContext();
+    this.filtersBlock = this.createFilters(categoriesList, brandsList);
+    this.productWrapper = this.createProductWrapper();
+    this.catalogMenu = this.createMenu();
+    this.productBlock = this.createProductBlock(productArray);
+    this.catalog = this.collectCatalog();
   }
 
   collectCatalog() {
@@ -159,6 +160,7 @@ export class Catalog {
       this.createProductBlock(this.filtredByAllFiltersProducts)
     );
     this.productBlock.classList.remove('grid');
+    this.catalogMenu.replaceWith(this.createMenu());
   }
 
   setFilter = (
@@ -294,7 +296,9 @@ export class Catalog {
   }
 
   private createMenu() {
-    const catalogMenu = new CatalogMenu();
+    const catalogMenu = new CatalogMenu(
+      this.filtredByAllFiltersProducts.length
+    );
     catalogMenu.handleChangeView(this.setView);
     const functionalBlock = catalogMenu.catalogMenu;
     return functionalBlock;
