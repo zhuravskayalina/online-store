@@ -25,6 +25,8 @@ export class Catalog {
   public applyedBrandFilters: Array<string>;
   public filtersState: CheckObject;
 
+  public filtredProducts: Array<ProductData>;
+
   constructor(
     productArray: Array<ProductData>,
     categoriesList: Array<Filters>,
@@ -45,6 +47,7 @@ export class Catalog {
     this.applyedCategoryFilters = [];
     this.applyedBrandFilters = [];
     this.filtersState = {};
+    this.filtredProducts = productArray;
   }
 
   collectCatalog() {
@@ -57,6 +60,22 @@ export class Catalog {
     this.pageContext.append(this.productWrapper);
     return pageBase;
   }
+
+  getPriceValue = (min: number, max: number): void => {
+    this.filtredProducts = this.filtredProducts.filter(
+      ({ price }) => price >= min && price <= max
+    );
+    this.renderingByFilters();
+    console.log(min, max);
+  };
+
+  getQuantityValue = (min: number, max: number): void => {
+    this.filtredProducts = this.filtredProducts.filter(
+      ({ quantity }) => quantity >= min && quantity <= max
+    );
+    this.renderingByFilters();
+    console.log(min, max);
+  };
 
   setView = () => {
     this.isGridView = !this.isGridView;
@@ -71,6 +90,14 @@ export class Catalog {
       );
     }
   };
+
+  private renderingByFilters() {
+    this.productBlock.replaceChildren(
+      this.createProductBlock(this.filtredProducts)
+    );
+    this.productBlock.classList.remove('grid');
+  }
+
   setFilter = (
     label: string,
     categoriesList: Array<Filters>,
@@ -83,7 +110,6 @@ export class Catalog {
         ? this.applyedCategoryFilters.filter((item) => item !== label)
         : [...this.applyedCategoryFilters, label];
     }
-    console.log('this.applyedCategoryFilters', this.applyedCategoryFilters);
     let categoryFilters = this.applyedCategoryFilters.join('');
 
     //проверка на бренд, формирование строки из брендов
@@ -92,14 +118,12 @@ export class Catalog {
         ? this.applyedBrandFilters.filter((item) => item !== label)
         : [...this.applyedBrandFilters, label];
     }
-    console.log('this.applyedBrandFilters', this.applyedBrandFilters);
+
     let brandFilters = this.applyedBrandFilters.join('');
 
     this.filtersState.category = categoryFilters;
     this.filtersState.brand = brandFilters;
 
-    // создаем массив отфильтрованных продуктов
-    let filtredProducts: Array<ProductData> = [];
     //проверка на категорию
     //вариант когда выбрана категория, две ветки -  есть бренд и нет бренда
     if (this.filtersState.category) {
@@ -111,11 +135,16 @@ export class Catalog {
               this.filtersState.brand!.includes(brand)
           )
         ) {
-          filtredProducts = this.productArray.filter(({ brand, category }) => {
-            return (
-              brandFilters.includes(brand) && categoryFilters.includes(category)
-            );
-          });
+          this.filtredProducts = this.productArray.filter(
+            ({ brand, category }) => {
+              return (
+                brandFilters.includes(brand) &&
+                categoryFilters.includes(category)
+              );
+            }
+          );
+          this.renderingByFilters();
+          return this.filtredProducts;
         }
       }
       if (!this.filtersState.brand) {
@@ -124,9 +153,13 @@ export class Catalog {
             this.filtersState.category!.includes(category)
           )
         ) {
-          filtredProducts = this.productArray.filter(({ brand, category }) => {
-            return categoryFilters.includes(category);
-          });
+          this.filtredProducts = this.productArray.filter(
+            ({ brand, category }) => {
+              return categoryFilters.includes(category);
+            }
+          );
+          this.renderingByFilters();
+          return this.filtredProducts;
         }
       }
     }
@@ -138,34 +171,24 @@ export class Catalog {
             this.filtersState.brand!.includes(brand)
           )
         ) {
-          filtredProducts = this.productArray.filter(({ brand, category }) => {
-            return brandFilters.includes(brand);
-          });
+          this.filtredProducts = this.productArray.filter(
+            ({ brand, category }) => {
+              return brandFilters.includes(brand);
+            }
+          );
+          this.renderingByFilters();
+          return this.filtredProducts;
         }
       }
     }
     //нет категории и нет бренда значит рисуем всю страницу
     if (!this.filtersState.category) {
       if (!this.filtersState.brand) {
-        console.log(
-          'NO category:',
-          this.filtersState.category,
-          'brand:',
-          this.filtersState.brand
-        );
-        filtredProducts = this.productArray;
+        this.filtredProducts = this.productArray;
+        this.renderingByFilters();
+        return this.filtredProducts;
       }
     }
-
-    console.log(
-      'category:',
-      this.filtersState.category,
-      'brand:',
-      this.filtersState.brand
-    );
-
-    this.productBlock.replaceChildren(this.createProductBlock(filtredProducts));
-    this.productBlock.classList.remove('grid');
   };
 
   private createBase() {
@@ -203,7 +226,9 @@ export class Catalog {
     const filters = new AllFiltersBlock(
       categoriesList,
       brandsList,
-      this.setFilter
+      this.setFilter,
+      this.getPriceValue,
+      this.getQuantityValue
     ).allFiltersBlock;
     filtersBlock.append(filters);
     return filtersBlock;
