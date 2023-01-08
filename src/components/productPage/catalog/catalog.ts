@@ -23,8 +23,11 @@ export class Catalog {
   public applyedCategoryFilters: Array<string>;
   public applyedBrandFilters: Array<string>;
   public filtersState: CheckObject;
-
-  public filtredProducts: Array<ProductData>;
+  public filtredByPriceProducts: Array<ProductData>;
+  public filtredByQuantityProducts: Array<ProductData>;
+  public filtredByCheckboxProducts: Array<ProductData>;
+  public filtredBySliderProducts: Array<ProductData>;
+  public filtredByAllFiltersProducts: Array<ProductData>;
 
   constructor(
     productArray: Array<ProductData>,
@@ -46,7 +49,11 @@ export class Catalog {
     this.applyedCategoryFilters = [];
     this.applyedBrandFilters = [];
     this.filtersState = {};
-    this.filtredProducts = productArray;
+    this.filtredByPriceProducts = productArray;
+    this.filtredByQuantityProducts = productArray;
+    this.filtredByCheckboxProducts = productArray;
+    this.filtredBySliderProducts = productArray;
+    this.filtredByAllFiltersProducts = productArray;
   }
 
   collectCatalog() {
@@ -61,19 +68,19 @@ export class Catalog {
   }
 
   getPriceValue = (min: number, max: number): void => {
-    this.filtredProducts = this.filtredProducts.filter(
+    this.filtredByPriceProducts = this.productArray.filter(
       ({ price }) => price >= min && price <= max
     );
+    this.getSliderFiltersProducts();
     this.renderingByFilters();
-    console.log(min, max);
   };
 
   getQuantityValue = (min: number, max: number): void => {
-    this.filtredProducts = this.filtredProducts.filter(
+    this.filtredByQuantityProducts = this.productArray.filter(
       ({ quantity }) => quantity >= min && quantity <= max
     );
+    this.getSliderFiltersProducts();
     this.renderingByFilters();
-    console.log(min, max);
   };
 
   setView = () => {
@@ -90,9 +97,66 @@ export class Catalog {
     }
   };
 
+  //код в двух функциях ниже повторяется, была идея написать общую, но в
+  // таком случае нужно передавать как параметр итоговый массив который
+  // изначально содержит вообще все продукты, а потом переназначается.
+  // ESlint запрещает переназначение переменной
+
+  // private getCommonForAllFiltersProducts(
+  //   firstArray: Array<ProductData>,
+  //   secondArray: Array<ProductData>,
+  //   summaryArray: Array<ProductData>
+  // ) {
+  //   const filtredByAllFiltersProducts = [];
+  //   for (let i = 0; i < firstArray.length; i++) {
+  //     if (
+  //       secondArray.find(
+  //         (product: ProductData) =>
+  //           JSON.stringify(product) === JSON.stringify(firstArray[i])
+  //       )
+  //     ) {
+  //       filtredByAllFiltersProducts.push(firstArray[i]);
+  //     }
+  //   }
+  //   summaryArray = filtredByAllFiltersProducts;
+  // }
+
+  private getSliderFiltersProducts() {
+    const filtredBySliderProducts = [];
+    for (let i = 0; i < this.filtredByPriceProducts.length; i++) {
+      if (
+        this.filtredByQuantityProducts.find(
+          (product) =>
+            JSON.stringify(product) ===
+            JSON.stringify(this.filtredByPriceProducts[i])
+        )
+      ) {
+        filtredBySliderProducts.push(this.filtredByPriceProducts[i]);
+      }
+    }
+    this.filtredBySliderProducts = filtredBySliderProducts;
+  }
+
+  private getCommonForAllFiltersProducts() {
+    const filtredByAllFiltersProducts = [];
+    for (let i = 0; i < this.filtredByCheckboxProducts.length; i++) {
+      if (
+        this.filtredBySliderProducts.find(
+          (product) =>
+            JSON.stringify(product) ===
+            JSON.stringify(this.filtredByCheckboxProducts[i])
+        )
+      ) {
+        filtredByAllFiltersProducts.push(this.filtredByCheckboxProducts[i]);
+      }
+    }
+    this.filtredByAllFiltersProducts = filtredByAllFiltersProducts;
+  }
+
   private renderingByFilters() {
+    this.getCommonForAllFiltersProducts();
     this.productBlock.replaceChildren(
-      this.createProductBlock(this.filtredProducts)
+      this.createProductBlock(this.filtredByAllFiltersProducts)
     );
     this.productBlock.classList.remove('grid');
   }
@@ -134,7 +198,7 @@ export class Catalog {
               this.filtersState.brand!.includes(brand)
           )
         ) {
-          this.filtredProducts = this.productArray.filter(
+          this.filtredByCheckboxProducts = this.productArray.filter(
             ({ brand, category }) => {
               return (
                 brandFilters.includes(brand) &&
@@ -151,7 +215,7 @@ export class Catalog {
             this.filtersState.category!.includes(category)
           )
         ) {
-          this.filtredProducts = this.productArray.filter(
+          this.filtredByCheckboxProducts = this.productArray.filter(
             ({ brand, category }) => {
               return categoryFilters.includes(category);
             }
@@ -168,7 +232,7 @@ export class Catalog {
             this.filtersState.brand!.includes(brand)
           )
         ) {
-          this.filtredProducts = this.productArray.filter(
+          this.filtredByCheckboxProducts = this.productArray.filter(
             ({ brand, category }) => {
               return brandFilters.includes(brand);
             }
@@ -180,7 +244,7 @@ export class Catalog {
     //нет категории и нет бренда значит рисуем всю страницу
     if (!this.filtersState.category) {
       if (!this.filtersState.brand) {
-        this.filtredProducts = this.productArray;
+        this.filtredByCheckboxProducts = this.productArray;
         this.renderingByFilters();
       }
     }
