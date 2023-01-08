@@ -1,43 +1,43 @@
 import { ProductCount } from './productCount/ProductCount';
+import { ProductData } from '../../../../dataBase/types';
 
 export class CartItem {
   public element: HTMLElement;
 
-  constructor() {
-    this.element = this.createItem();
+  constructor(product: ProductData) {
+    this.element = this.createItem(product);
   }
 
-  private createItem(/*productImg: string*, productBrand: string, productName:
-   string, productPrice: number */): HTMLDivElement {
+  private createItem({ name, price, images }: ProductData): HTMLDivElement {
     const cart = document.createElement('div');
     cart.classList.add('cart-item');
 
     const imgBox = document.createElement('div');
     imgBox.classList.add('cart-item__img-box');
 
-    const img = document.createElement('div');
+    const img = document.createElement('img');
     img.classList.add('cart-item__img');
-    img.setAttribute('src', '');
+    img.setAttribute('src', images[0]);
 
     imgBox.append(img);
 
     const infoBox = document.createElement('div');
     infoBox.classList.add('cart-item__info-box');
 
-    const name = document.createElement('p');
-    name.classList.add('cart-item__name');
-    name.innerHTML = 'Nitro Snowboard Everythingship';
+    const itemName = document.createElement('p');
+    itemName.classList.add('cart-item__name');
+    itemName.innerHTML = name;
 
-    const price = document.createElement('p');
-    price.classList.add('cart-item__price');
-    price.innerHTML = `${this.formatSum(1000023.33)} $`;
+    const itemPrice = document.createElement('p');
+    itemPrice.classList.add('cart-item__price');
+    itemPrice.innerHTML = `${this.formatSum(price)} $`;
 
     const size = document.createElement('div');
     size.classList.add('cart-item__size');
 
     const countBlock = this.createCountBox();
 
-    infoBox.append(name, price);
+    infoBox.append(itemName, itemPrice);
 
     infoBox.append(countBlock);
 
@@ -61,18 +61,6 @@ export class CartItem {
     const sizeCountBox = document.createElement('div');
     sizeCountBox.classList.add('cart-item__size-count');
 
-    if (true) {
-      //если будет размер - если карточка ботинок
-      const sizeBox = document.createElement('div');
-      sizeBox.classList.add('cart-item__size-box');
-      const sizeTxt = document.createElement('p');
-      sizeTxt.classList.add('cart-item__size-txt');
-      sizeTxt.innerHTML = '8';
-      sizeBox.append(sizeTxt);
-
-      sizeCountBox.append(sizeBox);
-    }
-
     const countBox = document.createElement('div');
     countBox.classList.add('cart-item__count-box');
 
@@ -80,7 +68,7 @@ export class CartItem {
     min.classList.add('count-icon');
     min.innerHTML = '-';
 
-    const count = new ProductCount(2).element;
+    const count = new ProductCount(1).element;
     count.classList.add('cart-item__product-count');
 
     const plus = document.createElement('span');

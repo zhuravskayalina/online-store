@@ -1,8 +1,27 @@
+import { ProductData } from '../../dataBase/types';
+import { getProductsInLocalStorage } from '../../types/utils';
+
 export class TotalProductsSum {
-  public sum: string;
+  public sum: number;
+  public totalSum: string;
+  public productsInLocalStorage: ProductData[];
 
   constructor() {
-    this.sum = this.createSum(10000.993);
+    this.productsInLocalStorage = getProductsInLocalStorage();
+
+    this.sum = 0;
+
+    this.productsInLocalStorage.forEach(({ price }) => {
+      this.sum += price;
+    });
+
+    this.totalSum = `$${this.createSum(this.sum) || '0'}`;
+  }
+
+  handleCartTotalSumChange(callback: () => void) {
+    document.addEventListener('cartUpdate', function () {
+      callback();
+    });
   }
 
   createSum(sum: number): string {
