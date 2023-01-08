@@ -29,10 +29,6 @@ export class Card {
 
     if (isProductAlreadyInCard) {
       this.cartButton = new Button('Go to cart', 'card__button_added').goToCart;
-
-      this.cartButton.addEventListener('click', function () {
-        router.loadRoute(false, 'cart');
-      });
     } else {
       this.cartButton = new Button('Add to cart', 'card__button').addToCard;
 
@@ -44,8 +40,6 @@ export class Card {
         );
 
         document.dispatchEvent(cartUpdate);
-
-        console.log(this.infoBlock.children);
 
         this.cartButtonBox.replaceChildren(
           new Button('go to card', 'card__button_added').goToCart

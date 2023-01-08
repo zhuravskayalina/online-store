@@ -1,6 +1,7 @@
 import { TotalProductsSum } from '../../totalProductSum/TotalProductsSum';
 import { ProductsQuantity } from '../../productsQuantity/ProductsQuantity';
 import { router } from '../../../index';
+import { getProductsInLocalStorage } from '../../../types/utils';
 
 export class Cart {
   public element: HTMLDivElement;
@@ -24,7 +25,7 @@ export class Cart {
     this.line = this.createSeparateLine();
     this.element = this.createCartBox();
     this.quantity = new ProductsQuantity();
-    this.quantity.handleCartQuantityChange(this.increaseCartCount);
+    this.quantity.handleCartQuantityChange(this.changeCartCountText);
     this.quantityStr = this.quantity.quantityNumToStr;
 
     this.quantityText.innerHTML = this.quantityStr;
@@ -48,22 +49,9 @@ export class Cart {
     this.totalSumTextBox.replaceChildren(new TotalProductsSum().totalSum);
   };
 
-  increaseCartCount = () => {
-    this.quantityText.innerHTML = (
-      Number(this.quantityText.textContent) + 1
-    ).toString();
-  };
-
-  decreaseCartCount = () => {
-    const number = Number(this.quantityText.textContent);
-    let text = '';
-
-    if (number < 0) {
-      text = '0';
-    } else {
-      text = (number - 1).toString();
-    }
-    this.quantityText.innerHTML = text;
+  changeCartCountText = () => {
+    const productsInLocalStorageCount = getProductsInLocalStorage().length;
+    this.quantityText.innerHTML = productsInLocalStorageCount.toString();
   };
 
   private createQuantityBox() {

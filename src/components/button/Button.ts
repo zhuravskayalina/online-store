@@ -1,3 +1,5 @@
+import { router } from '../../index';
+
 export class Button {
   public addToCard: HTMLButtonElement;
   public goToCart: HTMLButtonElement;
@@ -5,6 +7,10 @@ export class Button {
   constructor(name: string, className: string) {
     this.addToCard = this.createButton(name, className);
     this.goToCart = this.createButton(name, className);
+
+    this.goToCart.addEventListener('click', function () {
+      router.loadRoute(false, 'cart');
+    });
   }
 
   private createButton(name: string, className: string) {
