@@ -4,6 +4,7 @@ import { AllFiltersBlock } from '../filters/filters';
 import { CatalogMenu } from '../catalogMenu/catalogMenu';
 import { Card } from '../productCard/Card';
 import { CheckObject } from './CheckObjectInterface';
+import { EmptyProductList } from '../notFoundProducts/emptyProductList';
 
 const bannerPath = require('../../../assets/images/banner.jpg');
 
@@ -156,14 +157,18 @@ export class Catalog {
 
   private renderingByFilters() {
     this.getCommonForAllFiltersProducts();
-    this.productBlock.replaceChildren(
-      this.createProductBlock(this.filtredByAllFiltersProducts)
-    );
-    this.productBlock.classList.remove('grid');
     this.productWrapper.replaceChild(
       this.createMenu(),
       this.productWrapper.firstChild!
     );
+    if (this.filtredByAllFiltersProducts.length === 0) {
+      this.productBlock.replaceChildren(this.createEmptyProductlist());
+    } else {
+      this.productBlock.replaceChildren(
+        this.createProductBlock(this.filtredByAllFiltersProducts)
+      );
+      this.productBlock.classList.remove('grid');
+    }
   }
 
   setFilter = (
@@ -335,5 +340,10 @@ export class Catalog {
       }
     }
     return productGrid;
+  }
+
+  createEmptyProductlist() {
+    const emptyList = new EmptyProductList().emptyProductList;
+    return emptyList;
   }
 }
