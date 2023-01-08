@@ -1,47 +1,99 @@
 import { ProductData } from '../../../dataBase/types';
 import { SmallImage } from './galleryImages/SmallImage';
 import { Button } from '../../button/Button';
-import { BuyNowButton } from '../../button/buyNowButton';
 import { router } from '../../../index';
+import { isProductInLocalStorage } from '../../../types/utils';
 
 export class Card {
   public bigCard: HTMLDivElement;
   public smallCard: HTMLDivElement;
   public smallCardTable: HTMLDivElement;
+  public cartButton: HTMLButtonElement;
+  public gallery: HTMLDivElement;
+  public mainImage: HTMLElement;
+  public mainImageBlock: HTMLDivElement;
+  public infoBlock: HTMLDivElement;
+  public ratingText: HTMLParagraphElement;
+  public brandName: HTMLParagraphElement;
+  public productDescription: HTMLParagraphElement;
+  public productId: HTMLParagraphElement;
+  public productPrice: HTMLParagraphElement;
+  public stockQuantity: HTMLParagraphElement;
+  public buyNowButton: HTMLButtonElement;
+  public cartButtonBox: HTMLDivElement;
 
   constructor(product: ProductData) {
-    this.bigCard = this.createBigCard(product);
+    this.cartButtonBox = document.createElement('div');
+
+    const isProductAlreadyInCard = isProductInLocalStorage(product.vendorCode);
+
+    if (isProductAlreadyInCard) {
+      this.cartButton = new Button('Go to cart', 'card__button_added').goToCart;
+
+      this.cartButton.addEventListener('click', function () {
+        router.loadRoute(false, 'cart');
+      });
+    } else {
+      this.cartButton = new Button('Add to cart', 'card__button').addToCard;
+
+      this.cartButton.addEventListener('click', () => {
+        // product.countInCart = 1;
+        localStorage.setItem(
+          `product-${product.vendorCode}`,
+          JSON.stringify(product)
+        );
+
+        document.dispatchEvent(cartUpdate);
+
+        console.log(this.infoBlock.children);
+
+        this.cartButtonBox.replaceChildren(
+          new Button('go to card', 'card__button_added').goToCart
+        );
+      });
+    }
+    this.cartButtonBox.append(this.cartButton);
+
+    this.bigCard = this.createBigCard();
+
+    this.gallery = this.createGallery(product);
+    this.mainImage = this.createMainImage(product);
+    this.mainImageBlock = this.createMainImageBlock();
+    this.infoBlock = this.createInfoBlock();
+    this.ratingText = this.createRatingText(product);
+    this.brandName = this.createBrandName(product);
+    this.productDescription = this.createProductDescription(product);
+    this.productId = this.createProductId(product);
+    this.productPrice = this.createProductPrice(product);
+    this.stockQuantity = this.createStockQuantity(product);
+    this.buyNowButton = this.createBuyNowButton(product);
+
+    this.mainImageBlock.append(this.mainImage);
+
+    this.infoBlock.append(
+      this.ratingText,
+      this.brandName,
+      this.productDescription,
+      this.productId,
+      this.productPrice,
+      this.stockQuantity,
+      this.cartButtonBox,
+      this.buyNowButton
+    );
+
+    this.bigCard.append(this.gallery, this.mainImageBlock, this.infoBlock);
+
     this.smallCard = this.createSmallCard(product, false);
     this.smallCardTable = this.createSmallCard(product, true);
-  }
 
-  private createBigCard({
-    brand,
-    name,
-    price,
-    rating,
-    images,
-    quantity,
-    vendorCode,
-  }: ProductData): HTMLDivElement {
-    const card = document.createElement('div');
-    const gallery = document.createElement('div');
-    const mainImage = document.createElement('img');
-    const mainImgBlock = document.createElement('div');
-    const info = document.createElement('div');
-    const ratingText = document.createElement('p');
-    const brandName = document.createElement('p');
-    const productDescription = document.createElement('p');
-    const vendor = document.createElement('p');
-    const priceOfProduct = document.createElement('p');
-    const inStock = document.createElement('p');
-    const button = new Button('Add to cart', 'card__button').addToCardButton;
-    const buyNowButton = new BuyNowButton('Buy now', 'card__button')
-      .buyNowButton;
-    buyNowButton.classList.add('card__button_now');
+    this.buyNowButton.addEventListener('click', function (event) {
+      const productId = Number(this.dataset.productId);
+      const isInLocalStorage = isProductInLocalStorage(productId);
 
-    buyNowButton.addEventListener('click', function () {
-      // добавление в корзину (если еще не добавлен)
+      if (!isInLocalStorage) {
+        localStorage.setItem(`product-${productId}`, JSON.stringify(product));
+      }
+      document.dispatchEvent(cartUpdate);
 
       router.loadRoute(false, 'cart');
       const modal = document.querySelector('.app-modal') as HTMLDivElement;
@@ -50,17 +102,26 @@ export class Card {
       document.body.scrollIntoView({ behavior: 'smooth' });
     });
 
+    const cartUpdate = new CustomEvent('cartUpdate', {
+      detail: product.vendorCode,
+    });
+  }
+
+  private createBigCard(): HTMLDivElement {
+    const card = document.createElement('div');
     card.classList.add('card');
 
-    gallery.classList.add('card__gallery');
+    return card;
+  }
 
-    images.forEach((image) => {
-      const img = new SmallImage(image).image;
-      gallery.append(img);
-    });
-
+  private createMainImageBlock(): HTMLDivElement {
+    const mainImgBlock = document.createElement('div');
     mainImgBlock.classList.add('card__main-img-box');
+    return mainImgBlock;
+  }
 
+  private createMainImage({ images }: ProductData): HTMLImageElement {
+    const mainImage = document.createElement('img');
     mainImage.alt = 'Product look';
     mainImage.src = images[0];
     mainImage.classList.add('card__main-img');
@@ -74,41 +135,78 @@ export class Card {
         target.classList.add('card__main-img_zoom');
       }
     });
+    return mainImage;
+  }
 
-    mainImgBlock.append(mainImage);
+  private createGallery({ images }: ProductData): HTMLDivElement {
+    const gallery = document.createElement('div');
 
+    gallery.classList.add('card__gallery');
+
+    images.forEach((image) => {
+      const img = new SmallImage(image).image;
+      gallery.append(img);
+    });
+
+    return gallery;
+  }
+
+  private createInfoBlock(): HTMLDivElement {
+    const info = document.createElement('div');
+    info.classList.add('card__info-block');
+    return info;
+  }
+
+  private createRatingText({ rating }: ProductData): HTMLParagraphElement {
+    const ratingText = document.createElement('p');
     ratingText.classList.add('card__info', 'card__rating');
     ratingText.textContent = `Rating: ${rating}`;
+    return ratingText;
+  }
 
+  private createBrandName({ brand }: ProductData): HTMLParagraphElement {
+    const brandName = document.createElement('p');
     brandName.classList.add('card__brand');
     brandName.textContent = brand;
+    return brandName;
+  }
 
+  private createProductDescription({
+    name,
+  }: ProductData): HTMLParagraphElement {
+    const productDescription = document.createElement('p');
     productDescription.classList.add('card__description');
     productDescription.textContent = name;
+    return productDescription;
+  }
 
+  private createProductId({ vendorCode }: ProductData): HTMLParagraphElement {
+    const vendor = document.createElement('p');
     vendor.classList.add('card__vendor');
     vendor.textContent = `Article number: ${vendorCode}`;
+    return vendor;
+  }
 
+  private createProductPrice({ price }: ProductData): HTMLParagraphElement {
+    const priceOfProduct = document.createElement('p');
     priceOfProduct.classList.add('card__price');
     priceOfProduct.textContent = `$ ${price}`;
+    return priceOfProduct;
+  }
 
+  private createStockQuantity({ quantity }: ProductData): HTMLParagraphElement {
+    const inStock = document.createElement('p');
     inStock.classList.add('card__stock');
     inStock.textContent = `${quantity} in stock`;
+    return inStock;
+  }
 
-    info.appendChild(ratingText);
-    info.appendChild(brandName);
-    info.appendChild(productDescription);
-    info.appendChild(vendor);
-    info.appendChild(priceOfProduct);
-    info.appendChild(inStock);
-    info.appendChild(button);
-    info.appendChild(buyNowButton);
-
-    card.appendChild(gallery);
-    card.appendChild(mainImgBlock);
-    card.appendChild(info);
-
-    return card;
+  private createBuyNowButton({ vendorCode }: ProductData): HTMLButtonElement {
+    const button = document.createElement('button');
+    button.classList.add('card__button', 'card__button_now');
+    button.dataset.productId = vendorCode.toString();
+    button.innerHTML = 'Buy now';
+    return button;
   }
 
   public createSmallCard(

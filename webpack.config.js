@@ -32,7 +32,7 @@ module.exports = ({ development }) => ({
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    // publicPath: '/',
+    publicPath: '/',
     filename: '[name].[contenthash].js',
     assetModuleFilename: 'assets/[name][ext]',
   },
