@@ -159,10 +159,6 @@ export class Catalog {
     this.productBlock.replaceChildren(
       this.createProductBlock(this.filtredByAllFiltersProducts)
     );
-    // this.productWrapper.replaceChild(
-    //   this.createProductBlock(this.filtredByAllFiltersProducts),
-    //   this.productWrapper.lastChild!
-    // );
     this.productBlock.classList.remove('grid');
     this.productWrapper.replaceChild(
       this.createMenu(),
@@ -215,6 +211,9 @@ export class Catalog {
               );
             }
           );
+          this.renderingByFilters();
+        } else {
+          this.filtredByCheckboxProducts = [];
           this.renderingByFilters();
         }
       }
