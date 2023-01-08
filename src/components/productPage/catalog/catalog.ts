@@ -159,8 +159,15 @@ export class Catalog {
     this.productBlock.replaceChildren(
       this.createProductBlock(this.filtredByAllFiltersProducts)
     );
+    // this.productWrapper.replaceChild(
+    //   this.createProductBlock(this.filtredByAllFiltersProducts),
+    //   this.productWrapper.lastChild!
+    // );
     this.productBlock.classList.remove('grid');
-    this.catalogMenu.replaceWith(this.createMenu());
+    this.productWrapper.replaceChild(
+      this.createMenu(),
+      this.productWrapper.firstChild!
+    );
   }
 
   setFilter = (
