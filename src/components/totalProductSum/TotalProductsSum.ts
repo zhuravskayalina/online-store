@@ -8,17 +8,16 @@ export class TotalProductsSum {
 
   constructor() {
     this.productsInLocalStorage = getProductsInLocalStorage();
-
     this.sum = 0;
 
-    this.productsInLocalStorage.forEach(({ price }) => {
-      this.sum += price;
+    this.productsInLocalStorage.forEach(({ price, countInCart }) => {
+      this.sum += price * countInCart;
     });
 
     this.totalSum = `$${this.createSum(this.sum) || '0'}`;
   }
 
-  handleCartTotalSumChange(callback: () => void) {
+  public handleCartTotalSumChange(callback: () => void) {
     document.addEventListener('cartUpdate', function () {
       callback();
     });
@@ -27,11 +26,11 @@ export class TotalProductsSum {
     });
   }
 
-  createSum(sum: number): string {
+  private createSum(sum: number): string {
     return this.formatSum(sum);
   }
 
-  formatSum(sum: number): string {
+  private formatSum(sum: number): string {
     return new Intl.NumberFormat('ru-RU').format(sum);
   }
 }

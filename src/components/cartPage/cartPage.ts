@@ -47,14 +47,7 @@ export class CartPage {
     this.cartList.handleCartUpdate(this.updateList);
   }
 
-  createNoProductsInCartBlock() {
-    const block = document.createElement('div');
-    block.classList.add('cart-list__no-products-message');
-    block.innerHTML = 'No goods in cart';
-    return block;
-  }
-
-  updateList = () => {
+  updateList = (): void => {
     this.addedToCartItems = getProductsInLocalStorage();
 
     if (!this.addedToCartItems.length) {
@@ -67,28 +60,35 @@ export class CartPage {
     }
   };
 
-  private createMainBlock() {
+  private createMainBlock(): HTMLElement {
     const main = new Main().element;
     main.classList.add('cart-list');
     return main;
   }
 
-  private createProductsBox() {
-    const productsListBox = document.createElement('div');
-    productsListBox.classList.add('cart-list__products-box');
-    return productsListBox;
-  }
-
-  private createContainer() {
+  private createContainer(): HTMLDivElement {
     const container = document.createElement('div');
     container.classList.add('cart-list__container');
     return container;
   }
 
-  private createHeading() {
+  private createHeading(): HTMLHeadingElement {
     const heading = document.createElement('h2');
     heading.classList.add('cart-list__heading');
     heading.innerHTML = 'Cart';
     return heading;
+  }
+
+  private createProductsBox(): HTMLDivElement {
+    const productsListBox = document.createElement('div');
+    productsListBox.classList.add('cart-list__products-box');
+    return productsListBox;
+  }
+
+  private createNoProductsInCartBlock(): HTMLDivElement {
+    const block = document.createElement('div');
+    block.classList.add('cart-list__no-products-message');
+    block.innerHTML = 'No goods in cart';
+    return block;
   }
 }

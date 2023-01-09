@@ -5,4 +5,4 @@ import { routes } from './router/routes';
 import { Router } from './router/Router';
 
 export const router = new Router(routes);
-const modal = new PayModal();
+new PayModal();

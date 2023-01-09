@@ -17,6 +17,14 @@ export function getProductsInLocalStorage(): ProductData[] {
   return productsInLocalStorage;
 }
 
+export function getProductsInLocalStorageCount(): number {
+  const products = getProductsInLocalStorage();
+  const sum = products.reduce((accum: number, a: ProductData) => {
+    return accum + a.countInCart;
+  }, 0);
+  return sum;
+}
+
 export function isProductInLocalStorage(productId: number): boolean {
   let localStorageKeys = Object.keys(localStorage);
 
@@ -28,8 +36,14 @@ export function isProductInLocalStorage(productId: number): boolean {
   return false;
 }
 
-export function isHaveProductsInCart() {
+export function isHaveProductsInCart(): boolean {
   const products = getProductsInLocalStorage();
-
   return !!products.length;
+}
+
+export function setItemToLocalStorage(
+  productId: number,
+  value: ProductData
+): void {
+  localStorage.setItem(`product-${productId}`, JSON.stringify(value));
 }

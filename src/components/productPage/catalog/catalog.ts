@@ -229,7 +229,7 @@ export class Catalog {
           )
         ) {
           this.filtredByCheckboxProducts = this.productArray.filter(
-            ({ brand, category }) => {
+            ({ category }) => {
               return categoryFilters.includes(category);
             }
           );
@@ -246,7 +246,7 @@ export class Catalog {
           )
         ) {
           this.filtredByCheckboxProducts = this.productArray.filter(
-            ({ brand, category }) => {
+            ({ brand }) => {
               return brandFilters.includes(brand);
             }
           );

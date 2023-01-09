@@ -2,7 +2,11 @@ import { ProductData } from '../../../dataBase/types';
 import { SmallImage } from './galleryImages/SmallImage';
 import { Button } from '../../button/Button';
 import { router } from '../../../index';
-import { isProductInLocalStorage } from '../../../types/utils';
+import {
+  isProductInLocalStorage,
+  setItemToLocalStorage,
+} from '../../../types/utils';
+import { cartUpdateEvent } from '../../../types/custom-events';
 
 export class Card {
   public bigCard: HTMLDivElement;
@@ -23,31 +27,6 @@ export class Card {
   public cartButtonBox: HTMLDivElement;
 
   constructor(product: ProductData) {
-    this.cartButtonBox = document.createElement('div');
-
-    const isProductAlreadyInCard = isProductInLocalStorage(product.vendorCode);
-
-    if (isProductAlreadyInCard) {
-      this.cartButton = new Button('Go to cart', 'card__button_added').goToCart;
-    } else {
-      this.cartButton = new Button('Add to cart', 'card__button').addToCard;
-
-      this.cartButton.addEventListener('click', () => {
-        // product.countInCart = 1;
-        localStorage.setItem(
-          `product-${product.vendorCode}`,
-          JSON.stringify(product)
-        );
-
-        document.dispatchEvent(cartUpdate);
-
-        this.cartButtonBox.replaceChildren(
-          new Button('go to card', 'card__button_added').goToCart
-        );
-      });
-    }
-    this.cartButtonBox.append(this.cartButton);
-
     this.bigCard = this.createBigCard();
 
     this.gallery = this.createGallery(product);
@@ -61,6 +40,29 @@ export class Card {
     this.productPrice = this.createProductPrice(product);
     this.stockQuantity = this.createStockQuantity(product);
     this.buyNowButton = this.createBuyNowButton(product);
+
+    this.cartButtonBox = document.createElement('div');
+
+    const isProductAlreadyInCard = isProductInLocalStorage(product.vendorCode);
+
+    if (isProductAlreadyInCard) {
+      this.cartButton = new Button('Go to cart', 'card__button_added').goToCart;
+    } else {
+      this.cartButton = new Button('Add to cart', 'card__button').addToCard;
+
+      this.cartButton.addEventListener('click', () => {
+        product.countInCart += 1;
+
+        setItemToLocalStorage(product.vendorCode, product);
+
+        document.dispatchEvent(cartUpdateEvent);
+
+        this.cartButtonBox.replaceChildren(
+          new Button('go to card', 'card__button_added').goToCart
+        );
+      });
+    }
+    this.cartButtonBox.append(this.cartButton);
 
     this.mainImageBlock.append(this.mainImage);
 
@@ -80,24 +82,21 @@ export class Card {
     this.smallCard = this.createSmallCard(product, false);
     this.smallCardTable = this.createSmallCard(product, true);
 
-    this.buyNowButton.addEventListener('click', function (event) {
+    this.buyNowButton.addEventListener('click', function () {
       const productId = Number(this.dataset.productId);
       const isInLocalStorage = isProductInLocalStorage(productId);
 
       if (!isInLocalStorage) {
-        localStorage.setItem(`product-${productId}`, JSON.stringify(product));
+        product.countInCart += 1;
+        setItemToLocalStorage(productId, product);
       }
-      document.dispatchEvent(cartUpdate);
+      document.dispatchEvent(cartUpdateEvent);
 
       router.loadRoute(false, 'cart');
       const modal = document.querySelector('.app-modal') as HTMLDivElement;
       modal.classList.add('app-modal_shown');
       document.body.classList.add('open-modal');
       document.body.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    const cartUpdate = new CustomEvent('cartUpdate', {
-      detail: product.vendorCode,
     });
   }
 

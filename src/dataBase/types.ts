@@ -7,8 +7,8 @@ export interface ProductData {
   images: string[];
   quantity: number;
   description: string;
-  sizes?: BootsSize[];
   vendorCode: number;
+  countInCart: number;
 }
 
 export type SnowboardBrand =

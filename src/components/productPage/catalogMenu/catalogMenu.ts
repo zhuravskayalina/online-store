@@ -33,7 +33,9 @@ export class CatalogMenu {
       const text = target.children[target.children.length - 1];
       text.innerHTML = 'Copied!';
       const link = window.location.href;
-      navigator.clipboard.writeText(link).catch((err) => console.error(err));
+      navigator.clipboard.writeText(link).catch((err) => {
+        throw new Error(err);
+      });
       setTimeout(() => {
         text.innerHTML = 'Copy link';
       }, 1000);
