@@ -1,4 +1,14 @@
+@import '../../stylesheets/variables/_colors.scss';
+
 .cart-list {
+  &_no-goods {
+    align-items: center;
+  }
+
+  &__no-products-message {
+    font-size: 25px;
+    color: $gray-text;
+  }
 
   &__container {
     width: 77%;
