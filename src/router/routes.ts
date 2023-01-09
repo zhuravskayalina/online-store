@@ -31,6 +31,9 @@ export const routes: Routes = [
   {
     path: '/shop/:productId',
     getTemplate: (params: TemplateParams) =>
-      new PageConstructor().buildProductItemPage('products', Number(params.productId)),
+      new PageConstructor().buildProductItemPage(
+        'products',
+        Number(params.productId)
+      ),
   },
 ];

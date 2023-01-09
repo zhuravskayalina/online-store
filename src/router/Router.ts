@@ -51,7 +51,8 @@ export class Router {
 
       routePathSegments.forEach((segment, i) => {
         if (segment[0] === ':') {
-          routeParams['productId'] = decodeURIComponent(urlParts[i]);
+          const propName = 'productId';
+          routeParams[propName] = decodeURIComponent(urlParts[i]);
         }
       });
       return match;
