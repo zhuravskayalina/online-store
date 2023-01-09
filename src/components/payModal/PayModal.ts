@@ -9,6 +9,8 @@ import {
   redirectToMainPage,
   checkAllFields,
 } from './utils';
+import { clearLocalStorage } from '../../types/utils';
+import { removeFromCartEvent } from '../../types/custom-events';
 
 export class PayModal {
   public element: HTMLElement;
@@ -24,6 +26,11 @@ export class PayModal {
       const isAllFieldsValid = checkAllFields();
       if (isAllFieldsValid) {
         showMessage();
+
+        clearLocalStorage();
+
+        document.dispatchEvent(removeFromCartEvent);
+
         setTimeout(redirectToMainPage, 5000);
       }
     });
