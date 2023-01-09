@@ -17,5 +17,8 @@ export class ProductsQuantity {
     document.addEventListener('cartUpdate', function () {
       callback();
     });
+    document.addEventListener('removeFromCart', function () {
+      callback();
+    });
   }
 }

@@ -21,11 +21,15 @@ export function isProductInLocalStorage(productId: number): boolean {
   let localStorageKeys = Object.keys(localStorage);
 
   for (let key of localStorageKeys) {
-    const item = localStorage.getItem(key) as string;
-
     if (key === `product-${productId}`) {
       return true;
     }
   }
   return false;
+}
+
+export function isHaveProductsInCart() {
+  const products = getProductsInLocalStorage();
+
+  return !!products.length;
 }
