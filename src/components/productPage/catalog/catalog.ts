@@ -29,6 +29,7 @@ export class Catalog {
   public filtredByCheckboxProducts: Array<ProductData>;
   public filtredBySliderProducts: Array<ProductData>;
   public filtredByAllFiltersProducts: Array<ProductData>;
+  public quantityInscription: HTMLParagraphElement;
 
   constructor(
     productArray: Array<ProductData>,
@@ -53,9 +54,14 @@ export class Catalog {
     this.pageContext = this.createCatalogContext();
     this.filtersBlock = this.createFilters(categoriesList, brandsList);
     this.productWrapper = this.createProductWrapper();
+    this.quantityInscription = this.createQuantityInscription();
     this.catalogMenu = this.createMenu();
     this.productBlock = this.createProductBlock(productArray);
     this.catalog = this.collectCatalog();
+  }
+
+  createQuantityInscription() {
+    return document.createElement('p');
   }
 
   collectCatalog() {
@@ -78,7 +84,6 @@ export class Catalog {
   };
 
   setSortPriseRating = (filterType: string): void => {
-    console.log(filterType);
     if (filterType === 'sort-by-price') {
       this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
         (a, b) => a.price - b.price
@@ -168,10 +173,8 @@ export class Catalog {
 
   private renderingByFilters() {
     this.getCommonForAllFiltersProducts();
-    this.productWrapper.replaceChild(
-      this.createMenu(),
-      this.productWrapper.firstChild!
-    );
+    this.quantityInscription.textContent = `Found: ${this.filtredByAllFiltersProducts.length}`;
+    console.log(this.productWrapper);
     if (this.filtredByAllFiltersProducts.length === 0) {
       this.productBlock.replaceChildren(this.createEmptyProductlist());
     } else {
@@ -317,6 +320,7 @@ export class Catalog {
     );
     catalogMenu.handleChangeView(this.setView);
     const functionalBlock = catalogMenu.catalogMenu;
+    this.quantityInscription = catalogMenu.filtredProductsQuantityInscription;
     return functionalBlock;
   }
 

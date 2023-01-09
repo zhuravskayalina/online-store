@@ -7,8 +7,8 @@ export class CatalogMenu {
   public copyLinkButton: HTMLButtonElement;
   public resetFiltersButton: HTMLButtonElement;
   public selectSortContainer: HTMLDivElement;
-  private selectSort: HTMLSelectElement;
-  private filtredProductsQuantityInscription: HTMLParagraphElement;
+  public selectSort: HTMLSelectElement;
+  public filtredProductsQuantityInscription: HTMLParagraphElement;
 
   constructor(
     filtredProductsQuantity: number,
@@ -52,6 +52,12 @@ export class CatalogMenu {
       this.changeViewButton.replaceChildren(this.createNewIconViewButton());
     });
   }
+
+  // handleQuantityRendering(handler: () => void) {
+  //   const newQuantity = handler();
+  //   this.filtredProductsQuantityInscription.textContent =
+  //     'Found:' + ' ${newQuantity}';
+  // }
 
   private createSelectSort(setSortPriseRating: (filterType: string) => void) {
     const selectSort = new SelectSort();
