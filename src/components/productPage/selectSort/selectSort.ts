@@ -1,8 +1,17 @@
 export class SelectSort {
   public selectList: HTMLSelectElement;
+  public filterType: string;
 
   constructor() {
     this.selectList = this.createSelectList();
+    this.filterType = 'Sort By';
+  }
+
+  handleChangeSort(callback: (filterType: string) => void) {
+    this.selectList.addEventListener('change', () => {
+      this.filterType = this.selectList.value;
+      callback(this.filterType);
+    });
   }
 
   createSelectList(): HTMLSelectElement {

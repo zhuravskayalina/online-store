@@ -29,6 +29,8 @@ export class Catalog {
   public filtredByCheckboxProducts: Array<ProductData>;
   public filtredBySliderProducts: Array<ProductData>;
   public filtredByAllFiltersProducts: Array<ProductData>;
+  public quantityInscription: HTMLParagraphElement;
+  public sortBy: string;
 
   constructor(
     productArray: Array<ProductData>,
@@ -48,14 +50,20 @@ export class Catalog {
     this.productArray = productArray;
     this.categoriesList = categoriesList;
     this.brandsList = brandsList;
+    this.sortBy = 'sort-by-nocondition';
 
     this.catalogContainer = this.createCatalogContainer();
     this.pageContext = this.createCatalogContext();
     this.filtersBlock = this.createFilters(categoriesList, brandsList);
     this.productWrapper = this.createProductWrapper();
+    this.quantityInscription = this.createQuantityInscription();
     this.catalogMenu = this.createMenu();
     this.productBlock = this.createProductBlock(productArray);
     this.catalog = this.collectCatalog();
+  }
+
+  createQuantityInscription() {
+    return document.createElement('p');
   }
 
   collectCatalog() {
@@ -74,6 +82,39 @@ export class Catalog {
       ({ price }) => price >= min && price <= max
     );
     this.getSliderFiltersProducts();
+    this.renderingByFilters();
+  };
+
+  setSortPriseRating = (filterType: string): void => {
+    this.sortBy = filterType;
+    if (filterType === 'sort-by-price') {
+      this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.price - b.price
+      );
+      this.filtredByQuantityProducts = this.filtredByQuantityProducts.sort(
+        (a, b) => a.price - b.price
+      );
+      this.filtredByPriceProducts = this.filtredByPriceProducts.sort(
+        (a, b) => a.price - b.price
+      );
+      this.filtredBySliderProducts = this.filtredBySliderProducts.sort(
+        (a, b) => a.price - b.price
+      );
+    }
+    if (filterType === 'sort-by-rating') {
+      this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+      this.filtredByQuantityProducts = this.filtredByQuantityProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+      this.filtredByPriceProducts = this.filtredByPriceProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+      this.filtredBySliderProducts = this.filtredBySliderProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+    }
     this.renderingByFilters();
   };
 
@@ -149,14 +190,21 @@ export class Catalog {
       }
     }
     this.filtredByAllFiltersProducts = filtredByAllFiltersProducts;
+    if (this.sortBy === 'sort-by-price') {
+      this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.price - b.price
+      );
+    }
+    if (this.sortBy === 'sort-by-rating') {
+      this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+    }
   }
 
   private renderingByFilters() {
     this.getCommonForAllFiltersProducts();
-    this.productWrapper.replaceChild(
-      this.createMenu(),
-      this.productWrapper.firstChild!
-    );
+    this.quantityInscription.textContent = `Found: ${this.filtredByAllFiltersProducts.length}`;
     if (this.filtredByAllFiltersProducts.length === 0) {
       this.productBlock.replaceChildren(this.createEmptyProductlist());
     } else {
@@ -297,10 +345,12 @@ export class Catalog {
 
   private createMenu() {
     const catalogMenu = new CatalogMenu(
-      this.filtredByAllFiltersProducts.length
+      this.filtredByAllFiltersProducts.length,
+      this.setSortPriseRating
     );
     catalogMenu.handleChangeView(this.setView);
     const functionalBlock = catalogMenu.catalogMenu;
+    this.quantityInscription = catalogMenu.filtredProductsQuantityInscription;
     return functionalBlock;
   }
 
