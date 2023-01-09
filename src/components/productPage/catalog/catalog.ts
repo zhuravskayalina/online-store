@@ -30,6 +30,7 @@ export class Catalog {
   public filtredBySliderProducts: Array<ProductData>;
   public filtredByAllFiltersProducts: Array<ProductData>;
   public quantityInscription: HTMLParagraphElement;
+  public sortBy: string;
 
   constructor(
     productArray: Array<ProductData>,
@@ -49,6 +50,7 @@ export class Catalog {
     this.productArray = productArray;
     this.categoriesList = categoriesList;
     this.brandsList = brandsList;
+    this.sortBy = 'sort-by-nocondition';
 
     this.catalogContainer = this.createCatalogContainer();
     this.pageContext = this.createCatalogContext();
@@ -84,13 +86,32 @@ export class Catalog {
   };
 
   setSortPriseRating = (filterType: string): void => {
+    this.sortBy = filterType;
     if (filterType === 'sort-by-price') {
       this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.price - b.price
+      );
+      this.filtredByQuantityProducts = this.filtredByQuantityProducts.sort(
+        (a, b) => a.price - b.price
+      );
+      this.filtredByPriceProducts = this.filtredByPriceProducts.sort(
+        (a, b) => a.price - b.price
+      );
+      this.filtredBySliderProducts = this.filtredBySliderProducts.sort(
         (a, b) => a.price - b.price
       );
     }
     if (filterType === 'sort-by-rating') {
       this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+      this.filtredByQuantityProducts = this.filtredByQuantityProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+      this.filtredByPriceProducts = this.filtredByPriceProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+      this.filtredBySliderProducts = this.filtredBySliderProducts.sort(
         (a, b) => a.rating - b.rating
       );
     }
@@ -169,6 +190,16 @@ export class Catalog {
       }
     }
     this.filtredByAllFiltersProducts = filtredByAllFiltersProducts;
+    if (this.sortBy === 'sort-by-price') {
+      this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.price - b.price
+      );
+    }
+    if (this.sortBy === 'sort-by-rating') {
+      this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+    }
   }
 
   private renderingByFilters() {
@@ -182,7 +213,6 @@ export class Catalog {
       );
       this.productBlock.classList.remove('grid');
     }
-    console.log(this.catalogMenu);
   }
 
   setFilter = (
