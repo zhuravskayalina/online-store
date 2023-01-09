@@ -1,4 +1,4 @@
-import { Routes } from './types';
+import { Routes, TemplateParams } from './types';
 
 export class Router {
   routes: Routes;
@@ -25,7 +25,7 @@ export class Router {
       '.app'
     ) as HTMLDivElement;
 
-    if (matchedRoute.path) {
+    if (matchedRoute) {
       routerOutletElement.replaceChildren(
         matchedRoute.getTemplate(matchedRoute.params)
       );
@@ -36,7 +36,7 @@ export class Router {
   };
 
   private findMatchRoute(urlParts: string[]) {
-    const routeParams: any = {};
+    const routeParams: TemplateParams = {};
 
     const matchedRoute = this.routes.find((route) => {
       const routePathSegments = route.path.split('/').slice(1);
@@ -49,17 +49,17 @@ export class Router {
         return routePathSegment === urlParts[i] || routePathSegment[0] === ':';
       });
 
-      if (match) {
-        routePathSegments.forEach((segment, i) => {
-          if (segment[0] === ':') {
-            const propName = segment.slice(1);
-            routeParams[propName] = decodeURIComponent(urlParts[i]);
-          }
-        });
-      }
+      routePathSegments.forEach((segment, i) => {
+        if (segment[0] === ':') {
+          routeParams['productId'] = decodeURIComponent(urlParts[i]);
+        }
+      });
       return match;
     });
-    return { ...matchedRoute, params: routeParams };
+
+    if (matchedRoute) {
+      return { ...matchedRoute, params: routeParams };
+    }
   }
 
   private loadInitialRoute(): void {

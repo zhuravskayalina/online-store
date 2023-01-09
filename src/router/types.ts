@@ -1,10 +1,10 @@
 export interface Route {
   path: string;
-  getTemplate: any;
+  getTemplate: (params: TemplateParams) => HTMLElement;
 }
 
 export interface TemplateParams {
-  productId: number;
+  productId?: string;
 }
 
 export type Routes = Route[];
