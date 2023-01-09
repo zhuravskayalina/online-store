@@ -22,6 +22,9 @@ export class TotalProductsSum {
     document.addEventListener('cartUpdate', function () {
       callback();
     });
+    document.addEventListener('removeFromCart', function () {
+      callback();
+    });
   }
 
   createSum(sum: number): string {

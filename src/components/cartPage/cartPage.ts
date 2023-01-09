@@ -63,7 +63,6 @@ export class CartPage {
       const products = new CartList().element;
       this.main.classList.remove('cart-list_no-goods');
       this.main.replaceChildren(this.container);
-      this.main.classList.add('cart-list_no-goods');
       this.productsBox.replaceChildren(products);
     }
   };
