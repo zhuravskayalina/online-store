@@ -53,12 +53,6 @@ export class CatalogMenu {
     });
   }
 
-  // handleQuantityRendering(handler: () => void) {
-  //   const newQuantity = handler();
-  //   this.filtredProductsQuantityInscription.textContent =
-  //     'Found:' + ' ${newQuantity}';
-  // }
-
   private createSelectSort(setSortPriseRating: (filterType: string) => void) {
     const selectSort = new SelectSort();
     const selectSortBlock = selectSort.selectList;

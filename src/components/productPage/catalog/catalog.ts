@@ -174,7 +174,6 @@ export class Catalog {
   private renderingByFilters() {
     this.getCommonForAllFiltersProducts();
     this.quantityInscription.textContent = `Found: ${this.filtredByAllFiltersProducts.length}`;
-    console.log(this.productWrapper);
     if (this.filtredByAllFiltersProducts.length === 0) {
       this.productBlock.replaceChildren(this.createEmptyProductlist());
     } else {
@@ -183,6 +182,7 @@ export class Catalog {
       );
       this.productBlock.classList.remove('grid');
     }
+    console.log(this.catalogMenu);
   }
 
   setFilter = (
