@@ -88,14 +88,10 @@ export class Catalog {
   setView = () => {
     this.isGridView = !this.isGridView;
     if (!this.isGridView) {
-      this.productBlock.replaceChildren(
-        this.createProductBlock(this.productArray)
-      );
+      this.renderingByFilters();
     }
     if (this.isGridView) {
-      this.productBlock.replaceChildren(
-        this.createProductBlock(this.productArray)
-      );
+      this.renderingByFilters();
     }
   };
 
@@ -176,8 +172,6 @@ export class Catalog {
     categoriesList: Array<Filters>,
     brandsList: Array<Filters>
   ) => {
-    //проверка содержится ли чекнутый чекбокс в массиве с категориями
-    //проверка на категорию, формирование строки из категорий
     if (categoriesList.some((category) => category === label)) {
       this.applyedCategoryFilters = this.applyedCategoryFilters.includes(label)
         ? this.applyedCategoryFilters.filter((item) => item !== label)
@@ -185,7 +179,6 @@ export class Catalog {
     }
     let categoryFilters = this.applyedCategoryFilters.join('');
 
-    //проверка на бренд, формирование строки из брендов
     if (brandsList.some((brand) => brand === label)) {
       this.applyedBrandFilters = this.applyedBrandFilters.includes(label)
         ? this.applyedBrandFilters.filter((item) => item !== label)
@@ -197,8 +190,6 @@ export class Catalog {
     this.filtersState.category = categoryFilters;
     this.filtersState.brand = brandFilters;
 
-    //проверка на категорию
-    //вариант когда выбрана категория, две ветки -  есть бренд и нет бренда
     if (this.filtersState.category) {
       if (this.filtersState.brand) {
         if (
@@ -237,7 +228,6 @@ export class Catalog {
         }
       }
     }
-    //вариант когда нет категории
     if (!this.filtersState.category) {
       if (this.filtersState.brand) {
         if (
@@ -254,7 +244,6 @@ export class Catalog {
         }
       }
     }
-    //нет категории и нет бренда значит рисуем всю страницу
     if (!this.filtersState.category) {
       if (!this.filtersState.brand) {
         this.filtredByCheckboxProducts = this.productArray;
