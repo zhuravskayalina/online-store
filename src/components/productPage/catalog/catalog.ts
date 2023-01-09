@@ -215,6 +215,27 @@ export class Catalog {
     }
   }
 
+  setResetFilters = () => {
+    this.filtredByAllFiltersProducts = this.productArray;
+    this.filtredByQuantityProducts = this.productArray;
+    this.filtredByPriceProducts = this.productArray;
+    this.filtredBySliderProducts = this.productArray;
+    this.filtredByCheckboxProducts = this.productArray;
+    this.sortBy = 'sort-by-nocondition';
+    this.filtersState = {};
+    this.applyedCategoryFilters = [];
+    this.applyedBrandFilters = [];
+    this.filtersBlock = this.createFilters(
+      this.categoriesList,
+      this.brandsList
+    );
+    this.pageContext.replaceChild(
+      this.filtersBlock,
+      this.pageContext.firstChild!
+    );
+    this.renderingByFilters();
+  };
+
   setFilter = (
     label: string,
     categoriesList: Array<Filters>,
@@ -349,6 +370,7 @@ export class Catalog {
       this.setSortPriseRating
     );
     catalogMenu.handleChangeView(this.setView);
+    catalogMenu.handleResetFilters(this.setResetFilters);
     const functionalBlock = catalogMenu.catalogMenu;
     this.quantityInscription = catalogMenu.filtredProductsQuantityInscription;
     return functionalBlock;

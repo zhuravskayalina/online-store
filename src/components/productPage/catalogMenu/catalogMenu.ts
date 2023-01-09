@@ -53,6 +53,12 @@ export class CatalogMenu {
     });
   }
 
+  handleResetFilters(handler: () => void) {
+    this.resetFiltersButton.addEventListener('click', () => {
+      handler();
+    });
+  }
+
   private createSelectSort(setSortPriseRating: (filterType: string) => void) {
     const selectSort = new SelectSort();
     const selectSortBlock = selectSort.selectList;
