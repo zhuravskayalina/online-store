@@ -10,13 +10,16 @@ export class CatalogMenu {
   private selectSort: HTMLSelectElement;
   private filtredProductsQuantityInscription: HTMLParagraphElement;
 
-  constructor(filtredProductsQuantity: number) {
+  constructor(
+    filtredProductsQuantity: number,
+    setSortPriseRating: (filterType: string) => void
+  ) {
     this.isGridView = true;
     this.catalogMenu = this.createMenu();
     this.copyLinkButton = this.createCopyLinkButton();
     this.changeViewButton = this.createChangeViewButton();
     this.resetFiltersButton = this.createResetFiltersButton();
-    this.selectSort = new SelectSort().selectList;
+    this.selectSort = this.createSelectSort(setSortPriseRating);
     this.selectSortContainer = this.createSelectSortContainer();
     this.filtredProductsQuantityInscription = this.createHowManyProductsBlock(
       filtredProductsQuantity
@@ -48,6 +51,13 @@ export class CatalogMenu {
       this.isGridView = !this.isGridView;
       this.changeViewButton.replaceChildren(this.createNewIconViewButton());
     });
+  }
+
+  private createSelectSort(setSortPriseRating: (filterType: string) => void) {
+    const selectSort = new SelectSort();
+    const selectSortBlock = selectSort.selectList;
+    selectSort.handleChangeSort(setSortPriseRating);
+    return selectSortBlock;
   }
 
   private createResetFiltersButton() {

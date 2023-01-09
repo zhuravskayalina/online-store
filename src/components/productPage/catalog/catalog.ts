@@ -77,6 +77,21 @@ export class Catalog {
     this.renderingByFilters();
   };
 
+  setSortPriseRating = (filterType: string): void => {
+    console.log(filterType);
+    if (filterType === 'sort-by-price') {
+      this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.price - b.price
+      );
+    }
+    if (filterType === 'sort-by-rating') {
+      this.filtredByAllFiltersProducts = this.filtredByAllFiltersProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+    }
+    this.renderingByFilters();
+  };
+
   getQuantityValue = (min: number, max: number): void => {
     this.filtredByQuantityProducts = this.productArray.filter(
       ({ quantity }) => quantity >= min && quantity <= max
@@ -297,7 +312,8 @@ export class Catalog {
 
   private createMenu() {
     const catalogMenu = new CatalogMenu(
-      this.filtredByAllFiltersProducts.length
+      this.filtredByAllFiltersProducts.length,
+      this.setSortPriseRating
     );
     catalogMenu.handleChangeView(this.setView);
     const functionalBlock = catalogMenu.catalogMenu;
