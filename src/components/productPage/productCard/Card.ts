@@ -203,7 +203,7 @@ export class Card {
   }
 
   public createSmallCard(
-    { brand, name, price, images, vendorCode }: ProductData,
+    product: ProductData,
     isTableView: boolean
   ): HTMLDivElement {
     const card = document.createElement('div');
@@ -220,17 +220,21 @@ export class Card {
     productInfo.classList.add('small-card__info-box');
 
     mainImage.alt = 'Product look';
-    mainImage.src = images[0];
+    mainImage.src = product.images[0];
     mainImage.classList.add('small-card__main-img');
 
     brandName.classList.add('small-card__description');
-    brandName.textContent = brand;
+    brandName.textContent = product.brand;
 
     productDescription.classList.add('small-card__description');
-    productDescription.textContent = name;
+    productDescription.textContent = product.name;
 
     priceOfProduct.classList.add('small-card__price');
-    priceOfProduct.textContent = `$ ${price}`;
+    priceOfProduct.textContent = `$ ${product.price}`;
+
+    productInfo.append(brandName, productDescription, priceOfProduct);
+
+    card.append(mainImage, productInfo);
 
     if (isTableView) {
       card.classList.add('small-card_table');
@@ -241,14 +245,8 @@ export class Card {
       priceOfProduct.classList.add('small-card__price_table');
     }
 
-    card.appendChild(mainImage);
-    productInfo.appendChild(brandName);
-    productInfo.appendChild(productDescription);
-    productInfo.appendChild(priceOfProduct);
-    card.appendChild(productInfo);
-
     card.addEventListener('click', function () {
-      router.loadRoute(false, 'shop', vendorCode.toString());
+      router.loadRoute(false, 'shop', product.vendorCode.toString());
     });
 
     return card;
