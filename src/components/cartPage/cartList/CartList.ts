@@ -17,6 +17,9 @@ export class CartList {
     document.addEventListener('cartUpdate', function () {
       callback();
     });
+    document.addEventListener('removeFromCart', function () {
+      callback();
+    });
   }
 
   private createList(products: ProductData[]): HTMLUListElement {
@@ -24,7 +27,6 @@ export class CartList {
     list.classList.add('cart-list__products-block');
 
     products.forEach((product) => {
-      console.log(product);
       const li = document.createElement('li');
       li.classList.add('cart-list__prod-item');
       const item = new CartItem(product).element;

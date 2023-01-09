@@ -3,6 +3,7 @@ import { CartList } from './cartList/CartList';
 import { Main } from '../mainPage/Main';
 import { ProductData } from '../../dataBase/types';
 import {
+  getProductsInLocalStorage,
   isHaveProductsInCart,
 } from '../../types/utils';
 
@@ -34,12 +35,10 @@ export class CartPage {
 
     const isProductsInTheCart = isHaveProductsInCart();
 
-    console.log(isProductsInTheCart, 'isProductsInTheCart');
-
     if (isProductsInTheCart) {
       this.main.append(this.container);
     } else {
-      this.main.classList.add('cart-list_no-goods')
+      this.main.classList.add('cart-list_no-goods');
       this.main.append(this.noProductsInCartBlock);
     }
 
@@ -56,19 +55,17 @@ export class CartPage {
   }
 
   updateList = () => {
-    let keys = Object.keys(localStorage);
+    this.addedToCartItems = getProductsInLocalStorage();
 
-    for (let key of keys) {
-      this.addedToCartItems = [];
-      const item = localStorage.getItem(key) as string;
-      this.addedToCartItems.push(JSON.parse(item));
+    if (!this.addedToCartItems.length) {
+      this.main.replaceChildren(this.noProductsInCartBlock);
+    } else {
+      const products = new CartList().element;
+      this.main.classList.remove('cart-list_no-goods');
+      this.main.replaceChildren(this.container);
+      this.main.classList.add('cart-list_no-goods');
+      this.productsBox.replaceChildren(products);
     }
-
-    const products = new CartList().element;
-
-    this.main.classList.remove('cart-list_no-goods');
-    this.main.replaceChildren(this.container);
-    this.productsBox.replaceChildren(products);
   };
 
   private createMainBlock() {

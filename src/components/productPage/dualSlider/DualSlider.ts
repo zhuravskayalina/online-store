@@ -41,7 +41,6 @@ export class DualSlider {
     this.priceSlider.addEventListener('change', () => {
       callback(this.sliderValues.price.from, this.sliderValues.price.to);
     });
-    console.log(this.quantitySlider);
     this.quantitySlider.addEventListener('change', () => {
       callbackQuantity(
         this.sliderValues.quantity.from,
