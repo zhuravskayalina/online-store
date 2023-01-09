@@ -47,3 +47,13 @@ export function setItemToLocalStorage(
 ): void {
   localStorage.setItem(`product-${productId}`, JSON.stringify(value));
 }
+
+export function clearLocalStorage(): void {
+  let localStorageKeys = Object.keys(localStorage);
+
+  for (let key of localStorageKeys) {
+    if (key.startsWith('product-')) {
+      localStorage.removeItem(key);
+    }
+  }
+}
