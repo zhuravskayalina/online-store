@@ -4,16 +4,15 @@ import { getProductsInLocalStorage } from '../../../types/utils';
 
 export class CartList {
   public element: HTMLUListElement;
-  addedToCartItems: ProductData[];
+  public addedToCartItems: ProductData[];
 
   constructor() {
     this.addedToCartItems = getProductsInLocalStorage();
-
     this.element = this.createList(this.addedToCartItems);
     this.element.classList.add('cart-list__products-list');
   }
 
-  handleCartUpdate(callback: () => void) {
+  public handleCartUpdate(callback: () => void): void {
     document.addEventListener('cartUpdate', function () {
       callback();
     });

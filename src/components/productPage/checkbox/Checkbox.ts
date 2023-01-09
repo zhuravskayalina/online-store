@@ -1,6 +1,5 @@
 import { CheckboxLabelText } from './checkboxTypes';
 import { Filters } from '../../../dataBase/types';
-import { categoriesList, brandsList } from '../../../dataBase/filtersList';
 
 export class Checkbox {
   public checkbox: HTMLFormElement;

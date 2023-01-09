@@ -70,7 +70,7 @@ export class Router {
   }
 
   private listenToURLChanges(): void {
-    window.addEventListener('popstate', (event) => {
+    window.addEventListener('popstate', () => {
       this.visitedRoutes.pop();
       const previousRoute =
         this.visitedRoutes[this.visitedRoutes.length - 1] ?? '';

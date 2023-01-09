@@ -1,7 +1,7 @@
 import { TotalProductsSum } from '../../totalProductSum/TotalProductsSum';
 import { ProductsQuantity } from '../../productsQuantity/ProductsQuantity';
 import { router } from '../../../index';
-import { getProductsInLocalStorage } from '../../../types/utils';
+import { getProductsInLocalStorageCount } from '../../../types/utils';
 
 export class Cart {
   public element: HTMLDivElement;
@@ -38,29 +38,29 @@ export class Cart {
     this.element.append(this.cartIconBox, this.line, this.totalSumBlock);
   }
 
-  private createQuantityText() {
+  changeTotalSum = (): void => {
+    this.totalSumTextBox.replaceChildren(new TotalProductsSum().totalSum);
+  };
+
+  changeCartCountText = (): void => {
+    const productsInLocalStorageCount = getProductsInLocalStorageCount();
+    this.quantityText.innerHTML = productsInLocalStorageCount.toString();
+  };
+
+  private createQuantityText(): HTMLSpanElement {
     const quantityTxt = document.createElement('span');
     quantityTxt.classList.add('cart__quantity-num');
 
     return quantityTxt;
   }
 
-  changeTotalSum = () => {
-    this.totalSumTextBox.replaceChildren(new TotalProductsSum().totalSum);
-  };
-
-  changeCartCountText = () => {
-    const productsInLocalStorageCount = getProductsInLocalStorage().length;
-    this.quantityText.innerHTML = productsInLocalStorageCount.toString();
-  };
-
-  private createQuantityBox() {
+  private createQuantityBox(): HTMLDivElement {
     const quantityBox = document.createElement('div');
     quantityBox.classList.add('cart__quantity');
     return quantityBox;
   }
 
-  private createCartIconBox() {
+  private createCartIconBox(): HTMLDivElement {
     const cartIconBox = document.createElement('div');
     cartIconBox.classList.add('cart__icon');
 
@@ -75,7 +75,7 @@ export class Cart {
     return cartIconBox;
   }
 
-  private createSumBlock() {
+  private createSumBlock(): HTMLDivElement {
     const sumBlock = document.createElement('div');
     sumBlock.classList.add('cart__sum-box');
 
@@ -87,14 +87,14 @@ export class Cart {
     return sumBlock;
   }
 
-  private createSumTextBox() {
+  private createSumTextBox(): HTMLParagraphElement {
     const sumEl = document.createElement('p');
     sumEl.classList.add('cart__sum');
 
     return sumEl;
   }
 
-  private createTotalSumData() {
+  private createTotalSumData(): string {
     const sum = new TotalProductsSum();
     sum.handleCartTotalSumChange(this.changeTotalSum);
     const sumStr = sum.totalSum;
@@ -109,7 +109,7 @@ export class Cart {
     return box;
   }
 
-  private createSeparateLine() {
+  private createSeparateLine(): HTMLDivElement {
     const line = document.createElement('div');
     line.classList.add('cart__line');
     return line;
