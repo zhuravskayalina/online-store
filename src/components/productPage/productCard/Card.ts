@@ -10,8 +10,6 @@ import { cartUpdateEvent } from '../../../types/custom-events';
 
 export class Card {
   public bigCard: HTMLDivElement;
-  public smallCard: HTMLDivElement;
-  public smallCardTable: HTMLDivElement;
   public cartButton: HTMLButtonElement;
   public gallery: HTMLDivElement;
   public mainImage: HTMLElement;
@@ -78,9 +76,6 @@ export class Card {
     );
 
     this.bigCard.append(this.gallery, this.mainImageBlock, this.infoBlock);
-
-    this.smallCard = this.createSmallCard(product, false);
-    this.smallCardTable = this.createSmallCard(product, true);
 
     this.buyNowButton.addEventListener('click', function () {
       const productId = Number(this.dataset.productId);
@@ -200,55 +195,5 @@ export class Card {
     button.dataset.productId = vendorCode.toString();
     button.innerHTML = 'Buy now';
     return button;
-  }
-
-  public createSmallCard(
-    product: ProductData,
-    isTableView: boolean
-  ): HTMLDivElement {
-    const card = document.createElement('div');
-    const mainImage = document.createElement('img');
-    const productInfo = document.createElement('div');
-    const brandName = document.createElement('p');
-    const productDescription = document.createElement(
-      'p'
-    ) as HTMLParagraphElement;
-    const priceOfProduct = document.createElement('p');
-
-    card.classList.add('small-card');
-
-    productInfo.classList.add('small-card__info-box');
-
-    mainImage.alt = 'Product look';
-    mainImage.src = product.images[0];
-    mainImage.classList.add('small-card__main-img');
-
-    brandName.classList.add('small-card__description');
-    brandName.textContent = product.brand;
-
-    productDescription.classList.add('small-card__description');
-    productDescription.textContent = product.name;
-
-    priceOfProduct.classList.add('small-card__price');
-    priceOfProduct.textContent = `$ ${product.price}`;
-
-    productInfo.append(brandName, productDescription, priceOfProduct);
-
-    card.append(mainImage, productInfo);
-
-    if (isTableView) {
-      card.classList.add('small-card_table');
-      productInfo.classList.add('small-card__info-box_table');
-      mainImage.classList.add('small-card__main-img_table');
-      brandName.classList.add('small-card__description_table');
-      productDescription.classList.add('small-card__description_table');
-      priceOfProduct.classList.add('small-card__price_table');
-    }
-
-    card.addEventListener('click', function () {
-      router.loadRoute(false, 'shop', product.vendorCode.toString());
-    });
-
-    return card;
   }
 }

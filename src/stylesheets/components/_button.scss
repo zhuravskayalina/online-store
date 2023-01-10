@@ -11,6 +11,7 @@
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   text-decoration: none;
+  text-align: center;
 
   &:focus-visible {
     outline: none;
@@ -24,11 +25,11 @@
 }
 
 @mixin button-active {
-  background: #00C9F5;
+  background: #00c9f5;
   box-shadow: none;
 }
 
 @mixin button-added {
-  background: #00C9F5;
+  background: #00c9f5;
   box-shadow: none;
 }

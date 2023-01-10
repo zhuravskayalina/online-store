@@ -1,9 +1,36 @@
-@import '../../../stylesheets/variables/_colors.scss';
+@import '../../../../stylesheets/variables/_colors';
+@import '../../../../stylesheets/components/_button.scss';
 
 .small-card {
   display: flex;
   flex-direction: column;
   align-content: center;
+
+  &__icon {
+    line-height: 0;
+  }
+
+  &__button-box {
+    &_table {
+      margin-left: auto;
+      align-self: flex-start;
+    }
+  }
+
+  &__button {
+    @include button;
+    width: 290px;
+    margin-top: 20px;
+
+    &_added {
+      margin-top: 20px;
+      width: 290px;
+    }
+
+    &_table {
+      margin: 0;
+    }
+  }
 
   &_table {
     flex-direction: row;
@@ -11,17 +38,15 @@
     align-content: flex-start;
     padding-bottom: 20px;
     border-bottom: 1px solid $border-sort-block;
-  }
 
-  &:hover {
-    cursor: pointer;
-
-    .small-card__main-img {
-      transform: scale(1.1);
+    .small-card__button_added {
+      margin-top: 0;
     }
   }
 
   &__info-box {
+    margin-bottom: 20px;
+
     &_table {
       margin-left: 20px;
     }
@@ -36,6 +61,11 @@
 
   &_table {
     width: 20%;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
   }
 }
 

@@ -1,10 +1,10 @@
 import { Main } from '../../mainPage/Main';
-import { ProductData, Filters } from '../../../dataBase/types';
+import { Filters, ProductData } from '../../../dataBase/types';
 import { AllFiltersBlock } from '../filters/filters';
 import { CatalogMenu } from '../catalogMenu/catalogMenu';
-import { Card } from '../productCard/Card';
 import { CheckObject } from './CheckObjectInterface';
 import { EmptyProductList } from '../notFoundProducts/emptyProductList';
+import { SmallCard } from '../productCard/smallCard/SmallCard';
 
 const bannerPath = require('../../../assets/images/banner.jpg');
 
@@ -377,8 +377,7 @@ export class Catalog {
   }
 
   private createProductWrapper() {
-    const productWrapper = document.createElement('div');
-    return productWrapper;
+    return document.createElement('div');
   }
 
   private createProductBlock(productArray: Array<ProductData>) {
@@ -387,14 +386,14 @@ export class Catalog {
     for (let i = 0; i < productArray.length; i++) {
       const productItem = productArray[i];
       if (this.isGridView) {
-        const productCard = new Card(productItem).smallCard;
+        const productCard = new SmallCard(productItem, false).cardContainer;
         productCard.addEventListener('click', function () {});
         productGrid.append(productCard);
         productGrid.classList.remove('table');
         productGrid.classList.add('grid');
       }
       if (!this.isGridView) {
-        const productCard = new Card(productItem).smallCardTable;
+        const productCard = new SmallCard(productItem, true).cardContainer;
         productGrid.append(productCard);
         productGrid.classList.remove('grid');
         productGrid.classList.add('table');
@@ -404,7 +403,6 @@ export class Catalog {
   }
 
   createEmptyProductlist() {
-    const emptyList = new EmptyProductList().emptyProductList;
-    return emptyList;
+    return new EmptyProductList().emptyProductList;
   }
 }
