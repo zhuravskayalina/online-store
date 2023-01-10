@@ -19,12 +19,12 @@
 
   &__button {
     @include button;
-    width: 290px;
+    width: 100%;
     margin-top: 20px;
 
     &_added {
       margin-top: 20px;
-      width: 290px;
+      width: 100%;
     }
 
     &_table {
