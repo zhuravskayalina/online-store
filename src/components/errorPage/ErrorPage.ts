@@ -22,12 +22,13 @@ export class ErrorPage {
     image.classList.add('error-page__image');
 
     const button = document.createElement('a');
-    button.setAttribute('href', '#');
+    button.setAttribute('href', '');
     button.setAttribute('alt', 'Go to main page');
     button.classList.add('error-page__back-btn');
     button.innerHTML = 'back to Home page';
 
-    button.addEventListener('click', function () {
+    button.addEventListener('click', function (event: MouseEvent) {
+      event.preventDefault();
       router.loadRoute(false, '');
     });
 
