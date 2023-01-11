@@ -8,6 +8,14 @@
   border-bottom: 1px solid $borderCartList;
   border-top: 1px solid $borderCartList;
 
+  &:hover {
+    cursor: pointer;
+
+    .cart-item__img {
+      transform: scale(1.1);
+    }
+  }
+
   &__price-box {
     display: flex;
     justify-content: space-between;
@@ -30,6 +38,7 @@
     width: 120px;
     height: 120px;
     background-color: lightpink;
+    transition: 1s;
   }
 
   &__name {

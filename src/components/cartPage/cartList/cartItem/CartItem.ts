@@ -1,6 +1,7 @@
 import { ProductData } from '../../../../dataBase/types';
 import { CountBox } from './countBox/CountBox';
 import { removeFromCartEvent } from '../../../../types/custom-events';
+import { router } from '../../../../index';
 
 export class CartItem {
   public element: HTMLElement;
@@ -34,7 +35,13 @@ export class CartItem {
     this.deleteBox.append(this.deleteIcon);
     this.element.append(this.imgBox, this.infoBox, this.deleteBox);
 
-    this.deleteIcon.addEventListener('click', function () {
+    this.element.addEventListener('click', function () {
+      router.loadRoute(false, 'shop', `${product.vendorCode}`);
+    });
+
+    this.deleteIcon.addEventListener('click', function (event: MouseEvent) {
+      event.stopPropagation();
+
       const productId = this.dataset.productId;
 
       localStorage.removeItem(`product-${productId}`);
