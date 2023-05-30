@@ -1,0 +1,139 @@
+@import '../../../stylesheets/variables/_colors.scss';
+@import '../../../stylesheets/components/_button.scss';
+
+.card {
+  display: grid;
+  grid-template-columns: 95px 1.5fr 1fr;
+  grid-column-gap: 30px;
+  width: 100%;
+  margin: 80px auto 85px;
+
+  &__gallery {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__gallery-img {
+    width: 95px;
+    height: 95px;
+    margin-bottom: 15px;
+    padding: 5px;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid $light-gray;
+      border-radius: 10px;
+    }
+  }
+
+  &__main-img-box {
+    display: flex;
+    height: 500px;
+    justify-content: center;
+  }
+
+  &__main-img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    &:hover {
+      cursor: zoom-in;
+    }
+
+    &_zoom {
+      transition: 0.5s;
+      transform: scale(1.5);
+      border: 1px solid $light-gray;
+      border-radius: 10px;
+    }
+  }
+
+  &__info {
+    width: 36%;
+  }
+
+  &__rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 30px;
+    background: $rating-background;
+    border-radius: 50px;
+    font-size: 16px;
+    line-height: 140%;
+    color: $rating-text;
+    padding: 5px 14px;
+  }
+
+  &__brand,
+  &__description {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 100%;
+    color: $primary-card-text;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  &__description {
+    margin-top: 0;
+  }
+
+  &__vendor {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 140%;
+    color: $vendor-stock-text;
+    margin-top: 5px;
+  }
+
+  &__price {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 140%;
+    color: $primary-card-text;
+    margin-top: 25px;
+  }
+
+  &__stock {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 140%;
+    color: $vendor-stock-text;
+    margin-top: 0px;
+    margin-bottom: 50px;
+  }
+
+
+  &__button, &__button_now {
+    @include button;
+    padding: 11px 80px;
+    white-space: nowrap;
+    margin-bottom: 20px;
+    width: 290px;
+
+    &:hover {
+      @include button-hover
+    }
+
+    &:active {
+      @include button-active;
+    }
+
+    &_added {
+      @include button-added;
+    }
+  }
+}
+
+//ToDo написать стили чтобы блок скрывался
+.description__hide-container {
+  width: 70%;
+  margin: 0 auto;
+}

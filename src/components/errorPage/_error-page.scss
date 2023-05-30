@@ -1,0 +1,33 @@
+@import '../../stylesheets/components/_button.scss';
+@import '../../stylesheets/variables/_colors.scss';
+
+.error-page {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+  }
+
+  &__image {
+   max-width: 100%;
+  }
+
+  &__back-btn {
+    @include button;
+    padding: 5px 25px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      @include button-hover;
+    }
+
+    &:active {
+      @include button-active;
+    }
+  }
+}

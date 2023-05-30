@@ -1,0 +1,76 @@
+@import '../../../../stylesheets/components/_button.scss';
+@import '../../../../stylesheets/variables/_colors.scss';
+
+.sum-box {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $light-gray;
+  border-radius: 2px;
+  padding: 30px;
+  gap: 25px;
+  grid-area: totalSum;
+  height: fit-content;
+
+  &__sum-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__sum-head,
+  &__sum {
+    font-size: 25px;
+    line-height: 140%;
+  }
+
+  &__heading {
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 140%;
+    text-transform: capitalize;
+  }
+
+  &__input {
+    border: 1px solid rgba(39, 39, 39, 0.1);
+    border-radius: 2px;
+    height: 50px;
+    padding: 12px;
+    font-size: 16px;
+    line-height: 160%;
+    color: #999999;
+    font-family: 'Montserrat', sans-serif;
+
+    &_success {
+      border-color: lawngreen;
+    }
+
+    &_error {
+      border-color: red;
+    }
+
+    &:focus-visible {
+      outline: none;
+      color: black;
+    }
+  }
+
+  &__button {
+    @include button;
+    text-transform: uppercase;
+    font-size: 18px;
+    padding: 10px;
+
+    &:hover {
+      @include button-hover;
+      cursor: pointer;
+    }
+
+    &:active {
+      @include button-active;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    margin-bottom: 40px;
+  }
+}

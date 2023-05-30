@@ -1,0 +1,70 @@
+@import './base/reset.scss';
+@import './fonts/_icons-font.css';
+@import './variables/_colors.scss';
+@import '../components/header/_header';
+@import '../components/header/search/_search';
+@import '../components/header/cart/_cart';
+@import '../components/header/navigation/navigation';
+@import './fonts/montserrat';
+@import '../components/mainPage/mainSection/main-section';
+@import '../components/footer/footer';
+
+@import '../components/cartPage/cartList/cartItem/_cartItem';
+@import '../components/cartPage/_cart-page';
+@import '../components/cartPage/cartList/_cart-list';
+@import '../components/cartPage/cartList/totalSum/_total-sum';
+@import './variables/_wrappers.scss';
+@import '../components/errorPage/_error-page.scss';
+@import '../components/productPage/productCard/_card.scss';
+@import '../components/productPage/productCard/smallCard/smallCard';
+@import '../components/productPage/productDescription/_bigCardProductDescription.scss';
+@import '../components/payModal/_pay-modal.scss';
+@import '../components/productPage/checkbox/_checkbox.scss';
+@import '../components/productPage/filters/filters';
+@import '../components/productPage/checkboxFilters/checkboxFiltersBlock';
+@import '../components/productPage/catalogMenu/_catalogMenu.scss';
+@import '../components/productPage/selectSort/_selectSort.scss';
+@import '../components/productPage/catalog/_catalog.scss';
+@import '../components/productPage/dualSlider/_dual-slider.scss';
+@import '../components/productPage/notFoundProducts/_emptyProductList.scss';
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+
+  &.open-modal {
+    overflow-y: hidden;
+  }
+}
+
+.app {
+  height: 100%;
+}
+
+.app-modal {
+  display: none;
+
+  &_shown {
+    display: block;
+  }
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+@import url('./fonts/_icons-font.css');
+@import url('./fonts/_icons-font.css');

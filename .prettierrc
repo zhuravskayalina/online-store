@@ -1,0 +1,14 @@
+{
+  "singleQuote": true,
+  "arrowParens": "always",
+  "semicolons": "true",
+  "bracketSpacing": true,
+  "max-len": [
+    "warn",
+    80,
+    2
+  ],
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false
+}

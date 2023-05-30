@@ -1,0 +1,10 @@
+@import '../../../stylesheets/variables/_colors.scss';
+
+.catalog__empty-list {
+  display: block;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 54px;
+  color: $primary-card-text;
+  margin-top: 40px;
+}
