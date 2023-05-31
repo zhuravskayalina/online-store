@@ -1,6 +1,8 @@
   ## Snowboard Online-store 🏂
   #### This project was created during JavaScript Course at [Rolling Scopes School](https://rs.school/).
 
+[VISIT SITE](https://zhuravskayalina-online-store.netlify.app/)
+
 ### Stack:
 
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="35" height="35" /><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/eslint/eslint-original.svg" alt="eslint" width="35" height="35" /><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass"  width="35" height="35"/>
